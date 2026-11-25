@@ -175,7 +175,7 @@ details[open] summary{margin-bottom:10px}
 .pf-crit>div{flex:1;min-width:0;line-height:1.35}
 .pf-big{font-family:'Young Serif',serif;font-size:28px;line-height:1.1}
 /* arrastar, promoção, abertura clicável */
-.board.live{touch-action:none}
+.board.live{touch-action:pan-y}.board.live .sq.own{touch-action:none}
 .promo{position:absolute;inset:0;z-index:10;background:rgba(42,27,18,.6);display:flex;align-items:center;justify-content:center;gap:2%}
 .pm{position:relative;width:20%;aspect-ratio:1;background:#F0D9B5;border:0;border-radius:10px;cursor:pointer;padding:0}
 .pm:hover{background:#fff}
@@ -299,6 +299,12 @@ nav button .ic{display:none}
 #ob.shake{animation:shake .38s}
 #ob.done{box-shadow:0 0 0 5px var(--ok),0 0 34px 6px rgba(110,155,62,.55);transition:box-shadow .3s}
 @media(max-width:900px){nav{grid-template-columns:repeat(6,1fr)}nav button{font-size:11px}}
+
+/* correções mobile: botões das aberturas, rolagem sobre o tabuleiro */
+.oact{display:flex;flex-wrap:wrap;gap:8px}
+.oact .btn{white-space:normal}
+#aberturas .stack>*,#aberturas .an>*,#opanel{min-width:0}
+.obn{min-width:0;overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -532,6 +538,7 @@ function Board(el,onMove){
     for(let r=0;r<8;r++)for(let c=0;c<8;c++){
       const rr=b.flip?7-r:r,cc=b.flip?7-c:c,f='abcdefgh'[cc],rk=8-rr,sq=f+rk,p=rows[rr][cc];
       let cls='sq '+((rr+cc)%2?'d':'l');
+      if(onMove&&!b.lock&&p&&p.color===b.g.turn())cls+=' own';
       if(b.last&&b.last.includes(sq))cls+=' last';
       if(sq===b.sel)cls+=' sel';
       if(b.hint===sq)cls+=' hint';
@@ -578,7 +585,7 @@ function Board(el,onMove){
       b.sel=sq;b.moves=b.g.moves({square:sq,verbose:true});b.draw();
       const pc=el.querySelector(`[data-sq="${sq}"] .pc`);
       if(pc){dr={sq,was,id:e.pointerId,x:e.clientX,y:e.clientY,moved:false,pc,ghost:null,w:0};try{el.setPointerCapture(e.pointerId)}catch(_){}e.preventDefault()}
-    }else{b.sel=null;b.moves=[];b.draw()}
+    }else if(b.sel||b.moves.length){b.sel=null;b.moves=[];b.draw()}
   });
   el.addEventListener('pointermove',e=>{
     if(!dr||e.pointerId!==dr.id)return;
@@ -1029,7 +1036,7 @@ async function dbDelAcc(id){
 
 /* ---------- estado ---------- */
 const P={accs:[],cur:null,games:[],an:new Map(),ids:new Set(),busy:false,cancel:false,note:null,qa:null,qnote:null,
-  f:{speed:'all',period:'all'},opc:new Map(),opm:{tab:'eng'},opmRes:null,opmBusy:null,rf:'all',op:null,opAll:false,chart:null,show:30,bn:'3',bs:'250'};
+  f:{speed:'all',period:'all',col:'all',rated:'all'},opc:new Map(),opm:{tab:'eng'},opmRes:null,opmBusy:null,rf:'all',op:null,opAll:false,chart:null,show:30,bn:'3',bs:'250'};
 
 /* ---------- rede ---------- */
 async function getJSON(url){
@@ -1318,7 +1325,7 @@ async function restoreAnalysis(id){
 
 /* ---------- estatísticas ---------- */
 const periodLim=()=>P.f.period==='all'?0:Date.now()-(+P.f.period)*864e5;
-const viewGames=()=>{const lim=periodLim(),s=P.f.speed;return P.games.filter(g=>(s==='all'||g.sp===s)&&g.t>=lim)};
+const viewGames=()=>{const lim=periodLim(),s=P.f.speed,c=P.f.col,r=P.f.rated;return P.games.filter(g=>(s==='all'||g.sp===s)&&g.t>=lim&&(c==='all'||g.col===c)&&(r==='all'||String(+g.rated)===r))};
 const wdl=gs=>{const r={W:0,D:0,L:0,n:gs.length};gs.forEach(g=>r[g.res]++);return r};
 const score=r=>r.n?(r.W+r.D/2)/r.n*100:0;
 const bar=r=>{const n=r.n||1;return `<div class="wdl" role="img" aria-label="${r.W} vitórias, ${r.D} empates, ${r.L} derrotas"><i style="width:${r.W/n*100}%;background:#6E9B3E"></i><i style="width:${r.D/n*100}%;background:#B9A88E"></i><i style="width:${r.L/n*100}%;background:#C0533F"></i></div>`};
@@ -1596,10 +1603,13 @@ function renderPerfil(){
       <button class="btn alt" onclick="removeAcc()"${dis}>Remover conta</button></div></div>
     ${P.note?`<p class="say ${P.note.c}" style="margin:12px 0 0" role="status">${esc(P.note.t)}</p>`:''}
     <div class="rt" style="margin-top:16px">${ratingTiles(a)}</div></div>`;
-  const filt=`<div class="card"><div class="pf-bar"><b>Filtros</b>
-    <select aria-label="Ritmo" onchange="P.f.speed=this.value;P.show=30;renderPerfil()">${sel(P.f.speed,spOpts)}</select>
+  const spc=k=>P.games.filter(g=>g.sp===k).length,pb=(on,fn,l,n)=>`<button class="pf-pill${on?' on':''}" aria-pressed="${on}" onclick="${fn};P.show=30;renderPerfil()">${l}<small>${n}</small></button>`;
+  const filt=`<div class="card"><div class="pf-bar" style="justify-content:space-between"><b>Filtrar estatísticas</b><span class="mut">${gs.length} de ${P.games.length} partidas no filtro</span></div>
+    <div class="pf-tabs" role="group" aria-label="Ritmo">${pb(P.f.speed==='all',"P.f.speed='all'",'Todos',P.games.length)}${SPO.filter(k=>spc(k)).map(k=>pb(P.f.speed===k,"P.f.speed='"+k+"'",SPN[k],spc(k))).join('')}</div>
+    <div class="pf-bar">
     <select aria-label="Período" onchange="P.f.period=this.value;P.show=30;renderPerfil()">${sel(P.f.period,[['all','Todo o histórico'],['30','Últimos 30 dias'],['90','Últimos 90 dias'],['365','Último ano']])}</select>
-    <span class="mut">${gs.length} partidas no filtro</span></div></div>`;
+    <select aria-label="Cor" onchange="P.f.col=this.value;P.show=30;renderPerfil()">${sel(P.f.col,[['all','Brancas e pretas'],['w','Só brancas'],['b','Só pretas']])}</select>
+    <select aria-label="Tipo" onchange="P.f.rated=this.value;P.show=30;renderPerfil()">${sel(P.f.rated,[['all','Ranqueadas e casuais'],['1','Só ranqueadas'],['0','Só casuais']])}</select></div></div>`;
   if(!gs.length){el.innerHTML=head+filt+`<div class="card"><p class="mut" style="margin:0">Nenhuma partida neste filtro. Ajuste os filtros ou use "Importar mais antigas".</p></div>`;return}
   const sum=`<div class="card"><h2>Resumo</h2>
     <div class="stat"><div><b>${all.n}</b><span class="mut">partidas</span></div><div><b>${Math.round(score(all))}%</b><span class="mut">pontuação</span></div><div><b>${all.W}</b><span class="mut">vitórias</span></div><div><b>${all.D}</b><span class="mut">empates</span></div><div><b>${all.L}</b><span class="mut">derrotas</span></div></div>
@@ -2136,7 +2146,7 @@ function oRender(){
     return `<span class="och ${st}${mine?" me":""}">${num}${st==="f"&&O.mode!=="learn"?"···":esc(x)}</span>`}).join("");
   let act;
   if(O.mode==="quiz")act=`<div class="oopts">${O.opts.map((o,i)=>`<button class="oopt${O.answered?(o.id===op.id?" ok":i===O.pick?" bad":""):""}" onclick="oAns(${i})"${O.answered?" disabled":""}>${esc(o.pt)}</button>`).join("")}</div>`+(O.answered?'<div class="row"><button class="btn" onclick="oNext()">Próxima abertura</button><button class="btn alt" onclick="oStart(O.op.id)">Repetir</button></div>':"");
-  else act=`<div class="row pz-act"><button class="btn alt" onclick="oHint()"${dn||O.lock?" disabled":""}>Dica</button><button class="btn alt" onclick="oShow()"${dn||O.lock?" disabled":""}>Ver lance</button><button class="btn alt" onclick="oStart(O.op.id)">Reiniciar</button><button class="btn" onclick="oNext()">${dn?"Próxima abertura":"Pular"}</button></div>`;
+  else act=`<div class="oact"><button class="btn alt" onclick="oHint()"${dn||O.lock?" disabled":""}>Dica</button><button class="btn alt" onclick="oShow()"${dn||O.lock?" disabled":""}>Ver lance</button><button class="btn alt" onclick="oStart(O.op.id)">Reiniciar</button><button class="btn" onclick="oNext()">${dn?"Próxima abertura":"Pular"}</button></div>`;
   $("#opanel").innerHTML=`<div class="fb ${O.fb?O.fb[1]:""}" role="status" aria-live="polite">${esc(O.fb?O.fb[0]:"")}</div><div class="pf-prog"><i style="width:${Math.round(O.ply/L.length*100)}%"></i></div><div class="ochs" aria-label="Linha da abertura">${chips}</div><p class="mut" style="margin:0;font-size:13px">Seus lances em negrito; os do computador em cinza.${O.errs&&O.mode!=="quiz"?` Erros nesta tentativa: <b>${O.errs}</b>.`:""}</p>${act}`;
   const tr=OPS.filter(o=>OS.d[o.id]&&OS.d[o.id].runs).length,dm=OPS.filter(o=>oMast(o.id)>=100).length;
   $("#obar").innerHTML=`<div class="pf-bar" style="justify-content:space-between"><div class="pf-tabs" style="margin:0" role="group" aria-label="Modo de treino">${MODES.map(m=>`<button class="pf-pill${O.mode===m[0]?" on":""}" aria-pressed="${O.mode===m[0]}" onclick="oMode('${m[0]}')">${m[1]}</button>`).join("")}</div>
