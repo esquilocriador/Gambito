@@ -243,9 +243,9 @@ footer{max-width:1160px;margin:0 auto;padding:0 22px 40px;color:var(--mut);font-
 /* celular: botões do problema ao alcance sem rolar */
 @media(max-width:900px){
  #zv-train{gap:14px}
- #zbar{order:2}
+ #zbar{order:0}
  #zv-train .an{gap:12px}
- #zv-train .bg{width:100%;max-width:max(260px,min(100%,calc(100vh - 316px)));max-width:max(260px,min(100%,calc(100svh - 316px)));margin:0 auto}
+ #zv-train .bg{width:100%;max-width:max(260px,min(100%,calc(100vh - 392px)));max-width:max(260px,min(100%,calc(100svh - 392px)));margin:0 auto}
  .pz{padding:14px;gap:10px}
  .pz>.pz-act{order:1}.pz>.fb{order:2}.pz>.pz-sol{order:3}.pz>.pz-head{order:4}.pz>.pz-stat{order:5}.pz>.pz-daily{order:6}
  .pz-act{flex-wrap:nowrap;gap:8px}.pz-act .btn{padding:10px 12px;white-space:nowrap}.pz-act #pnext{flex:1}
@@ -334,6 +334,28 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 .pw-tip{right:calc(100% + 18px)}
 @media(min-width:901px){#pdock{bottom:0}#pdock::before{display:none}#pawn{bottom:calc((var(--pdh) - 40px)/2)}}
 @media(max-width:900px){main{padding-bottom:calc(160px + env(safe-area-inset-bottom,0px))}}
+
+/* problemas: filtro rápido e categorias coloridas */
+#zbar{padding:12px 14px;display:grid;gap:10px}
+.zchips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 2px 4px}
+.zchips::-webkit-scrollbar{display:none}
+.zchip{--zc:#7A5233;flex:none;display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--zc);color:var(--zc);background:#FFFCF5;border-radius:99px;padding:6px 13px;font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap}
+.zchip b{font:700 13px/1 'Segoe UI Symbol','Noto Sans Symbols 2','DejaVu Sans',serif}
+.zchip:hover:not(.on){background:#F6ECD6}
+.zchip.on{background:var(--zc);color:#fff}
+.zchip:disabled{opacity:.6}
+.zrow{display:flex;gap:8px}.zrow select{flex:1;min-width:0}
+#zmsg{margin:0}#zmsg:empty{display:none}
+@media(pointer:coarse){.zchip{min-height:40px}}
+.zg{background:linear-gradient(180deg,var(--zt,#F6ECD6),#FFFCF5 170px)}
+.zc{background:var(--zt,#FFFCF5);border-color:var(--zb,var(--line))}
+.zc.on{background:var(--zt,#F6ECD6);box-shadow:inset 0 0 0 2px var(--zc)}
+.zt{background:var(--zc);background:linear-gradient(145deg,var(--zc),color-mix(in srgb,var(--zc) 68%,#000))}
+.zc.wide{background:var(--zc);border-color:var(--zc);color:#fff}
+.zc.wide .mut{color:rgba(255,255,255,.88)}
+.zc.wide .zt{background:rgba(255,255,255,.22)}
+.zc.wide .zring text{fill:#fff}
+.zc.wide:hover{border-color:#fff}
 </style>
 </head>
 <body>
@@ -1848,26 +1870,34 @@ async function resetPz(){
 }
 const catColor=k=>{const g=GROUPS.find(x=>x.t.includes(k));return g?g.c:'#3A2519'};
 function logByCat(){const o={};Z.log.forEach(e=>e.th.forEach(k=>{const c=o[k]||(o[k]={n:0,ok:0});c.n++;if(e.ok)c.ok++}));return o}
-const ring=(pct,col)=>{const c=2*Math.PI*17,d=pct==null?0:pct/100*c;
-  return `<svg viewBox="0 0 44 44" class="zring" role="img" aria-label="Avanço rumo ao nível Mestre: ${pct||0}%"><circle cx="22" cy="22" r="17" fill="none" stroke="#DCCBAE" stroke-width="5"/><circle cx="22" cy="22" r="17" fill="none" stroke="${col}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${d} ${c}" transform="rotate(-90 22 22)"/><text x="22" y="26" text-anchor="middle">${(pct||0)+'%'}</text></svg>`};
+const ring=(pct,col,trk='#DCCBAE')=>{const c=2*Math.PI*17,d=pct==null?0:pct/100*c;
+  return `<svg viewBox="0 0 44 44" class="zring" role="img" aria-label="Avanço rumo ao nível Mestre: ${pct||0}%"><circle cx="22" cy="22" r="17" fill="none" stroke="${trk}" stroke-width="5"/><circle cx="22" cy="22" r="17" fill="none" stroke="${col}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${d} ${c}" transform="rotate(-90 22 22)"/><text x="22" y="26" text-anchor="middle">${(pct||0)+'%'}</text></svg>`};
 const lvl=(s,rate)=>s>=40&&rate>=80?{n:'Mestre',c:'#C98E1A'}:s>=15?{n:'Avançado',c:'#7B5BA5'}:s>=5?{n:'Praticante',c:'#3F7CAC'}:s>=1?{n:'Iniciante',c:'#6E9B3E'}:{n:'Novo',c:'#9C8A70'};
 const prog=(s,rate)=>s>=40?(rate>=80?100:99):Math.round(s/40*100); // avanço rumo a Mestre: 40 resolvidos sem erro e 80% de acerto
 function renderBar(){
   const el=$('#zbar');if(!el)return;
   const dis=Z.busy?' disabled':'',sel=(v,o)=>o.map(([k,l])=>`<option value="${k}"${v===k?' selected':''}>${l}</option>`).join('');
-  el.innerHTML=`<div class="pf-bar" style="justify-content:space-between"><div class="pf-head" style="gap:12px"><span class="zt" style="--zc:${catColor(Z.cat)}">${ICON[Z.cat]||'♟'}</span><div><b style="font-size:18px">${esc(THN[Z.cat]||Z.cat)}</b>${Z.mode==='review'?' <span class="tag" style="margin:0 0 0 6px">revisão de erros</span>':''}<div class="mut" id="zinfo"></div></div></div>
-    <button class="btn alt sm" onclick="zView('cats')">Trocar categoria</button></div>
-    <div class="pf-bar" style="margin-top:12px">
-      <select aria-label="Nível" onchange="Z.diff=this.value;nextZ()"${dis}>${sel(Z.diff,Object.keys(DIFF).map(k=>[k,DIFF[k][0]]))}</select>
-      <select aria-label="Modo" onchange="Z.mode=this.value;nextZ()"${dis}>${sel(Z.mode,[['new','Problemas novos'],['review','Revisar erros']])}</select>
-      <button class="btn alt sm" onclick="downloadPack()"${Z.busy?' disabled':''}>${Z.fetching&&!Z.cancel?'Parar download':'Baixar +25 desta categoria'}</button>
-    </div>
-    <p class="mut" id="zmsg" style="margin:8px 0 0" role="status" aria-live="polite">${esc(Z.msg)}</p>`;
+  const QK=['mateIn1','mateIn2','mateIn3','fork','pin','skewer','discoveredAttack','backRankMate','endgame','opening','middlegame'];
+  const keys=['mix',...(Z.cat!=='mix'&&!QK.includes(Z.cat)?[Z.cat]:[]),...QK];
+  const chip=k=>{const on=Z.cat===k,c=k==='mix'?'#3A2519':catColor(k);return `<button class="zchip${on?' on':''}" style="--zc:${c}" aria-pressed="${on}" data-k="${k}" onclick="pickCat(this.dataset.k)"${dis}><b>${ICON[k]||'♟'}</b>${esc(k==='mix'?'Misto':THN[k]||k)}</button>`};
+  const opts=`<option value="mix"${Z.cat==='mix'?' selected':''}>Misto (todas)</option>`+GROUPS.map(g=>`<optgroup label="${esc(g.n)}">${g.t.map(k=>`<option value="${k}"${Z.cat===k?' selected':''}>${esc(THN[k]||k)}</option>`).join('')}</optgroup>`).join('');
+  el.innerHTML=`<div class="zchips" role="group" aria-label="Tipo de problema">${keys.map(chip).join('')}</div>
+    <div class="zrow"><select aria-label="Todas as categorias" onchange="pickCat(this.value)"${dis}>${opts}</select>
+      <select aria-label="Nível" onchange="Z.diff=this.value;nextZ()"${dis}>${sel(Z.diff,Object.keys(DIFF).map(k=>[k,DIFF[k][0]]))}</select></div>
+    <details class="zmore"><summary>Mais opções</summary>
+      <div class="pf-bar" style="margin-top:10px">
+        <select aria-label="Modo" onchange="Z.mode=this.value;nextZ()"${dis}>${sel(Z.mode,[['new','Problemas novos'],['review','Revisar erros']])}</select>
+        <button class="btn alt sm" onclick="downloadPack()"${Z.busy?' disabled':''}>${Z.fetching&&!Z.cancel?'Parar download':'Baixar +25 desta categoria'}</button>
+        <button class="btn alt sm" onclick="zView('cats')">Explorar categorias</button></div>
+      <p class="mut" id="zinfo" style="margin:8px 0 0"></p></details>
+    <p class="mut" id="zmsg" role="status" aria-live="polite">${esc(Z.msg)}</p>`;
+  const row=el.querySelector('.zchips'),on=row&&row.querySelector('.zchip.on');
+  if(on)row.scrollLeft=on.offsetLeft-row.clientWidth/2+on.clientWidth/2;
   zinfo();
 }
 function catCard(k,col){
   const t=catStat(k),c=Z.cs[k],rate=c?Math.round(c.ok/c.n*100):null,lv=lvl(t.s,rate||0);
-  return `<button class="zc${Z.cat===k?' on':''}" style="--zc:${col}" data-k="${k}" onclick="pickCat(this.dataset.k)" aria-label="${esc(THN[k])}: ${t.s} resolvidos, nível ${lv.n}">
+  return `<button class="zc${Z.cat===k?' on':''}" style="--zc:${col};--zt:${col}1c;--zb:${col}55" data-k="${k}" onclick="pickCat(this.dataset.k)" aria-label="${esc(THN[k])}: ${t.s} resolvidos, nível ${lv.n}">
     <div class="zh"><span class="zt">${ICON[k]||'♟'}</span>${ring(prog(t.s,rate||0),col)}</div>
     <b>${esc(THN[k])}</b><span class="mut">${t.s} resolvidos${t.n?' · '+t.n+' salvos':''}${c&&c.n>=3?' · '+rate+'% de acerto':''}</span><span class="zlv" style="background:${lv.c}">${lv.n}</span></button>`;
 }
@@ -1875,12 +1905,12 @@ function renderCatGrid(){
   const el=$('#zv-cats');if(!el)return;
   const mix=catStat('mix'),all=Z.log.length?Math.round(Z.log.filter(e=>e.ok).length/Z.log.length*100):null;
   el.innerHTML=`<div class="zhero">
-      <button class="zc wide" style="--zc:#3A2519" onclick="pickCat('mix')"><div class="zh"><span class="zt">♟</span>${ring(prog(mix.s,all||0),'#3A2519')}</div><b>Misto</b><span class="mut">Problemas de todas as categorias, sorteados.</span></button>
-      <button class="zc wide" style="--zc:#A3392B" onclick="pickReview()"><div class="zh"><span class="zt">↻</span><span class="pf-big" style="color:var(--bad)">${mix.f}</span></div><b>Revisar erros</b><span class="mut">${mix.f?'Problemas que você errou ou resolveu com ajuda.':'Nenhum erro pendente por enquanto.'}</span></button>
+      <button class="zc wide" style="--zc:#3A2519" onclick="pickCat('mix')"><div class="zh"><span class="zt">♟</span>${ring(prog(mix.s,all||0),'#F3E9D6','rgba(255,255,255,.3)')}</div><b>Misto</b><span class="mut">Problemas de todas as categorias, sorteados.</span></button>
+      <button class="zc wide" style="--zc:#A3392B" onclick="pickReview()"><div class="zh"><span class="zt">↻</span><span class="pf-big" style="color:#fff">${mix.f}</span></div><b>Revisar erros</b><span class="mut">${mix.f?'Problemas que você errou ou resolveu com ajuda.':'Nenhum erro pendente por enquanto.'}</span></button>
       <button class="zc wide" style="--zc:#C98E1A" onclick="daily();zView('train')"><div class="zh"><span class="zt">★</span></div><b>Problema do dia</b><span class="mut">O desafio diário escolhido pelo Lichess.</span></button>
     </div>
     <p class="mut" style="margin:14px 2px 0">O anel mostra seu avanço rumo ao nível Mestre (40 problemas resolvidos sem erro, com 80% de acerto). Os níveis sobem com problemas resolvidos sem erro: Iniciante (1), Praticante (5), Avançado (15) e Mestre (40). A taxa de acerto fica em Estatísticas.</p>
-    ${GROUPS.map(g=>`<div class="card zg" style="--zc:${g.c}"><h3 class="zgh"><i></i>${g.n}</h3><p class="mut">${g.d}</p><div class="zgrid">${g.t.map(k=>catCard(k,g.c)).join('')}</div></div>`).join('')}`;
+    ${GROUPS.map(g=>`<div class="card zg" style="--zc:${g.c};--zt:${g.c}22"><h3 class="zgh"><i></i>${g.n}</h3><p class="mut">${g.d}</p><div class="zgrid">${g.t.map(k=>catCard(k,g.c)).join('')}</div></div>`).join('')}`;
 }
 const dkey=d=>d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();
 const fmtMs=ms=>ms==null?'–':ms<60000?Math.round(ms/1000)+' s':Math.floor(ms/60000)+' min '+String(Math.round(ms%60000/1000)).padStart(2,'0')+' s';
@@ -2230,7 +2260,7 @@ const TR={"Início":"Home","Perfil":"Profile","Seguindo":"Following","Análise":
 "Importar mais antigas":"Import older games","Remover conta":"Remove account","Histórico completo":"Full history","vitórias":"wins","empates":"draws","derrotas":"losses","pontuação":"score","partidas":"games",
 "Jogadores que você segue":"Players you follow","Seguir":"Follow","Atualizar":"Refresh","Deixar de seguir":"Unfollow","Usuário do jogador":"Player username","Ninguém por aqui ainda":"Nobody here yet",
 "Revisão da partida":"Game review","Revisar partida":"Review game","Reanalisar":"Re-analyze","Girar tabuleiro":"Flip board","Voltar à partida":"Back to the game","Importar outra partida (PGN)":"Import another game (PGN)","Carregar partida":"Load game","Usar a partida de exemplo":"Use the sample game","Mostrar a melhor continuação com uma seta":"Show the best continuation with an arrow","precisão":"accuracy",
-"Treinar":"Train","Categorias":"Categories","Estatísticas":"Statistics","Problema":"Puzzle","Dica":"Hint","Ver solução":"Show solution","Próximo":"Next","problema":"puzzle","resolvidos":"solved","em sequência":"in a row","Problema do dia no Lichess":"Lichess daily puzzle","Encontre o melhor lance.":"Find the best move.",
+"Treinar":"Train","Categorias":"Categories","Estatísticas":"Statistics","Problema":"Puzzle","Dica":"Hint","Ver solução":"Show solution","Próximo":"Next","problema":"puzzle","resolvidos":"solved","em sequência":"in a row","Problema do dia no Lichess":"Lichess daily puzzle","Encontre o melhor lance.":"Find the best move.","Misto":"Mixed","Misto (todas)":"Mixed (all)","Todas as categorias":"All categories","Nível":"Level","Mais opções":"More options","Explorar categorias":"Explore categories","Tipo de problema":"Puzzle type","Problemas novos":"New puzzles","Revisar erros":"Review mistakes","Baixar +25 desta categoria":"Download +25 of this category",
 "Aprender":"Learn","De memória":"From memory","Quiz de nomes":"Name quiz",
 "Veja a linha e jogue os lances indicados.":"See the line and play the indicated moves.","Só o nome da abertura: lembre os lances.":"Only the opening name: recall the moves.","Veja a posição e acerte o nome.":"See the position and guess the name.",
 "♔ Você joga de brancas":"♔ You play White","♚ Você joga de pretas":"♚ You play Black","Que abertura é esta?":"Which opening is this?",

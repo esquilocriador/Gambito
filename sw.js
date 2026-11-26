@@ -1,5 +1,5 @@
 // Service worker do Gambito. Para forçar atualização nos aparelhos, aumente a versão.
-const V='gambito-v5';
+const V='gambito-v6';
 const SHELL=['./','index.html','manifest.json','icons/icon-192.png','icons/icon-512.png','icons/icon-maskable-512.png','icons/apple-touch-icon.png'];
 // Só estes hosts são guardados (bibliotecas, fontes e Stockfish). APIs do Lichess e chess.com nunca passam pelo cache.
 const CDN=['cdnjs.cloudflare.com','cdn.jsdelivr.net','unpkg.com','fonts.googleapis.com','fonts.gstatic.com'];
