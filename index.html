@@ -305,6 +305,24 @@ nav button .ic{display:none}
 .oact .btn{white-space:normal}
 #aberturas .stack>*,#aberturas .an>*,#opanel{min-width:0}
 .obn{min-width:0;overflow-wrap:anywhere}
+
+/* idioma, home conectada, peão flutuante */
+.lgb{background:var(--br3);color:var(--cream);border:0;border-radius:99px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.lgb b{opacity:.55}.lgb b.on{opacity:1;color:var(--gold)}
+@media(max-width:900px){.lgb{margin-left:auto}}
+.lang{position:fixed;inset:0;z-index:100;background:rgba(42,27,18,.9);display:grid;place-items:center;padding:20px}
+.lg-card{background:var(--card);border-radius:18px;padding:28px;max-width:420px;width:100%;text-align:center;display:grid;gap:14px}
+.lg-card .logo{font-size:30px}
+.hchip{display:inline-flex;align-items:center;gap:6px;background:#DDE8CF;color:var(--ok);font-weight:700;font-size:14px;border-radius:99px;padding:4px 14px;margin-bottom:14px}
+#pawn{position:fixed;right:14px;bottom:calc(84px + env(safe-area-inset-bottom,0px));width:46px;height:46px;z-index:40;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+@media(min-width:901px){#pawn{right:26px;bottom:26px}}
+#pawn.grab{cursor:grabbing;z-index:60}
+.pwi{display:block;width:100%;height:100%;background-size:100% 100%;background-repeat:no-repeat;filter:drop-shadow(0 5px 5px rgba(42,27,18,.4));animation:bob 2.8s ease-in-out infinite}
+#pawn.grab .pwi{animation:none}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.pw-tip{position:absolute;right:calc(100% + 4px);top:50%;transform:translateY(-50%);white-space:nowrap;font-size:11px;color:var(--mut);background:rgba(248,242,229,.88);border:1px solid var(--line);border-radius:99px;padding:2px 9px;pointer-events:none;transition:opacity .6s}
+.pw-tip.fade{opacity:0}
+nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var(--br3);transform:scale(1.06)}
 </style>
 </head>
 <body>
@@ -318,17 +336,20 @@ nav button .ic{display:none}
     <button data-t="problemas"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><span>Problemas</span></button>
     <button data-t="aberturas"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 8h6"/></svg><span>Aberturas</span></button>
   </nav>
+  <button class="lgb" id="lgb" aria-label="Language / Idioma"></button>
 </header>
 <main>
 
 <section id="inicio" class="on">
   <div class="hero">
     <div>
-      <h1>Cada partida perdida guarda uma lição.</h1>
-      <p class="lead">Conecte sua conta do Lichess ou do chess.com, guarde seus jogos num banco de dados local, revise lance a lance com o Stockfish e treine as táticas que você mais deixa passar.</p>
+      <div class="hchip" id="hchip" hidden></div>
+      <h1 id="hh1">Cada partida perdida guarda uma lição.</h1>
+      <p class="lead" id="hlead">Conecte sua conta do Lichess ou do chess.com, guarde seus jogos num banco de dados local, revise lance a lance com o Stockfish e treine as táticas que você mais deixa passar.</p>
       <div class="row">
-        <button class="btn" onclick="show('perfil')">Conectar minha conta</button>
-        <button class="btn alt" onclick="show('analise')">Abrir a análise</button>
+        <button class="btn" id="hcon" onclick="show('perfil')">Conectar minha conta</button>
+        <button class="btn alt" id="hana" onclick="show('analise')">Abrir a análise</button>
+        <button class="btn alt" id="hope" onclick="show('aberturas')" hidden>Treinar aberturas</button>
       </div>
     </div>
     <div class="board" id="hb" role="img" aria-label="Tabuleiro de exemplo"></div>
@@ -353,6 +374,7 @@ nav button .ic{display:none}
       <p class="mut" id="gmsg">Suas últimas partidas aparecem aqui. Escolha uma para revisar.</p>
       <div class="gl" id="gl"></div>
     </div>
+    <div class="card" id="hbot" hidden><h2>Outra conta?</h2><p class="mut">Você pode conectar uma conta adicional do Lichess ou do chess.com e alternar entre elas no perfil.</p><button class="btn alt" onclick="show('perfil');setTimeout(()=>{const u=$('#user');if(u)u.focus()},60)">Conectar outra conta</button></div>
   </div>
 </section>
 
@@ -501,7 +523,11 @@ nav button .ic{display:none}
 
 </main>
 <footer>Peças: Cburnett (Colin M. L. Burnett), licença GPLv2+. Motor: Stockfish.js. Dados: Lichess e chess.com.</footer>
+<div id="pawn" role="presentation" aria-hidden="true"><span class="pw-tip" id="pwtip">Arraste o peão até uma aba para navegar</span><i class="pwi p-wP"></i></div>
+<div class="lang" id="lang" role="dialog" aria-modal="true" aria-label="Language / Idioma" hidden><div class="lg-card"><div class="logo">♞ Gambito</div><h2>Choose your language<br>Escolha o idioma</h2><div class="row" style="justify-content:center"><button class="btn" onclick="setLang('en')">English</button><button class="btn" onclick="setLang('pt')">Português</button></div></div></div>
 <script>
+const LANG=(()=>{try{return localStorage.getItem('gb.lang')}catch(e){return null}})();
+const IS_EN=LANG==='en',LOC=IS_EN?'en-US':'pt-BR';
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uci=m=>m.from+m.to+(m.promotion||'');
@@ -986,8 +1012,8 @@ const PLN={lichess:'Lichess',chesscom:'chess.com'};
 const TERM={mate:'Xeque-mate',resign:'Desistência',time:'Tempo',draw:'Empate',other:'Outros'};
 const RL={W:'V',D:'E',L:'D'},RC={W:'#6E9B3E',D:'#9C8A70',L:'#C0533F'};
 const PHN={o:'Abertura',m:'Meio-jogo',e:'Final'};
-const fmtDate=t=>new Date(t).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
-const fmtDT=t=>new Date(t).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+const fmtDate=t=>new Date(t).toLocaleDateString(LOC,{day:'2-digit',month:'short',year:'numeric'});
+const fmtDT=t=>new Date(t).toLocaleString(LOC,{dateStyle:'short',timeStyle:'short'});
 const spd=x=>x==='ultraBullet'?'bullet':x==='correspondence'?'daily':SPN[x]?x:'rapid';
 
 /* ---------- IndexedDB (com fallback em memória) ---------- */
@@ -1638,6 +1664,7 @@ function renderHome(){
   $('#rt').innerHTML=a?ratingTiles(a):'';
   $('#gmsg').textContent=P.games.length?'Escolha uma partida para revisar.':'Suas últimas partidas aparecem aqui. Escolha uma para revisar.';
   $('#gl').innerHTML=P.games.slice(0,8).map(gameItem).join('');
+  homeMode();
 }
 /* ---------- guia de primeiro uso ---------- */
 function renderOnb(){
@@ -1862,7 +1889,7 @@ function actChart(S){
   const mx=Math.max(3,...arr.map(a=>a.v.ok+a.v.bad)),u=(H-T-B)/mx;
   const bars=arr.map((a,i)=>{
     const x=gap+i*(bw+gap),ho=a.v.ok*u,hb=a.v.bad*u,tot=a.v.ok+a.v.bad;
-    return `<g><title>${a.d.toLocaleDateString('pt-BR')}: ${a.v.ok} acertos, ${a.v.bad} erros</title><rect x="${x}" y="${H-B-ho}" width="${bw}" height="${ho}" fill="#6E9B3E" rx="3"/><rect x="${x}" y="${H-B-ho-hb}" width="${bw}" height="${hb}" fill="#C0533F" rx="3"/>${tot?`<text x="${x+bw/2}" y="${H-B-ho-hb-3}" text-anchor="middle">${tot}</text>`:''}<text x="${x+bw/2}" y="${H-6}" text-anchor="middle">${a.d.getDate()}</text></g>`}).join('');
+    return `<g><title>${a.d.toLocaleDateString(LOC)}: ${a.v.ok} acertos, ${a.v.bad} erros</title><rect x="${x}" y="${H-B-ho}" width="${bw}" height="${ho}" fill="#6E9B3E" rx="3"/><rect x="${x}" y="${H-B-ho-hb}" width="${bw}" height="${hb}" fill="#C0533F" rx="3"/>${tot?`<text x="${x+bw/2}" y="${H-B-ho-hb-3}" text-anchor="middle">${tot}</text>`:''}<text x="${x+bw/2}" y="${H-6}" text-anchor="middle">${a.d.getDate()}</text></g>`}).join('');
   return `<svg class="pf-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Problemas por dia nos últimos 14 dias"><line x1="0" x2="${W}" y1="${H-B}" y2="${H-B}" stroke="#DCCBAE"/>${bars}</svg>`;
 }
 function lineSvg(vals){
@@ -2108,7 +2135,7 @@ function oAns(i){
   if(O.answered)return;
   const op=O.op,ch=O.opts[i],r=oRec(op.id);
   O.answered=true;O.pick=i;r.qn=(r.qn||0)+1;if(ch.id===op.id)r.qa=(r.qa||0)+1;oSave();
-  O.fb=ch.id===op.id?["Certo! É a "+op.pt+".","ok"]:["Era a "+op.pt+". Leia a ideia da abertura e tente de novo depois.","bad"];
+  O.fb=ch.id===op.id?["Certo! É a "+oN(op)+".","ok"]:["Era a "+oN(op)+". Leia a ideia da abertura e tente de novo depois.","bad"];
   if(ch.id===op.id){$("#ob").classList.add("done");vib([20,40,60])}
   oRender();
 }
@@ -2125,7 +2152,7 @@ function oFailHtml(){
   const rows=[];OPS.forEach(o=>{const r=OS.d[o.id];if(r)Object.entries(r.fails||{}).forEach(([k,f])=>rows.push({o,k:+k,f}))});
   rows.sort((a,b)=>b.f.n-a.f.n);
   if(!rows.length)return '<p class="mut" style="margin:0">Nenhuma falha registrada ainda. Treine uma abertura: os lances que você errar aparecem aqui até você acertá-los de memória.</p>';
-  return rows.slice(0,6).map(({o,k,f})=>`<div class="pf-crit"><span class="bd" style="background:${RC.L}">${f.n}×</span><div><b>${esc(o.pt)}</b><br><span class="mut">Lance ${Math.floor(k/2)+1}${k%2?"...":"."} · você jogou <b>${esc(f.p)}</b>, a teoria é <b>${esc(f.x)}</b></span></div><button class="btn alt sm" onclick="oRetry('${o.id}')">Treinar</button></div>`).join("");
+  return rows.slice(0,6).map(({o,k,f})=>`<div class="pf-crit"><span class="bd" style="background:${RC.L}">${f.n}×</span><div><b>${esc(oN(o))}</b><br><span class="mut">Lance ${Math.floor(k/2)+1}${k%2?"...":"."} · você jogou <b>${esc(f.p)}</b>, a teoria é <b>${esc(f.x)}</b></span></div><button class="btn alt sm" onclick="oRetry('${o.id}')">Treinar</button></div>`).join("");
 }
 function oLibHtml(){
   const pool=oPool();
@@ -2133,19 +2160,19 @@ function oLibHtml(){
     const l=pool.filter(o=>o.s===s);if(!l.length)return "";
     return `<div class="card zg" style="--zc:${s==="w"?"#7A5233":"#3A2519"}"><h3 class="zgh"><i></i>Com as ${s==="w"?"brancas":"pretas"}</h3><div class="zgrid">${l.map(o=>{
       const r=OS.d[o.id],lv=oLvl(o.id);
-      return `<button class="zc${O.op&&O.op.id===o.id?" on":""}" style="--zc:${lv.c}" onclick="oStart('${o.id}');scrollTo(0,0)"><b>${esc(o.pt)}</b><span class="mut">${esc(o.en)} · ${o.eco}</span><div class="pf-prog"><i style="width:${oMast(o.id)}%"></i></div><span class="mut">${r&&r.runs?r.runs+" treinos · "+r.err+" erros":"Ainda não treinada"}${r&&r.qn?" · nomes "+(r.qa||0)+"/"+r.qn:""}</span><span class="zlv" style="background:${lv.c}">${lv.n}</span></button>`}).join("")}</div></div>`}).join("");
+      return `<button class="zc${O.op&&O.op.id===o.id?" on":""}" style="--zc:${lv.c}" onclick="oStart('${o.id}');scrollTo(0,0)"><b>${esc(oN(o))}</b><span class="mut">${esc(IS_EN?o.pt:o.en)} · ${o.eco}</span><div class="pf-prog"><i style="width:${oMast(o.id)}%"></i></div><span class="mut">${r&&r.runs?r.runs+" treinos · "+r.err+" erros":"Ainda não treinada"}${r&&r.qn?" · nomes "+(r.qa||0)+"/"+r.qn:""}</span><span class="zlv" style="background:${lv.c}">${lv.n}</span></button>`}).join("")}</div></div>`}).join("");
 }
 function oRender(){
   const op=O.op;if(!op)return;
   const q=O.mode==="quiz"&&!O.answered,L=oLine(op);
   OB.draw();
-  $("#oname").innerHTML=`<div class="obk"><span class="obs">${op.s==="w"?"♔ Você joga de brancas":"♚ Você joga de pretas"}</span>${q?"":`<span class="obs">ECO ${op.eco}</span>`}<span class="obs">${esc(MODES.find(x=>x[0]===O.mode)[1])}</span></div><h2 class="obt">${q?"Que abertura é esta?":esc(op.pt)}</h2>${q?"":`<div class="obe">${esc(op.en)}</div><p class="obi">${esc(op.i)}</p>`}`;
+  $("#oname").innerHTML=`<div class="obk"><span class="obs">${op.s==="w"?"♔ Você joga de brancas":"♚ Você joga de pretas"}</span>${q?"":`<span class="obs">ECO ${op.eco}</span>`}<span class="obs">${esc(MODES.find(x=>x[0]===O.mode)[1])}</span></div><h2 class="obt">${q?"Que abertura é esta?":esc(oN(op))}</h2>${q?"":`<div class="obe">${esc(IS_EN?op.pt:op.en)}</div><p class="obi">${esc(oI(op))}</p>`}`;
   const dn=O.done,done=O.mode==="quiz"?O.answered:dn;
   const chips=L.map((x,k)=>{
     const mine=(k%2===0)===(op.s==="w"),st=k<O.ply?"d":k===O.ply&&!dn?"c":"f",num=k%2===0?`${k/2+1}. `:"";
     return `<span class="och ${st}${mine?" me":""}">${num}${st==="f"&&O.mode!=="learn"?"···":esc(x)}</span>`}).join("");
   let act;
-  if(O.mode==="quiz")act=`<div class="oopts">${O.opts.map((o,i)=>`<button class="oopt${O.answered?(o.id===op.id?" ok":i===O.pick?" bad":""):""}" onclick="oAns(${i})"${O.answered?" disabled":""}>${esc(o.pt)}</button>`).join("")}</div>`+(O.answered?'<div class="row"><button class="btn" onclick="oNext()">Próxima abertura</button><button class="btn alt" onclick="oStart(O.op.id)">Repetir</button></div>':"");
+  if(O.mode==="quiz")act=`<div class="oopts">${O.opts.map((o,i)=>`<button class="oopt${O.answered?(o.id===op.id?" ok":i===O.pick?" bad":""):""}" onclick="oAns(${i})"${O.answered?" disabled":""}>${esc(oN(o))}</button>`).join("")}</div>`+(O.answered?'<div class="row"><button class="btn" onclick="oNext()">Próxima abertura</button><button class="btn alt" onclick="oStart(O.op.id)">Repetir</button></div>':"");
   else act=`<div class="oact"><button class="btn alt" onclick="oHint()"${dn||O.lock?" disabled":""}>Dica</button><button class="btn alt" onclick="oShow()"${dn||O.lock?" disabled":""}>Ver lance</button><button class="btn alt" onclick="oStart(O.op.id)">Reiniciar</button><button class="btn" onclick="oNext()">${dn?"Próxima abertura":"Pular"}</button></div>`;
   $("#opanel").innerHTML=`<div class="fb ${O.fb?O.fb[1]:""}" role="status" aria-live="polite">${esc(O.fb?O.fb[0]:"")}</div><div class="pf-prog"><i style="width:${Math.round(O.ply/L.length*100)}%"></i></div><div class="ochs" aria-label="Linha da abertura">${chips}</div><p class="mut" style="margin:0;font-size:13px">Seus lances em negrito; os do computador em cinza.${O.errs&&O.mode!=="quiz"?` Erros nesta tentativa: <b>${O.errs}</b>.`:""}</p>${act}`;
   const tr=OPS.filter(o=>OS.d[o.id]&&OS.d[o.id].runs).length,dm=OPS.filter(o=>oMast(o.id)>=100).length;
@@ -2155,6 +2182,146 @@ function oRender(){
   $("#ofail").innerHTML=oFailHtml();
   $("#olib").innerHTML=oLibHtml();
 }
+
+/* =====================================================================
+   IDIOMA (PT/EN), home "conectada" e peão flutuante de navegação
+   ===================================================================== */
+const OPI={ital:"Develop quickly, aim at f7 with the bishop on c4 and prepare c3 and d3 calmly.",ruy:"The bishop pressures the knight that defends e5. A long positional game with the d4 break.",scotch:"Opens the center on move 3, gaining space and activity for the pieces.",kg:"Sacrifices a pawn to open the f-file and attack hard. Sharp and risky.",vienna:"The knight on c3 and the f4 push set up an attack on Black's center.",qgd:"Black keeps a solid center with e6 and d5. White fights for space and the pin on f6.",qga:"Black takes the pawn; White wins it back with Bxc4 and gains the center.",eng:"Controls d5 from the flank with c4 and g3. Flexible, almost a Sicilian with reversed colors.",london:"A solid, easy-to-remember setup: bishop on f4, pawns on d4, e3 and c3.",najdorf:"The most popular fighting defense: a6 prepares b5 and e5, with dynamic counterplay.",french:"Solid structure with e6 and d5; Black attacks the white center with c5 and f6.",caro:"Solidity: Black brings the light-squared bishop out of the pawn chain before playing e6.",scand:"Hits the e4 pawn immediately. The queen comes out early but gains time retreating to a5.",petroff:"Instead of defending e5, Black counterattacks e4. Very solid and symmetrical.",slav:"c6 supports d5 without locking in the light-squared bishop, which goes to f5 or g4.",kid:"Black lets White build a big center and attacks it later with e5, then goes for the kingside.",nimzo:"Pins the c3 knight to control e4, then trades the bishop to double White's pawns.",pirc:"Black allows a big center and undermines it later, with the bishop fianchettoed on g7."};
+const oN=o=>IS_EN?o.en:o.pt;
+const oI=o=>IS_EN?OPI[o.id]:o.i;
+const TR={"Início":"Home","Perfil":"Profile","Seguindo":"Following","Análise":"Analysis","Problemas":"Puzzles","Aberturas":"Openings",
+"Cada partida perdida guarda uma lição.":"Every lost game holds a lesson.",
+"Conecte sua conta do Lichess ou do chess.com, guarde seus jogos num banco de dados local, revise lance a lance com o Stockfish e treine as táticas que você mais deixa passar.":"Connect your Lichess or chess.com account, keep your games in a local database, review them move by move with Stockfish and train the tactics you miss the most.",
+"Sua conta está conectada. Revise uma partida, treine aberturas ou resolva problemas táticos.":"Your account is connected. Review a game, train openings or solve tactics puzzles.",
+"Conectar minha conta":"Connect my account","Abrir a análise":"Open analysis","Treinar aberturas":"Train openings",
+"Outra conta?":"Another account?","Você pode conectar uma conta adicional do Lichess ou do chess.com e alternar entre elas no perfil.":"You can connect an additional Lichess or chess.com account and switch between them in your profile.","Conectar outra conta":"Connect another account",
+"Sua conta":"Your account","Desempenho recente":"Recent performance","Partidas recentes":"Recent games",
+"Conecte sua conta para ver seus ratings e o saldo das últimas partidas.":"Connect your account to see your ratings and your recent results.",
+"Suas últimas partidas aparecem aqui. Escolha uma para revisar.":"Your latest games appear here. Pick one to review.","Escolha uma partida para revisar.":"Pick a game to review.",
+"Nenhuma conta conectada. Conecte o Lichess ou o chess.com para guardar seus jogos e ver estatísticas.":"No account connected. Connect Lichess or chess.com to save your games and see stats.",
+"Nenhuma partida salva ainda. Abra o perfil e sincronize.":"No games saved yet. Open your profile and sync.",
+"Conectar conta":"Connect account","Abrir perfil":"Open profile","Sincronizar":"Sync","Revisar":"Review",
+"Rápida":"Rapid","Clássica":"Classical","Diária":"Daily",
+"Comece em 4 passos":"Get started in 4 steps","Ocultar guia":"Hide guide",
+"Conecte sua conta":"Connect your account","Informe seu usuário do Lichess ou do chess.com. Nenhuma senha é pedida.":"Enter your Lichess or chess.com username. No password is asked.",
+"Sincronize suas partidas":"Sync your games","Importamos as mais recentes e guardamos neste navegador. Leva de alguns segundos a poucos minutos.":"We import the latest ones and store them in this browser. It takes a few seconds to a few minutes.",
+"Analise 5 partidas com o Stockfish":"Analyze 5 games with Stockfish","O motor roda no seu navegador. No modo Rápido, calcule algo em torno de meio minuto por partida (varia com o aparelho).":"The engine runs in your browser. In Fast mode, expect about half a minute per game (varies by device).",
+"Veja o que treinar":"See what to train","Confira os erros que você repete nas aberturas e resolva problemas táticos.":"Check the mistakes you repeat in openings and solve tactics puzzles.",
+"Analisar 5 partidas":"Analyze 5 games","Ver o que treinar":"See what to train","(concluído)":"(done)",
+"Contas":"Accounts","Usamos só as APIs públicas das plataformas. Nenhuma senha é pedida. Partidas e análises ficam salvas neste navegador (IndexedDB).":"We only use the platforms' public APIs. No password is asked. Games and analyses are saved in this browser (IndexedDB).",
+"Nome de usuário":"Username","Plataforma":"Platform","Conectar":"Connect","Exportar backup":"Export backup","Importar backup":"Import backup","Parar":"Stop","Sincronizando…":"Syncing…",
+"Nenhuma conta conectada":"No account connected","Informe seu usuário acima. Importamos suas partidas mais recentes, guardamos tudo aqui no navegador e mostramos ratings, aberturas, resultados e a qualidade do seu jogo.":"Enter your username above. We import your latest games, keep everything in this browser and show ratings, openings, results and the quality of your play.",
+"Filtrar estatísticas":"Filter statistics","Todos":"All","Todo o histórico":"All history","Últimos 30 dias":"Last 30 days","Últimos 90 dias":"Last 90 days","Último ano":"Last year",
+"Brancas e pretas":"White and black","Só brancas":"White only","Só pretas":"Black only","Ranqueadas e casuais":"Rated and casual","Só ranqueadas":"Rated only","Só casuais":"Casual only",
+"O que treinar agora":"What to train now","Resumo":"Summary","Por cor":"By color","Por ritmo":"By time control","Brancas":"White","Pretas":"Black","Evolução do rating":"Rating over time","Aberturas":"Openings","Como as partidas terminam":"How games end","Contra quem você joga":"Who you play against","Qualidade de jogo":"Game quality","Erros recorrentes nas aberturas":"Recurring opening mistakes","Partidas":"Games",
+"Importar mais antigas":"Import older games","Remover conta":"Remove account","Histórico completo":"Full history","vitórias":"wins","empates":"draws","derrotas":"losses","pontuação":"score","partidas":"games",
+"Jogadores que você segue":"Players you follow","Seguir":"Follow","Atualizar":"Refresh","Deixar de seguir":"Unfollow","Usuário do jogador":"Player username","Ninguém por aqui ainda":"Nobody here yet",
+"Revisão da partida":"Game review","Revisar partida":"Review game","Reanalisar":"Re-analyze","Girar tabuleiro":"Flip board","Voltar à partida":"Back to the game","Importar outra partida (PGN)":"Import another game (PGN)","Carregar partida":"Load game","Usar a partida de exemplo":"Use the sample game","Mostrar a melhor continuação com uma seta":"Show the best continuation with an arrow","precisão":"accuracy",
+"Treinar":"Train","Categorias":"Categories","Estatísticas":"Statistics","Problema":"Puzzle","Dica":"Hint","Ver solução":"Show solution","Próximo":"Next","problema":"puzzle","resolvidos":"solved","em sequência":"in a row","Problema do dia no Lichess":"Lichess daily puzzle","Encontre o melhor lance.":"Find the best move.",
+"Aprender":"Learn","De memória":"From memory","Quiz de nomes":"Name quiz",
+"Veja a linha e jogue os lances indicados.":"See the line and play the indicated moves.","Só o nome da abertura: lembre os lances.":"Only the opening name: recall the moves.","Veja a posição e acerte o nome.":"See the position and guess the name.",
+"♔ Você joga de brancas":"♔ You play White","♚ Você joga de pretas":"♚ You play Black","Que abertura é esta?":"Which opening is this?",
+"Dica: mova a peça da casa destacada.":"Hint: move the piece on the highlighted square.","Ver lance":"Show move","Reiniciar":"Restart","Próxima abertura":"Next opening","Pular":"Skip","Repetir":"Repeat","Sortear abertura":"Random opening","Treinar falhas":"Train failures",
+"Todas as aberturas":"All openings","Só com brancas":"White only","Só com pretas":"Black only","Suas falhas nas aberturas":"Your opening failures","Com as brancas":"With White","Com as pretas":"With Black",
+"Nova":"New","Em treino":"In training","Quase lá":"Almost there","Dominada":"Mastered","Ainda não treinada":"Not trained yet",
+"Sua vez. Siga a linha abaixo: arraste a peça ou toque nela e no destino.":"Your turn. Follow the line below: drag the piece, or tap it and then its destination.","Sua vez. Jogue de memória a abertura indicada acima.":"Your turn. Play the opening above from memory.",
+"O computador abre o jogo…":"The computer opens the game…","Sua vez.":"Your turn.","Lance de teoria! O computador responde…":"Theory move! The computer replies…",
+"Observe a posição e escolha o nome da abertura.":"Look at the position and pick the opening name.",
+"Seus lances em negrito; os do computador em cinza.":"Your moves in bold; the computer's in gray.","Seus lances em negrito; os do computador em cinza. Erros nesta tentativa:":"Your moves in bold; the computer's in gray. Mistakes in this attempt:",
+"Nenhuma falha registrada ainda. Treine uma abertura: os lances que você errar aparecem aqui até você acertá-los de memória.":"No failures recorded yet. Train an opening: the moves you get wrong show up here until you get them right from memory.","(pediu ajuda)":"(asked for help)",
+"Arraste o peão até uma aba para navegar":"Drag the pawn onto a tab to navigate"};
+const TRX=[
+[/^Bem-vindo de volta, (.+)\.$/,"Welcome back, $1."],
+[/^✓ Conectado como (.+) · (Lichess|chess\.com)$/,"✓ Connected as $1 · $2"],
+[/^(.+) · (\d+) partidas salvas$/,"$1 · $2 saved games"],
+[/^Última sincronização: (.+)$/,m=>"Last sync: "+(m[1]==="nunca"?"never":m[1])],
+[/^Saldo das últimas (\d+) partidas: (\d+) vitórias, (\d+) empates e (\d+) derrotas\.$/,"Result of the last $1 games: $2 wins, $3 draws and $4 losses."],
+[/^Importar (\d+) partidas$/,"Import $1 games"],
+[/^(\d+) de (\d+) partidas no filtro$/,"$1 of $2 games in the filter"],
+[/^(.*?\.) (\d+) de (\d+) aberturas treinadas · (\d+) dominadas\. Domine uma abertura jogando 3 vezes De memória sem erros\.$/,m=>tr(m[1])+" "+m[2]+" of "+m[3]+" openings trained · "+m[4]+" mastered. Master an opening by playing it 3 times from memory with no mistakes."],
+[/^(\S+) não é o lance da teoria desta linha\. Tente de novo\.$/,"$1 is not the theory move in this line. Try again."],
+[/^Ainda não\. A teoria pede (\S+)\. Jogue-o para continuar\.$/,"Not yet. Theory asks for $1. Play it to continue."],
+[/^A teoria pede (\S+)\. Jogue-o para continuar\.$/,"Theory asks for $1. Play it to continue."],
+[/^Linha completa sem erros!( Agora tente De memória\.)?$/,m=>"Line complete with no mistakes!"+(m[1]?" Now try From memory.":"")],
+[/^Linha completa com (\d+) erros?\. Repita para fixar: os lances errados ficam em "Suas falhas"\.$/,'Line complete with $1 mistake(s). Repeat to lock it in: wrong moves are kept in "Your failures".'],
+[/^Certo! É a (.+)\.$/,"Correct! It's the $1."],
+[/^Era a (.+)\. Leia a ideia da abertura e tente de novo depois\.$/,"It was the $1. Read the idea behind the opening and try again later."],
+[/^Lance (\d+)(\.+) · você jogou$/,"Move $1$2 · you played"],
+[/^, a teoria é$/,", theory is"],
+[/^(\d+) treinos · (\d+) erros( · nomes (\d+\/\d+))?$/,m=>m[1]+" sessions · "+m[2]+" mistakes"+(m[4]?" · names "+m[4]:"")]
+];
+function tr(s){
+  const t=s.trim();if(!t)return s;
+  let o=TR[t];
+  if(o===undefined)for(const [re,f] of TRX){const m=re.exec(t);if(m){o=typeof f==="function"?f(m):t.replace(re,f);break}}
+  return o===undefined?s:s.replace(t,()=>o);
+}
+function trNode(n){
+  if(n.nodeType===3){const v=tr(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v;return}
+  if(n.nodeType!==1||/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.tagName))return;
+  ["placeholder","aria-label","title"].forEach(a=>{const x=n.getAttribute(a);if(x){const v=tr(x);if(v!==x)n.setAttribute(a,v)}});
+  n.childNodes.forEach(trNode);
+}
+if(IS_EN){
+  document.documentElement.lang="en";document.title="Gambito: chess training hub";
+  new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(trNode))).observe(document.body,{childList:true,subtree:true});
+  trNode(document.body);
+}
+function setLang(l){
+  try{localStorage.setItem("gb.lang",l)}catch(e){}
+  if((l==="en")!==IS_EN)location.reload();else $("#lang").hidden=true;
+}
+$("#lgb").innerHTML=`<b class="${IS_EN?"":"on"}">PT</b> | <b class="${IS_EN?"on":""}">EN</b>`;
+$("#lgb").onclick=()=>setLang(IS_EN?"pt":"en");
+if(LANG===null)$("#lang").hidden=false;
+
+/* home: muda quando a conta está conectada (o botão de conectar vai para o fim da página) */
+function homeMode(){
+  const a=P.cur,c=!!a;
+  $("#hchip").hidden=!c;if(c)$("#hchip").textContent="✓ Conectado como "+a.name+" · "+PLN[a.pl];
+  $("#hh1").textContent=c?"Bem-vindo de volta, "+a.name+".":"Cada partida perdida guarda uma lição.";
+  $("#hlead").textContent=c?"Sua conta está conectada. Revise uma partida, treine aberturas ou resolva problemas táticos.":"Conecte sua conta do Lichess ou do chess.com, guarde seus jogos num banco de dados local, revise lance a lance com o Stockfish e treine as táticas que você mais deixa passar.";
+  $("#hcon").hidden=c;$("#hope").hidden=!c;$("#hbot").hidden=!c;
+  $("#hana").className=c?"btn":"btn alt";
+}
+
+/* peão flutuante: arraste até o ícone de uma aba para navegar */
+(function(){
+  const pw=$("#pawn"),tip=$("#pwtip");let used=false,d=null,over=null,tt=0;
+  try{used=localStorage.getItem("gb.pawn")==="1"}catch(e){}
+  if(used)tip.classList.add("fade");else tt=setTimeout(()=>tip.classList.add("fade"),14000);
+  const nb=(x,y)=>{const e=document.elementsFromPoint(x,y).find(n=>n.closest&&n.closest("nav button"));return e?e.closest("nav button"):null};
+  const setOver=b=>{if(over===b)return;if(over)over.classList.remove("drop");over=b;if(b)b.classList.add("drop")};
+  const flash=()=>{clearTimeout(tt);tip.classList.remove("fade");tt=setTimeout(()=>tip.classList.add("fade"),3000)};
+  pw.addEventListener("pointerdown",e=>{
+    if(e.button>0)return;
+    const r=pw.getBoundingClientRect();
+    d={id:e.pointerId,x:e.clientX,y:e.clientY,cx:r.left+r.width/2,cy:r.top+r.height/2,moved:false};
+    pw.classList.add("grab");pw.style.transition="none";try{pw.setPointerCapture(e.pointerId)}catch(_){}e.preventDefault();
+  });
+  pw.addEventListener("pointermove",e=>{
+    if(!d||e.pointerId!==d.id)return;
+    const dx=e.clientX-d.x,dy=e.clientY-d.y;
+    if(!d.moved){if(Math.hypot(dx,dy)<6)return;d.moved=true;clearTimeout(tt);tip.classList.add("fade")}
+    pw.style.transform=`translate(${dx}px,${dy}px) scale(1.15)`;setOver(nb(e.clientX,e.clientY));
+  });
+  const end=(e,cancel)=>{
+    if(!d||e.pointerId!==d.id)return;
+    const m=d;d=null;pw.classList.remove("grab");
+    const b=!cancel&&m.moved?nb(e.clientX,e.clientY):null;setOver(null);
+    if(!m.moved){pw.style.transition="";pw.style.transform="";flash();return}
+    if(b){
+      const r=b.getBoundingClientRect();
+      pw.style.transition="transform .18s ease-out";
+      pw.style.transform=`translate(${r.left+r.width/2-m.cx}px,${r.top+r.height/2-m.cy}px) scale(.8)`;
+      show(b.dataset.t);vib(15);
+      try{localStorage.setItem("gb.pawn","1")}catch(_){}
+      setTimeout(()=>{pw.style.transition="transform .45s cubic-bezier(.2,1.2,.4,1)";pw.style.transform=""},380);
+    }else{pw.style.transition="transform .35s cubic-bezier(.2,1.2,.4,1)";pw.style.transform=""}
+  };
+  pw.addEventListener("pointerup",e=>end(e,false));
+  pw.addEventListener("pointercancel",e=>end(e,true));
+})();
 
 /* ---------- inicialização ---------- */
 (async()=>{
