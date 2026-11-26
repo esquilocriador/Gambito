@@ -328,11 +328,11 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 :root{--pdw:62px;--pdh:64px}
 #pdock{position:fixed;right:0;bottom:calc(var(--navh,66px) - 1px);width:var(--pdw);height:var(--pdh);background:var(--brown);border-radius:22px 0 0 0;z-index:35;pointer-events:none}
 #pdock::before{content:'';position:absolute;left:-16px;bottom:0;width:16px;height:16px;background:radial-gradient(circle at 0 0,transparent 15.5px,var(--brown) 16px)}
-#pdock::after{content:'';position:absolute;inset:7px;border-radius:15px;background:var(--br2);box-shadow:inset 0 3px 8px rgba(0,0,0,.35)}
+
 #pawn{width:40px;height:40px;right:calc((var(--pdw) - 40px)/2);bottom:calc(var(--navh,66px) + (var(--pdh) - 40px)/2 - 1px);will-change:transform}
 .pwi{filter:none;animation:none}
 .pw-tip{right:calc(100% + 18px)}
-@media(min-width:901px){#pdock{bottom:0}#pdock::before{display:none}#pawn{bottom:calc((var(--pdh) - 40px)/2)}}
+
 @media(max-width:900px){main{padding-bottom:calc(160px + env(safe-area-inset-bottom,0px))}}
 
 /* problemas: filtro rápido e categorias coloridas */
@@ -356,6 +356,30 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 .zc.wide .zt{background:rgba(255,255,255,.22)}
 .zc.wide .zring text{fill:#fff}
 .zc.wide:hover{border-color:#fff}
+
+/* relatório do jogador */
+#rpt{position:fixed;inset:0;z-index:90;background:var(--bg);overflow:auto;-webkit-overflow-scrolling:touch}
+.rpt-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--brown);color:var(--cream)}
+.rpt-bar .btn{background:var(--cream);color:var(--brown)}
+.rpt-pg{max-width:820px;margin:18px auto;background:#fff;border-radius:14px;padding:28px;box-shadow:0 10px 30px -20px #3A2519;color:#2A1B12}
+.rpt-pg h1{font-size:30px;line-height:1.15}
+.rpt-pg h2{font-size:20px;margin:24px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
+.rpt-k{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:10px}
+.rpt-k div{border:1px solid var(--line);border-radius:10px;padding:10px;font-size:13px;color:var(--mut)}
+.rpt-k b{display:block;font:400 24px/1.2 'Young Serif',Georgia,serif;color:var(--ink)}
+.rpt-type{background:var(--brown);color:var(--cream);border-radius:14px;padding:18px 20px;margin:12px 0}
+.rpt-type h3{font-size:26px}
+.rpt-tr{display:grid;gap:8px;margin-top:12px}.rpt-tr div{background:var(--br2);border-radius:10px;padding:8px 12px}
+.rpt-tip{border-left:5px solid var(--acc);background:#FBF6EA;border-radius:8px;padding:10px 14px;margin:8px 0}
+@media(max-width:600px){.rpt-pg{margin:0;border-radius:0;padding:18px}}
+@media print{body>*:not(#rpt){display:none!important}html,body{background:#fff}#rpt{position:static;overflow:visible;background:#fff}.rpt-bar,.no-print{display:none!important}.rpt-pg{box-shadow:none;margin:0;max-width:none;padding:0}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}.rpt-tip,.rpt-type,.pf-row{break-inside:avoid}}
+.pdslot{position:absolute;inset:7px;border-radius:15px;background:var(--br2);box-shadow:inset 0 3px 8px rgba(0,0,0,.35)}
+@media(min-width:901px){
+ #pdock{right:auto;bottom:auto;top:calc(var(--hh,62px) - 1px);left:var(--navx,50%);transform:translateX(-50%);border-radius:0 0 22px 22px}
+ #pdock::before{left:-16px;top:0;bottom:auto;background:radial-gradient(circle at 0 100%,transparent 15.5px,var(--brown) 16px)}
+ #pdock::after{content:'';position:absolute;right:-16px;top:0;width:16px;height:16px;background:radial-gradient(circle at 100% 100%,transparent 15.5px,var(--brown) 16px)}
+ #pawn{right:auto;bottom:auto;top:calc(var(--hh,62px) + (var(--pdh) - 40px)/2 - 1px);left:calc(var(--navx,50%) - 20px)}
+}
 </style>
 </head>
 <body>
@@ -460,6 +484,15 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 </section>
 
 <section id="analise">
+  <details class="card" id="apick" open style="margin-bottom:22px"><summary>Escolher partida para analisar</summary>
+    <div class="pf-bar" style="margin:12px 0"><span id="apk-acc"></span>
+      <select id="apk-sp" aria-label="Ritmo" onchange="renderPick()"><option value="all">Todos os ritmos</option><option value="bullet">Bullet</option><option value="blitz">Blitz</option><option value="rapid">Rápida</option><option value="classical">Clássica</option><option value="daily">Diária</option></select>
+      <select id="apk-col" aria-label="Cor" onchange="renderPick()"><option value="all">Brancas e pretas</option><option value="w">Só brancas</option><option value="b">Só pretas</option></select>
+      <select id="apk-res" aria-label="Resultado" onchange="renderPick()"><option value="all">Todos os resultados</option><option value="W">Vitórias</option><option value="D">Empates</option><option value="L">Derrotas</option></select>
+      <select id="apk-an" aria-label="Análise" onchange="renderPick()"><option value="all">Analisadas ou não</option><option value="y">Já analisadas</option><option value="n">Ainda não analisadas</option></select>
+      <input id="apk-q" type="search" placeholder="Buscar adversário ou abertura" aria-label="Buscar adversário ou abertura" oninput="renderPick()" style="flex:1;min-width:150px"></div>
+    <div id="apk-list"></div>
+    <p class="mut" style="margin:14px 0 0;font-size:14px">Prefere outra fonte? Cole um PGN mais abaixo ou abra uma partida de um jogador na aba Seguindo.</p></details>
   <div class="an">
     <div class="bg">
       <div class="pbar top" id="bt"></div>
@@ -556,7 +589,8 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 
 </main>
 <footer>Peças: Cburnett (Colin M. L. Burnett), licença GPLv2+. Motor: Stockfish.js. Dados: Lichess e chess.com.</footer>
-<div id="pdock" aria-hidden="true"></div>
+<div id="rpt" hidden role="dialog" aria-label="Relatório do jogador"><div class="rpt-bar"><button class="btn sm" onclick="closeReport()">← Fechar</button><b>Relatório do jogador</b><button class="btn sm" onclick="window.print()">Salvar PDF</button></div><div id="rpt-body"></div></div>
+<div id="pdock" aria-hidden="true"><i class="pdslot"></i></div>
 <div id="pawn" role="presentation" aria-hidden="true"><span class="pw-tip" id="pwtip">Arraste o peão até uma aba para navegar</span><i class="pwi p-wP"></i></div>
 <div class="lang" id="lang" role="dialog" aria-modal="true" aria-label="Language / Idioma" hidden><div class="lg-card"><div class="logo">♞ Gambito</div><h2>Choose your language<br>Escolha o idioma</h2><div class="row" style="justify-content:center"><button class="btn" onclick="setLang('en')">English</button><button class="btn" onclick="setLang('pt')">Português</button></div></div></div>
 <script>
@@ -1371,6 +1405,7 @@ function openGame(id,ply){
   const w=g.col==='w';
   const ok=loadPGN(g.pgn,{w:w?g.me:g.opp,b:w?g.opp:g.me,wr:w?g.mr:g.or,br:w?g.or:g.mr,gid:g.id,acc:g.acc,t:g.t,col:g.col,flip:!w});
   show('analise');
+  {const dk=$('#apick');if(dk)dk.open=false}
   if(ok)restoreAnalysis(id).then(()=>{if(ply)go(ply)});
 }
 async function restoreAnalysis(id){
@@ -1679,7 +1714,7 @@ function renderPerfil(){
     <select aria-label="Resultado" onchange="P.rf=this.value;P.show=30;renderPerfil()">${sel(P.rf,[['all','Todos os resultados'],['W','Vitórias'],['D','Empates'],['L','Derrotas']])}</select></div>
     ${P.op?`<div class="pf-chip"><span>Abertura: <b>${esc(P.op.fam)}</b> com as ${P.op.c==='w'?'brancas':'pretas'}</span><div style="flex:1;min-width:120px">${bar(wdl(opG))}</div><span class="mut">${opG.length} partidas · ${Math.round(score(wdl(opG)))}%</span><button class="btn alt sm" onclick="pickOp()">Limpar filtro</button></div>`:''}<div class="gl">${list.slice(0,P.show).map(gameItem).join('')||'<p class="mut">Nenhuma partida com esse resultado.</p>'}</div>
     ${list.length>P.show?`<div class="row" style="margin-top:14px"><button class="btn alt" onclick="P.show+=30;renderPerfil()">Mostrar mais (${list.length-P.show} restantes)</button></div>`:''}</div>`;
-  el.innerHTML=head+`<div class="card" id="pf-todo">${todoInner(gs)}</div>`+filt+
+  el.innerHTML=head+repCard()+`<div class="card" id="pf-todo">${todoInner(gs)}</div>`+filt+
     (ins.length?`<div class="card"><h2>O que os números sugerem</h2><ul class="pf-ins">${ins.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:'')+
     `<div class="pf-grid">${sum}${cor}</div>`+ratingChart()+
     `<div class="pf-grid">${openingsCard(gs)}<div class="stack">${termCard(gs)}${strengthCard(gs)}</div></div>`+
@@ -1721,7 +1756,7 @@ function onbGo(i){
   else if(i===2){show('perfil');P.bn='5';batchAnalyze();setTimeout(()=>{const e=$('#pf-qual');if(e)e.scrollIntoView({block:'start'})},80)}
   else{show('perfil');setTimeout(()=>{const e=$('#pf-todo');if(e)e.scrollIntoView({block:'start'})},60)}
 }
-function renderAll(){renderPerfil();renderHome();renderOnb()}
+function renderAll(){renderPerfil();renderHome();renderOnb();renderPick()}
 
 
 /* =====================================================================
@@ -1794,7 +1829,8 @@ async function nextZ(){
       if(Z.pause>Date.now())why='rate'; // o Lichess limitou as requisições há pouco: não insiste
       else{
         say('Buscando problema…');
-        for(let n=0;n<6&&!pk;n++){
+        try{await fillBatch(Z.cat);const l=pool();if(l.length)pk=rand(l)}catch(e){if(e&&e.message==='rate'){why='rate';Z.pause=Date.now()+60000}}
+        for(let n=0;n<6&&!pk&&why!=='rate';n++){
           try{const p=await fetchPuzzle(Z.cat);if(!p)continue;const q=await cachePuzzle(p);if(inDiff(q)&&q.st!=='solved'&&q.id!==cur)pk=q}
           catch(e){why=e&&e.message==='rate'?'rate':'net';if(why==='rate')Z.pause=Date.now()+60000;break}
         }
@@ -1830,6 +1866,7 @@ async function downloadPack(){
   if(Z.busy)return;
   Z.fetching=true;Z.cancel=false;Z.msg='';const N=25;let got=0,tries=0;renderCats();
   try{
+    try{got+=await fillBatch(Z.cat,N)}catch(e){if(e&&e.message==='rate')Z.pause=Date.now()+60000}
     while(got<N&&tries<N*3&&!Z.cancel){
       tries++;$('#zmsg').textContent=`Baixando… ${got} de ${N}`;
       const p=await fetchPuzzle(Z.cat);
@@ -1858,7 +1895,7 @@ function zView(v){
   document.querySelectorAll('.zsub button').forEach(b=>{const on=b.dataset.v===v;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
   renderCats();
 }
-function pickCat(k){Z.cat=k;Z.mode='new';zView('train');nextZ()}
+function pickCat(k){Z.cat=k;Z.mode='new';zView('train');window.scrollTo(0,0);nextZ()}
 function pickReview(){Z.cat='mix';Z.mode='review';zView('train');nextZ()}
 function playId(id){const p=Z.db.get(id);if(!p)return;zView('train');setPuzzle({...p});scrollTo(0,0)}
 async function resetPz(){
@@ -2183,13 +2220,13 @@ function oAns(i){
 }
 function oNext(){
   const p=oPool().filter(o=>!O.op||o.id!==O.op.id);if(!p.length)return;
-  p.sort((a,b)=>(oMast(a.id)+Math.random()*40)-(oMast(b.id)+Math.random()*40));oStart(p[0].id);scrollTo(0,0);
+  p.sort((a,b)=>(oMast(a.id)+Math.random()*40)-(oMast(b.id)+Math.random()*40));oStart(p[0].id);oTop();
 }
 function oWeak(){
   const c=OPS.map(o=>[o,Object.values((OS.d[o.id]&&OS.d[o.id].fails)||{}).reduce((s,f)=>s+f.n,0)]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]);
-  if(c.length){O.mode="mem";oStart(c[0][0].id);scrollTo(0,0)}else oNext();
+  if(c.length){O.mode="mem";oStart(c[0][0].id);oTop()}else oNext();
 }
-function oRetry(id){O.mode="mem";oStart(id);scrollTo(0,0)}
+function oRetry(id){O.mode="mem";oStart(id);oTop()}
 function oFailHtml(){
   const rows=[];OPS.forEach(o=>{const r=OS.d[o.id];if(r)Object.entries(r.fails||{}).forEach(([k,f])=>rows.push({o,k:+k,f}))});
   rows.sort((a,b)=>b.f.n-a.f.n);
@@ -2202,7 +2239,7 @@ function oLibHtml(){
     const l=pool.filter(o=>o.s===s);if(!l.length)return "";
     return `<div class="card zg" style="--zc:${s==="w"?"#7A5233":"#3A2519"}"><h3 class="zgh"><i></i>Com as ${s==="w"?"brancas":"pretas"}</h3><div class="zgrid">${l.map(o=>{
       const r=OS.d[o.id],lv=oLvl(o.id);
-      return `<button class="zc${O.op&&O.op.id===o.id?" on":""}" style="--zc:${lv.c}" onclick="oStart('${o.id}');scrollTo(0,0)"><b>${esc(oN(o))}</b><span class="mut">${esc(IS_EN?o.pt:o.en)} · ${o.eco}</span><div class="pf-prog"><i style="width:${oMast(o.id)}%"></i></div><span class="mut">${r&&r.runs?r.runs+" treinos · "+r.err+" erros":"Ainda não treinada"}${r&&r.qn?" · nomes "+(r.qa||0)+"/"+r.qn:""}</span><span class="zlv" style="background:${lv.c}">${lv.n}</span></button>`}).join("")}</div></div>`}).join("");
+      return `<button class="zc${O.op&&O.op.id===o.id?" on":""}" style="--zc:${lv.c}" onclick="oStart('${o.id}');oTop()"><b>${esc(oN(o))}</b><span class="mut">${esc(IS_EN?o.pt:o.en)} · ${o.eco}</span><div class="pf-prog"><i style="width:${oMast(o.id)}%"></i></div><span class="mut">${r&&r.runs?r.runs+" treinos · "+r.err+" erros":"Ainda não treinada"}${r&&r.qn?" · nomes "+(r.qa||0)+"/"+r.qn:""}</span><span class="zlv" style="background:${lv.c}">${lv.n}</span></button>`}).join("")}</div></div>`}).join("");
 }
 function oRender(){
   const op=O.op;if(!op)return;
@@ -2329,7 +2366,7 @@ function homeMode(){
 }
 
 /* peão flutuante: arraste até o ícone de uma aba para navegar */
-(function(){const n=document.querySelector("nav"),f=()=>document.documentElement.style.setProperty("--navh",n.offsetHeight+"px");f();addEventListener("resize",f);addEventListener("orientationchange",f);if(window.ResizeObserver)new ResizeObserver(f).observe(n)})();
+(function(){const n=document.querySelector("nav"),f=()=>{const s=document.documentElement.style,r=n.getBoundingClientRect();s.setProperty("--navh",n.offsetHeight+"px");s.setProperty("--hh",document.querySelector("header").offsetHeight+"px");s.setProperty("--navx",(r.left+r.width/2)+"px")};f();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(f);addEventListener("resize",f);addEventListener("orientationchange",f);if(window.ResizeObserver)new ResizeObserver(f).observe(n)})();
 
 (function(){
   const pw=$("#pawn"),tip=$("#pwtip");let used=false,d=null,over=null,tt=0,raf=0,px=0,py=0,rects=[];
@@ -2368,6 +2405,144 @@ function homeMode(){
   pw.addEventListener("pointercancel",e=>end(e,true));
 })();
 
+/* =====================================================================
+   Rolagem ao topo (window.scrollTo; em atributos onclick, "scrollTo" apontava para o botão),
+   lote de problemas, seletor de partidas na Análise e relatório do jogador
+   ===================================================================== */
+function oTop(){window.scrollTo(0,0);requestAnimationFrame(()=>window.scrollTo(0,0));setTimeout(()=>window.scrollTo(0,0),60)}
+async function fillBatch(angle,nb=15){
+  const r=await fetch('https://lichess.org/api/puzzle/batch/'+encodeURIComponent(angle&&angle!=='mix'?angle:'mix')+'?nb='+nb);
+  if(r.status===429)throw new Error('rate');
+  if(!r.ok)throw new Error('http'+r.status);
+  const j=await r.json();let n=0;
+  for(const x of (j.puzzles||[])){const p=fromLichess(x);if(p&&!Z.db.has(p.id)){await cachePuzzle(p);n++}}
+  return n;
+}
+
+/* ---------- Análise: escolher partida do histórico ---------- */
+P.pk={n:8};
+function pickGames(){
+  const v=id=>{const e=$(id);return e?e.value:'all'};
+  const sp=v('#apk-sp'),col=v('#apk-col'),res=v('#apk-res'),an=v('#apk-an'),q=(($('#apk-q')||{}).value||'').trim().toLowerCase();
+  return P.games.filter(g=>(sp==='all'||g.sp===sp)&&(col==='all'||g.col===col)&&(res==='all'||g.res===res)&&(an==='all'||(an==='y')===P.an.has(g.id))&&(!q||(g.opp||'').toLowerCase().includes(q)||(g.op||'').toLowerCase().includes(q)));
+}
+function renderPick(more){
+  const box=$('#apk-list');if(!box)return;
+  if(!more)P.pk.n=8;
+  const a=P.cur,acc=$('#apk-acc');
+  if(acc)acc.innerHTML=P.accs.length>1?`<select aria-label="Conta" onchange="loadAccount(this.value)">${P.accs.map(x=>`<option value="${esc(x.id)}"${a&&a.id===x.id?' selected':''}>${esc(x.name)} · ${PLN[x.pl]}</option>`).join('')}</select>`:'';
+  if(!a||!P.games.length){
+    box.innerHTML='<p class="mut" style="margin:0">'+(a?'Nenhuma partida salva ainda. Sincronize no perfil.':'Conecte sua conta para escolher partidas do seu histórico.')+'</p><div class="row" style="margin-top:10px"><button class="btn sm" onclick="show(\'perfil\')">'+(a?'Abrir perfil':'Conectar conta')+'</button></div>';return;
+  }
+  const l=pickGames();
+  box.innerHTML=`<p class="mut" style="margin:0 0 8px">${l.length} ${l.length===1?'partida':'partidas'} no filtro</p><div class="gl">${l.slice(0,P.pk.n).map(gameItem).join('')||'<p class="mut">Nenhuma partida com esses filtros.</p>'}</div>${l.length>P.pk.n?`<div class="row" style="margin-top:12px"><button class="btn alt sm" onclick="P.pk.n+=8;renderPick(1)">Mostrar mais (${l.length-P.pk.n})</button></div>`:''}`;
+}
+
+/* ---------- Relatório do jogador ---------- */
+P.rp={sp:'',n:30};
+function repCard(){
+  const a=P.cur;if(!a)return '';
+  const cnt={};P.games.forEach(g=>cnt[g.sp]=(cnt[g.sp]||0)+1);
+  const ks=SPO.filter(k=>cnt[k]);if(!ks.length)return '';
+  if(!ks.includes(P.rp.sp))P.rp.sp=(P.f.speed!=='all'&&cnt[P.f.speed])?P.f.speed:ks.slice().sort((x,y)=>cnt[y]-cnt[x])[0];
+  return `<div class="card" id="pf-rep"><h2>Relatório do jogador</h2><p class="mut">Analisa as últimas partidas do ritmo escolhido e gera um relatório com estatísticas, tipo de jogador e pistas de melhoria. Depois você pode salvar como PDF.</p>
+    <div class="pf-bar"><label>Ritmo <select aria-label="Ritmo do relatório" onchange="P.rp.sp=this.value">${ks.map(k=>`<option value="${k}"${P.rp.sp===k?' selected':''}>${SPN[k]} (${cnt[k]})</option>`).join('')}</select></label>
+    <label>Partidas <select aria-label="Quantidade de partidas" onchange="P.rp.n=+this.value">${[20,30,50].map(n=>`<option${P.rp.n===n?' selected':''}>${n}</option>`).join('')}</select></label>
+    <button class="btn" onclick="openReport()">Gerar relatório</button></div></div>`;
+}
+function openReport(){
+  const b=$('#rpt-body');b.innerHTML=repBuild();
+  $('#rpt').hidden=false;document.body.style.overflow='hidden';$('#rpt').scrollTop=0;
+}
+function closeReport(){$('#rpt').hidden=true;document.body.style.overflow=''}
+function repGo(t){closeReport();show(t)}
+function repBuild(){
+  const a=P.cur,sp=P.rp.sp,n=P.rp.n,pc=v=>Math.round(v);
+  const all=P.games.filter(g=>g.sp===sp).slice(0,n);
+  if(all.length<5)return '<div class="rpt-pg"><h1>Relatório do jogador</h1><p>São necessárias pelo menos 5 partidas deste ritmo. Importe mais partidas no perfil.</p></div>';
+  const gs=all.slice().reverse(),N=gs.length,w=wdl(gs),sc=score(w),wb=wdl(gs.filter(g=>g.col==='w')),bb=wdl(gs.filter(g=>g.col==='b'));
+  const rt=gs.filter(g=>g.mr!=null),r0=rt.length?rt[0].mr:null,r1=rt.length?rt[rt.length-1].mr:null;
+  const losses=gs.filter(g=>g.res==='L'),wins=gs.filter(g=>g.res==='W');
+  const tl=losses.filter(g=>g.term==='time').length,mateW=wins.filter(g=>g.term==='mate').length;
+  const mvs=g=>Math.ceil(g.ply/2),avgMv=gs.reduce((s,g)=>s+mvs(g),0)/N,shortL=losses.filter(g=>mvs(g)<=20).length;
+  let bw=0,bl=0,cw=0,cl=0;gs.forEach(g=>{if(g.res==='W'){cw++;cl=0}else if(g.res==='L'){cl++;cw=0}else{cw=0;cl=0}bw=Math.max(bw,cw);bl=Math.max(bl,cl)});
+  const af=[];gs.forEach((g,i)=>{if(i&&gs[i-1].res==='L')af.push(g)});const afS=af.length?score(wdl(af)):null;
+  const k=gs.filter(g=>g.mr!=null&&g.or!=null),dd=g=>g.or-g.mr;
+  const st=wdl(k.filter(g=>dd(g)>=50)),eq=wdl(k.filter(g=>Math.abs(dd(g))<50)),wk=wdl(k.filter(g=>dd(g)<=-50));
+  const opn=c=>{const m=new Map();gs.filter(g=>g.col===c&&g.fam).forEach(g=>{const r=m.get(g.fam)||[];r.push(g);m.set(g.fam,r)});return [...m].map(([f,v])=>[f,wdl(v)]).sort((x,y)=>y[1].n-x[1].n)};
+  const opw=opn('w'),opb=opn('b'),allOp=[...opw.map(x=>['w',...x]),...opb.map(x=>['b',...x])];
+  const worst=allOp.filter(x=>x[2].n>=3&&score(x[2])<40).sort((x,y)=>score(x[2])-score(y[2]))[0];
+  const best=allOp.filter(x=>x[2].n>=3&&score(x[2])>=60).sort((x,y)=>score(y[2])-score(x[2]))[0];
+  const an=gs.map(g=>P.an.get(g.id)).filter(x=>x&&x.accuracy!=null);
+  const dcol=score(wb)-score(bb),colOk=wb.n>=5&&bb.n>=5;
+  /* tipo de jogador */
+  const style=avgMv<28?{n:'Tático e agressivo',d:`Suas partidas são curtas (média de ${pc(avgMv)} lances) e costumam se decidir cedo.`}
+    :avgMv<=42?{n:'Equilibrado',d:`Suas partidas têm duração média (${pc(avgMv)} lances), com decisão tanto no meio-jogo quanto no final.`}
+    :{n:'Posicional e de resistência',d:`Suas partidas são longas (média de ${pc(avgMv)} lances): você tende a manter o jogo vivo até as fases finais.`};
+  const tr=[];
+  if(losses.length>=3&&tl/losses.length>=.3)tr.push(['Vulnerável ao relógio',`${pc(tl/losses.length*100)}% das derrotas foram por tempo.`]);
+  if(colOk&&Math.abs(dcol)>=15)tr.push([dcol>0?'Mais forte de brancas':'Mais forte de pretas',`${pc(score(dcol>0?wb:bb))}% com ${dcol>0?'brancas':'pretas'} contra ${pc(score(dcol>0?bb:wb))}% com ${dcol>0?'pretas':'brancas'}.`]);
+  if(af.length>=4&&afS<sc-15)tr.push(['Sensível a derrotas',`Depois de perder, sua pontuação cai para ${pc(afS)}% (média geral ${pc(sc)}%).`]);
+  if(st.n>=3&&score(st)>=45)tr.push(['Competitivo contra mais fortes',`${pc(score(st))}% de pontuação contra adversários 50+ pontos acima.`]);
+  if(wk.n>=4&&score(wk)<70)tr.push(['Irregular contra mais fracos',`Só ${pc(score(wk))}% contra adversários 50+ pontos abaixo.`]);
+  if(bl>=4)tr.push(['Sofre com sequências negativas',`Maior sequência de derrotas: ${bl}.`]);
+  if(wins.length>=3&&mateW/wins.length>=.4)tr.push(['Finalizador',`${pc(mateW/wins.length*100)}% das vitórias vieram por xeque-mate.`]);
+  if(w.D/N>=.2)tr.push(['Sólido',`${pc(w.D/N*100)}% das partidas terminaram empatadas.`]);
+  if(!tr.length)tr.push(['Estável','Nenhum padrão extremo apareceu nestas partidas.']);
+  /* pistas de melhoria */
+  const tips=[];
+  if(losses.length&&tl>=2&&tl/losses.length>=.25)tips.push({t:'Gestão do relógio',d:`${tl} de ${losses.length} derrotas foram por tempo. Defina marcos (por exemplo, não gastar mais de 30% do tempo até o lance 15), jogue a abertura mais rápido e teste ritmos com incremento.`,a:['Treinar aberturas','aberturas']});
+  if(worst)tips.push({t:`Abertura problemática: ${worst[1]}`,d:`Com ${worst[0]==='w'?'brancas':'pretas'}: ${worst[2].n} partidas e ${pc(score(worst[2]))}% de pontuação. Revise a linha, descubra onde o jogo se perde e prepare uma alternativa.`,a:['Treinar aberturas','aberturas']});
+  if(colOk&&Math.abs(dcol)>=15)tips.push({t:`Reforçar o jogo com ${dcol>0?'as pretas':'as brancas'}`,d:`A diferença de ${pc(Math.abs(dcol))} pontos percentuais entre as cores sugere um repertório menos preparado com ${dcol>0?'as pretas':'as brancas'}. Escolha uma ou duas aberturas e repita-as.`,a:['Treinar aberturas','aberturas']});
+  if(losses.length&&shortL>=2&&shortL/losses.length>=.3)tips.push({t:'Derrotas muito cedo',d:`${shortL} derrotas em 20 lances ou menos. Costuma indicar um erro tático básico ou uma abertura mal conhecida: treine mates curtos, garfos e peças penduradas e confira as ameaças antes de cada lance.`,a:['Treinar táticas','problemas']});
+  if(af.length>=4&&afS<sc-15)tips.push({t:'Reação a derrotas',d:'Seu rendimento cai logo após perder. Faça uma pausa curta, evite procurar revanche imediata e revise o erro antes de jogar de novo.'});
+  if(wk.n>=4&&score(wk)<70)tips.push({t:'Consistência contra adversários mais fracos',d:'Pontos perdidos contra jogadores abaixo do seu nível pesam no rating. Evite jogar rápido demais e procure o plano mais simples e seguro.'});
+  let qual='';
+  if(an.length){
+    const acc=an.reduce((s,x)=>s+x.accuracy,0)/an.length,bl2=an.reduce((s,x)=>s+((x.cnt&&x.cnt.blunder)||0),0)/an.length,ms=an.reduce((s,x)=>s+((x.cnt&&x.cnt.mistake)||0),0)/an.length;
+    const ph={o:[0,0],m:[0,0],e:[0,0]};an.forEach(x=>Object.keys(ph).forEach(f=>{ph[f][0]+=x.ph[f].l;ph[f][1]+=x.ph[f].n}));
+    const pv=Object.keys(ph).filter(f=>ph[f][1]>=8).map(f=>[f,ph[f][0]/ph[f][1]]).sort((x,y)=>y[1]-x[1]);
+    qual=`<h2>Qualidade de jogo (motor)</h2><div class="rpt-k"><div><b>${acc.toFixed(1)}%</b>precisão média</div><div><b>${bl2.toFixed(1)}</b>erros graves por partida</div><div><b>${ms.toFixed(1)}</b>erros por partida</div><div><b>${an.length}</b>partidas analisadas</div></div>${pv.length?`<p>Fase em que você mais perde vantagem por lance: <b>${PHN[pv[0][0]]}</b> (${pv[0][1].toFixed(1)}% de chance de vitória por lance).</p>`:''}<p class="mut">Base: ${an.length} de ${N} partidas já analisadas com o Stockfish.</p>`;
+    if(bl2>=1)tips.push({t:'Erros graves',d:`Você comete em média ${bl2.toFixed(1)} erros graves por partida. Antes de cada lance, procure capturas, xeques e ameaças do adversário.`,a:['Treinar táticas','problemas']});
+    if(pv.length>1&&pv[0][1]>=pv[1][1]*1.3)tips.push({t:`Fase mais fraca: ${PHN[pv[0][0]].toLowerCase()}`,d:`É onde você mais perde vantagem por lance. Dedique parte do treino a ${pv[0][0]==='o'?'aberturas':pv[0][0]==='m'?'táticas e planos de meio-jogo':'finais'}.`});
+  }else{
+    qual=`<h2>Qualidade de jogo (motor)</h2><p class="mut">Nenhuma destas partidas foi analisada ainda.</p>`;
+    tips.push({t:'Analise suas partidas',d:'Com 5 ou mais partidas analisadas pelo Stockfish, o relatório passa a incluir precisão, erros graves e a fase mais fraca.',a:['Ir ao Perfil','perfil']});
+  }
+  if(!tips.length)tips.push({t:'Continue assim',d:'Nenhum ponto fraco claro apareceu nestas partidas. Aumente a amostra e treine táticas para subir de nível.',a:['Treinar táticas','problemas']});
+  /* seções */
+  const sv=rt.map(g=>g.mr);let spark='';
+  if(sv.length>1){const W=600,H=90,lo=Math.min(...sv),hi=Math.max(...sv),pd=Math.max(5,(hi-lo)*.1),L=lo-pd,Hh=hi+pd,X=i=>4+i/(sv.length-1)*(W-8),Y=v=>H-4-(v-L)/(Hh-L)*(H-8);
+    spark=`<svg viewBox="0 0 ${W} ${H}" class="pf-chart" role="img" aria-label="Evolução do rating"><path d="${sv.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join(' ')}" fill="none" stroke="#7A5233" stroke-width="2.5" stroke-linejoin="round"/></svg>`}
+  const opRows=(l)=>l.slice(0,3).map(([f,r])=>rowW(f,r)).join('')||'<p class="mut">Sem aberturas identificadas.</p>';
+  const terms=Object.keys(TERM).map(t=>[t,gs.filter(g=>g.term===t&&g.res==='W').length,gs.filter(g=>g.term===t&&g.res==='D').length,gs.filter(g=>g.term===t&&g.res==='L').length]).filter(r=>r[1]+r[2]+r[3]>0);
+  const d=r0!=null?r1-r0:null;
+  const strengths=[];
+  if(best)strengths.push(`Boa abertura: <b>${esc(best[1])}</b> com ${best[0]==='w'?'brancas':'pretas'} (${pc(score(best[2]))}% em ${best[2].n} partidas).`);
+  if(d>0)strengths.push(`Rating em alta: ${d>0?'+':''}${d} pontos no período.`);
+  if(st.n>=3&&score(st)>=45)strengths.push('Bom rendimento contra adversários mais fortes.');
+  if(bw>=4)strengths.push(`Melhor sequência de vitórias: ${bw}.`);
+  return `<div class="rpt-pg">
+    <p class="mut" style="margin:0">Gambito · Relatório do jogador</p>
+    <h1>${esc(a.name)} <span class="mut" style="font-size:18px">${PLN[a.pl]} · ${SPN[sp]}</span></h1>
+    <p class="mut">Últimas ${N} partidas de ${SPN[sp].toLowerCase()} (${fmtDate(gs[0].t)} a ${fmtDate(gs[N-1].t)}). Gerado em ${fmtDT(Date.now())}.</p>
+    <div class="rpt-type"><div class="mut" style="color:#C9B596">Tipo de jogador</div><h3>${style.n}</h3><p style="margin:4px 0 0;color:#EADBBF">${style.d}</p>
+      <div class="rpt-tr">${tr.map(([t,x])=>`<div><b>${t}</b><br><span style="color:#D5C2A2">${x}</span></div>`).join('')}</div></div>
+    <h2>Resultados</h2>
+    <div class="rpt-k"><div><b>${N}</b>partidas</div><div><b>${pc(sc)}%</b>pontuação</div><div><b>${w.W}-${w.D}-${w.L}</b>V-E-D</div><div><b>${r1!=null?r1:'–'}</b>rating atual${d!=null?` (${d>0?'+':''}${d})`:''}</div><div><b>${pc(avgMv)}</b>lances por partida</div><div><b>${bw}/${bl}</b>maior seq. V/D</div></div>
+    ${bar(w)}${spark}
+    <h2>Por cor e por adversário</h2>
+    ${rowW('Brancas',wb)}${rowW('Pretas',bb)}
+    ${k.length?rowW('Adversários mais fortes (+50)',st)+rowW('Parecidos (±50)',eq)+rowW('Mais fracos (−50)',wk):''}
+    <h2>Aberturas mais jogadas</h2><b>Com as brancas</b>${opRows(opw)}<div style="height:10px"></div><b>Com as pretas</b>${opRows(opb)}
+    <h2>Como as partidas terminam</h2>
+    <table class="pf-tb"><thead><tr><th>Final</th><th>Vitórias</th><th>Empates</th><th>Derrotas</th></tr></thead><tbody>${terms.map(r=>`<tr><td>${TERM[r[0]]}</td><td>${r[1]||'–'}</td><td>${r[2]||'–'}</td><td>${r[3]||'–'}</td></tr>`).join('')}</tbody></table>
+    ${qual}
+    ${strengths.length?`<h2>Pontos fortes</h2><ul>${strengths.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+    <h2>Pistas de melhoria</h2>
+    ${tips.slice(0,6).map((x,i)=>`<div class="rpt-tip"><b>${i+1}. ${esc(x.t)}</b><p style="margin:4px 0 0">${esc(x.d)}</p>${x.a?`<button class="btn alt sm no-print" style="margin-top:8px" onclick="repGo('${x.a[1]}')">${x.a[0]}</button>`:''}</div>`).join('')}
+    <p class="mut" style="margin-top:18px;font-size:13px">Amostra de ${N} partidas: padrões com poucas partidas são indícios, não certezas. Atualize o relatório conforme você joga mais.</p></div>`;
+}
 /* ---------- inicialização ---------- */
 (async()=>{
   await dbOpen();
