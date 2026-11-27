@@ -363,15 +363,12 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 .rpt-bar .btn{background:var(--cream);color:var(--brown)}
 .rp{max-width:920px;margin:0 auto;padding:10px 14px 40px;color:var(--ink)}
 .rp section,.rp header{scroll-margin-top:100px}
-.rp-nav{position:sticky;top:52px;z-index:2;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 2px;background:linear-gradient(var(--bg) 75%,transparent)}
-.rp-nav::-webkit-scrollbar{display:none}
-.rp-nav button{flex:none;border:1.5px solid var(--line);background:#FFFCF5;border-radius:99px;padding:5px 13px;font-weight:600;font-size:13px;cursor:pointer;color:var(--brown)}
 .rp-cover{position:relative;overflow:hidden;background:linear-gradient(135deg,#3A2519,#2A1B12);color:var(--cream);border-radius:22px;padding:28px 26px;margin:6px 0 16px}
 .rp-cover::before{content:'';position:absolute;inset:0;background-image:conic-gradient(rgba(255,255,255,.055) 25%,transparent 0 50%,rgba(255,255,255,.055) 0 75%,transparent 0);background-size:64px 64px;-webkit-mask-image:linear-gradient(115deg,transparent 25%,#000);mask-image:linear-gradient(115deg,transparent 25%,#000)}
 .rp-cover>*{position:relative}
 .rp-cover .wm{position:absolute;right:-18px;bottom:-26px;width:230px;height:230px;opacity:.13;background-size:contain;background-repeat:no-repeat}
 .rp-kick{font-size:12px;letter-spacing:.14em;color:#E0A43A;font-weight:700}
-.rp-cover h1{font-size:clamp(34px,7vw,56px);margin:6px 0 12px;line-height:1.05}
+.rp-cover h1{overflow-wrap:anywhere;font-size:clamp(34px,7vw,56px);margin:6px 0 12px;line-height:1.05}
 .rp-chips{display:flex;gap:8px;flex-wrap:wrap}
 .rp-chips span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:3px 12px;font-size:13px}
 .rp-cv{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;margin-top:22px}
@@ -383,7 +380,7 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 .rp-head{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .rp-head li{background:rgba(255,255,255,.08);border-left:4px solid #E0A43A;border-radius:8px;padding:8px 12px;font-size:15px}
 .rp-head b{color:#E0A43A}
-.rp-sec{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;margin:16px 0;box-shadow:0 14px 30px -26px #3A2519}
+.rp-sec{display:block;background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;margin:16px 0;box-shadow:0 14px 30px -26px #3A2519}
 .rp-h{display:flex;align-items:center;gap:10px;font-size:23px;margin:0 0 4px}
 .rp-n{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:var(--brown);color:#E0A43A;font:400 16px 'Young Serif',serif;flex:none}
 .rp-sub{color:var(--mut);font-size:14px;margin:0 0 12px}
@@ -395,15 +392,15 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 .rp-arch small{letter-spacing:.12em;color:var(--ac);font-weight:700;font-size:11px}
 .rp-arch h3{font-size:28px;color:var(--ac);line-height:1.1}.rp-arch p{margin:4px 0 0}
 @media(max-width:560px){.rp-pc{width:84px;height:84px}.rp-pc i{width:64px;height:64px}.rp-arch h3{font-size:22px}}
-.rp-traits{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:14px}
+.rp-traits{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:10px;margin-top:14px}
 .rp-trait{display:grid;gap:2px;border-radius:12px;padding:10px 12px;font-size:14px;border:1px solid var(--line);background:#FFFCF5}
 .rp-trait.good{border-left:5px solid #4F6B3A}.rp-trait.bad{border-left:5px solid #C0533F}.rp-trait.info{border-left:5px solid #3F7CAC}
 .rp-trait span{color:var(--mut)}
-.rp-form{display:flex;gap:3px;margin:12px 0 14px}
-.rp-t{flex:1;min-width:8px;height:40px;border-radius:6px;display:grid;place-items:center;font-style:normal;font-size:11px;color:rgba(255,255,255,.92);position:relative;line-height:1}
+.rp-form{display:grid;grid-template-columns:repeat(auto-fill,minmax(15px,1fr));gap:3px;margin:12px 0 14px}
+.rp-t{height:34px;border-radius:6px;display:grid;place-items:center;font-style:normal;font-size:11px;color:rgba(255,255,255,.92);position:relative;line-height:1}
 .rp-t.W{background:#6E9B3E}.rp-t.D{background:#B9A88E}.rp-t.L{background:#C0533F}
 .rp-t s{position:absolute;top:-9px;font-size:10px;text-decoration:none}
-.rp-k{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:10px}
+.rp-k{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(110px,100%),1fr));gap:10px;margin-bottom:10px}
 .rp-k div{border:1px solid var(--line);border-radius:10px;padding:10px;font-size:13px;color:var(--mut);background:#FFFCF5}
 .rp-k b{display:block;font:400 24px/1.2 'Young Serif',Georgia,serif;color:var(--ink)}
 .rp-sk{display:grid;grid-template-columns:minmax(0,340px) 1fr;gap:22px;align-items:center}
@@ -411,7 +408,7 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 .rp-radar{width:100%;height:auto}
 .rp-ax{margin-bottom:12px}.rp-axh{display:flex;justify-content:space-between;font-size:14px;margin-bottom:3px}
 .rp-track{height:9px;border-radius:5px;background:var(--line);overflow:hidden}.rp-track i{display:block;height:100%;border-radius:5px}
-.rp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.rp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:14px}
 .rp-card{border:1px solid var(--line);border-radius:14px;padding:14px;background:#FFFCF5}.rp-card.wide{grid-column:1/-1}
 .rp-card h4{margin:0 0 8px;font-size:15px}
 .rp-colr{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:14px}.rp-colr span{width:130px;flex:none}.rp-colr b{width:44px;text-align:right}.rp-colr .wdl{margin:0}
@@ -424,13 +421,13 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 .rp-bt{display:flex;align-items:flex-end;background:#F1E8D6;border-radius:6px;overflow:hidden}.rp-bt i{display:block;width:100%;border-radius:6px 6px 0 0}
 .rp-bc small{font-size:11px}
 .rp-ins{background:#FBF6EA;border-left:4px solid #C98E1A;border-radius:8px;padding:8px 12px;margin:12px 0 0;font-size:14px}
-.rp-ops{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.rp-ops{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:14px}
 .rp-op{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px;background:#FFFCF5}
 .rp-op .wdl{margin:8px 0}
 .rp-mb{display:grid;grid-template-columns:repeat(8,1fr);aspect-ratio:1;border-radius:6px;overflow:hidden;box-shadow:0 0 0 3px var(--brown)}
 .rp-mb i{position:relative;display:block}.rp-mb i.l{background:#F0D9B5}.rp-mb i.d{background:#B58863}.rp-mb b{position:absolute;inset:0;background-size:100% 100%}
 .rp-tag{display:inline-block;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:700;color:#fff}.rp-tag.good{background:#4F6B3A}.rp-tag.bad{background:#C0533F}.rp-tag.info{background:#7B6551}
-.rp-q{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.rp-q{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(130px,100%),1fr));gap:10px}
 .rp-qk{border:1px solid var(--line);border-radius:12px;padding:10px;background:#FFFCF5}.rp-qk b{display:block;font:400 24px/1.2 'Young Serif',serif}.rp-qk small{color:var(--mut);font-size:12px}
 .rp-ph{display:grid;grid-template-columns:90px 1fr 50px;gap:10px;align-items:center;margin:6px 0}
 .rp-cta{background:#FBF6EA;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
@@ -443,13 +440,30 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 .rp-dn span{display:block;color:#D5C2A2;font-weight:500;letter-spacing:0;margin-top:2px}
 .rp-day p{margin:2px 0 6px;font-size:14px;color:var(--mut)}
 @media(max-width:560px){.rp-day{grid-template-columns:68px 1fr}.rp-op{grid-template-columns:96px 1fr}}
-.rp-goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.rp-goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:10px}
 .rp-goals div{background:var(--brown);color:var(--cream);border-radius:12px;padding:12px 14px}
 .rp-goals small{display:block;color:#D5C2A2}.rp-goals b{font:400 20px 'Young Serif',serif}.rp-goals span{color:#E0A43A}
-.rp-dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+.rp-dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(110px,100%),1fr));gap:10px}
 .rp-dl div{border:1px solid var(--line);border-radius:12px;padding:10px;background:#FFFCF5}.rp-dl small{display:block;color:var(--mut);font-size:12px}.rp-dl b{font:400 22px 'Young Serif',serif;margin-right:6px}
 .rp-foot{font-size:12px;color:var(--mut);margin:18px 4px 0;line-height:1.55}
-@media print{body>*:not(#rpt){display:none!important}html,body{background:#fff}#rpt{position:static;overflow:visible;background:#fff}.rpt-bar,.no-print{display:none!important}.rp{max-width:none;padding:0}.rp-sec,.rp-cover{box-shadow:none}.rp-sec,.rp-cover,.rp-day,.rp-op,.rp-card,.rp-trait{break-inside:avoid}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{margin:12mm}}
+.rp-tabs{position:sticky;top:var(--rbh,56px);z-index:2;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 2px 10px;background:linear-gradient(var(--bg) 80%,transparent)}
+.rp-tabs::-webkit-scrollbar{display:none}
+.rp-tab{flex:none;border:1.5px solid var(--line);background:#FFFCF5;border-radius:99px;padding:8px 16px;font-weight:600;font-size:14px;cursor:pointer;color:var(--brown);touch-action:manipulation}
+.rp-tab.on{background:var(--brown);border-color:var(--brown);color:#E0A43A}
+.rp-radar{max-width:380px;margin:0 auto;display:block}
+@media(max-width:600px){
+ .rp{padding:6px 8px 32px}
+ .rp-sec{padding:16px 14px;border-radius:16px;margin:12px 0}
+ .rp-h{font-size:20px}
+ .rp-colr span{width:92px;font-size:13px}
+ .rp-colr b{width:38px}
+ .rp-k,.rp-dl,.rp-q{grid-template-columns:repeat(2,1fr)}
+ .rp-ops,.rp-grid,.rp-traits,.rp-goals{grid-template-columns:1fr}
+ .rp-ph{grid-template-columns:72px 1fr 44px}
+ .rp-bars{height:100px}
+ .rp-cover{border-radius:18px}
+ .rp-cover .wm{width:150px;height:150px}
+}
 .pdslot{position:absolute;inset:7px;border-radius:15px;background:var(--br2);box-shadow:inset 0 3px 8px rgba(0,0,0,.35)}
 @media(min-width:901px){
  #pdock{right:auto;bottom:auto;top:calc(var(--hh,62px) - 1px);left:var(--navx,50%);transform:translateX(-50%);border-radius:0 0 22px 22px}
@@ -666,7 +680,7 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 
 </main>
 <footer>Peças: Cburnett (Colin M. L. Burnett), licença GPLv2+. Motor: Stockfish.js. Dados: Lichess e chess.com.</footer>
-<div id="rpt" hidden role="dialog" aria-label="Relatório do jogador"><div class="rpt-bar"><button class="btn sm" onclick="closeReport()">← Fechar</button><b>Relatório do jogador</b><button class="btn sm" onclick="window.print()">Salvar PDF</button></div><div id="rpt-body"></div></div>
+<div id="rpt" hidden role="dialog" aria-label="Relatório do jogador"><div class="rpt-bar"><button class="btn sm" onclick="closeReport()">← Fechar</button><b>Relatório do jogador</b><button class="btn sm" onclick="repPrint()">Salvar PDF</button></div><div id="rpt-body"></div></div>
 <div id="pdock" aria-hidden="true"><i class="pdslot"></i></div>
 <div id="pawn" role="presentation" aria-hidden="true"><span class="pw-tip" id="pwtip">Arraste o peão até uma aba para navegar</span><i class="pwi p-wP"></i></div>
 <div class="lang" id="lang" role="dialog" aria-modal="true" aria-label="Language / Idioma" hidden><div class="lg-card"><div class="logo">♞ Gambito</div><h2>Choose your language<br>Escolha o idioma</h2><div class="row" style="justify-content:center"><button class="btn" onclick="setLang('en')">English</button><button class="btn" onclick="setLang('pt')">Português</button></div></div></div>
@@ -2528,8 +2542,9 @@ function repCard(){
     <button class="btn" onclick="openReport()">Gerar relatório</button></div></div>`;
 }
 function openReport(){
-  const b=$('#rpt-body');b.innerHTML=repBuild();
-  $('#rpt').hidden=false;document.body.style.overflow='hidden';$('#rpt').scrollTop=0;
+  $('#rpt-body').innerHTML=repBuild();
+  const r=$('#rpt');r.hidden=false;document.body.style.overflow='hidden';r.scrollTop=0;
+  r.style.setProperty('--rbh',r.querySelector('.rpt-bar').offsetHeight+'px');
 }
 function closeReport(){$('#rpt').hidden=true;document.body.style.overflow=''}
 function repGo(t){closeReport();show(t)}
@@ -2657,27 +2672,27 @@ function repBuild(){
   const cmp=prev?`<section class="rp-sec" id="rp-evol"><h2 class="rp-h"><span class="rp-n">↗</span>Desde o último relatório</h2><p class="rp-sub">Comparado com o relatório de ${fmtDate(prev.t)}.</p><div class="rp-dl"><div><small>Índice Gambito</small><b>${gi}</b>${rpDelta(gi-prev.gi)}</div>${AX.map(x=>`<div><small>${x.n}</small><b>${x.v}</b>${rpDelta(prev.ix[x.k]!=null?x.v-prev.ix[x.k]:null)}</div>`).join('')}<div><small>Pontuação</small><b>${pc(sc)}%</b>${rpDelta(pc(sc)-prev.sc)}</div></div></section>`:'';
   /* qualidade do motor */
   const qual=an.length?`<div class="rp-q"><div class="rp-qk"><b>${acc.toFixed(1)}%</b><small>precisão média</small></div><div class="rp-qk"><b>${bl2.toFixed(1)}</b><small>erros graves por partida</small></div><div class="rp-qk"><b>${ms2.toFixed(1)}</b><small>erros por partida</small></div><div class="rp-qk"><b>${an.length}</b><small>partidas analisadas</small></div></div>${pv.length?`<p class="rp-sub" style="margin-top:12px">Chance de vitória perdida por lance, por fase:</p>${['o','m','e'].map(f=>{const x=pv.find(y=>y[0]===f);return x?`<div class="rp-ph"><span>${PHN[f]}</span><div class="rp-track"><i style="width:${Math.min(100,x[1]*4)}%;background:${x[1]>=pv[0][1]?'#C0533F':'#C98E1A'}"></i></div><small>${x[1].toFixed(1)}%</small></div>`:''}).join('')}`:''}`
-    :`<div class="rp-cta">Nenhuma destas partidas foi analisada ainda. <button class="btn sm no-print" onclick="repGo('perfil')">Analisar partidas</button></div>`;
+    :`<div class="rp-cta">Nenhuma destas partidas foi analisada ainda. <button class="btn sm no-print" data-go="perfil">Analisar partidas</button></div>`;
   const d1=fmtDate(gs[0].t),d2=fmtDate(gs[N-1].t);
   return `<div class="rp">
-  <nav class="rp-nav no-print" aria-label="Seções do relatório">${[['rp-resumo','Resumo'],['rp-estilo','Estilo'],['rp-forma','Forma'],['rp-skills','Habilidades'],['rp-jogo','Seu jogo'],['rp-ab','Aberturas'],['rp-plano','Plano']].map(([i,l])=>`<button onclick="rpJump('${i}')">${l}</button>`).join('')}</nav>
-  <header class="rp-cover" id="rp-resumo"><i class="wm p-w${key}"></i>
+  <div class="rp-tabs no-print" role="tablist" aria-label="Seções do relatório">${[['resumo','Resumo'],['desempenho','Desempenho'],['jogo','Seu jogo'],['ab','Aberturas'],['plano','Plano'],['all','Ver tudo']].map(([i,l],q)=>`<button type="button" role="tab" class="rp-tab${q===0?' on':''}" data-rt="${i}" aria-selected="${q===0}">${l}</button>`).join('')}</div>
+  <div class="rp-pane" data-p="resumo"><div class="rp-cover" id="rp-resumo"><i class="wm p-w${key}"></i>
     <div class="rp-kick">♞ GAMBITO · RELATÓRIO DO JOGADOR</div>
     <h1>${esc(a.name)}</h1>
     <div class="rp-chips"><span>${PLN[a.pl]}</span><span>${SPN[sp]}</span><span>${N} partidas</span><span>${d1} – ${d2}</span></div>
     <div class="rp-cv"><div class="rp-score">${rpRing(gi,'#E0A43A','rgba(255,255,255,.18)')}<div><small>ÍNDICE GAMBITO</small><b>${tier}</b><span>${gi} de 100</span></div></div>
-      <ul class="rp-head"><li><b>${pc(sc)}%</b> de pontuação em ${N} partidas${dR!=null?`, rating ${dR>0?'+':''}${dR}`:''}.</li><li>Ponto mais forte: <b>${top.n}</b> (${top.v}/100).</li><li>Maior oportunidade: <b>${low.n}</b> (${low.v}/100).</li></ul></div></header>
+      <ul class="rp-head"><li><b>${pc(sc)}%</b> de pontuação em ${N} partidas${dR!=null?`, rating ${dR>0?'+':''}${dR}`:''}.</li><li>Ponto mais forte: <b>${top.n}</b> (${top.v}/100).</li><li>Maior oportunidade: <b>${low.n}</b> (${low.v}/100).</li></ul></div></div>
   ${cmp}
   <section class="rp-sec" id="rp-estilo"><h2 class="rp-h"><span class="rp-n">1</span>Seu estilo</h2>
     <div class="rp-arch" style="--ac:${AR.c}"><div class="rp-pc"><i class="p-w${key}"></i></div><div><small>ARQUÉTIPO</small><h3>${AR.n}</h3><p>${AR.t} Média de <b>${pc(avgMv)} lances</b> por partida.</p></div></div>
     <div class="rp-traits">${traits.map(([t,x,c])=>`<div class="rp-trait ${c}"><b>${t}</b><span>${x}</span></div>`).join('')}</div></section>
-  <section class="rp-sec" id="rp-forma"><h2 class="rp-h"><span class="rp-n">2</span>Forma recente</h2><p class="rp-sub">Da partida mais antiga (esquerda) à mais recente. ○ brancas · ● pretas · ⏱ derrota por tempo.</p>
+  </div><div class="rp-pane" data-p="desempenho" hidden><section class="rp-sec" id="rp-forma"><h2 class="rp-h"><span class="rp-n">2</span>Forma recente</h2><p class="rp-sub">Da partida mais antiga (esquerda) à mais recente. ○ brancas · ● pretas · ⏱ derrota por tempo.</p>
     <div class="rp-form">${form}</div>
     <div class="rp-k"><div><b>${N}</b>partidas</div><div><b>${pc(sc)}%</b>pontuação</div><div><b>${w.W}-${w.D}-${w.L}</b>V-E-D</div><div><b>${r1!=null?r1:'–'}</b>rating${dR!=null?` ${rpDelta(dR)}`:''}</div><div><b>${bw}</b>maior seq. de vitórias</div><div><b>${bl}</b>maior seq. de derrotas</div></div>
     ${bar(w)}${spark}</section>
   <section class="rp-sec" id="rp-skills"><h2 class="rp-h"><span class="rp-n">3</span>Mapa de habilidades</h2><p class="rp-sub">Seis índices de 0 a 100 calculados a partir das suas partidas.</p>
     <div class="rp-sk">${rpRadar(AX)}<div>${AX.map(x=>`<div class="rp-ax"><div class="rp-axh"><b>${x.n}</b><span style="color:${rpCol(x.v)}">${x.v} · ${rpLbl(x.v)}</span></div><div class="rp-track"><i style="width:${x.v}%;background:${rpCol(x.v)}"></i></div><small class="mut">${x.d}</small></div>`).join('')}</div></div></section>
-  <section class="rp-sec" id="rp-jogo"><h2 class="rp-h"><span class="rp-n">4</span>Seu jogo em detalhe</h2>
+  </div><div class="rp-pane" data-p="jogo" hidden><section class="rp-sec" id="rp-jogo"><h2 class="rp-h"><span class="rp-n">4</span>Seu jogo em detalhe</h2>
     <div class="rp-grid">
       <div class="rp-card"><h4>Por cor</h4>${[['♔ Brancas',wb],['♚ Pretas',bb]].map(([l,r])=>`<div class="rp-colr"><span>${l}</span><div style="flex:1">${bar(r)}</div><b>${r.n?pc(score(r))+'%':'–'}</b></div>`).join('')}</div>
       <div class="rp-card"><h4>Contra quem você joga</h4>${k.length?[['Mais fortes (+50)',st],['Parecidos (±50)',eq],['Mais fracos (−50)',wk]].map(([l,r])=>`<div class="rp-colr"><span>${l}</span><div style="flex:1">${bar(r)}</div><b>${r.n?pc(score(r))+'%':'–'}</b></div>`).join(''):'<p class="mut">Sem dados de rating dos adversários.</p>'}</div>
@@ -2685,18 +2700,48 @@ function repBuild(){
       <div class="rp-card"><h4>Como terminam</h4>${Object.keys(TERM).map(t=>{const r=wdl(gs.filter(g=>g.term===t));return r.n?`<div class="rp-colr"><span>${TERM[t]}</span><div style="flex:1">${bar(r)}</div><b>${r.n}</b></div>`:''}).join('')}</div>
       <div class="rp-card wide"><h4>Quando você rende mais</h4><p class="rp-sub">Altura da barra = pontuação. Verde ≥ 55%, âmbar ≥ 40%.</p><div class="rp-2">${mini(dow)}${mini(per)}</div>${bestPer&&worstPer&&bestPer[0]!==worstPer[0]?`<p class="rp-ins">Melhor período: <b>${bestPer[0]}</b> (${pc(score(bestPer[1]))}%). Pior: <b>${worstPer[0]}</b> (${pc(score(worstPer[1]))}%). Amostra pequena: use como pista.</p>`:''}</div>
     </div></section>
-  <section class="rp-sec" id="rp-ab"><h2 class="rp-h"><span class="rp-n">5</span>Repertório de aberturas</h2><p class="rp-sub">${new Set(allOp.map(x=>x.c+x.f)).size} aberturas diferentes em ${N} partidas. Posições típicas depois de cerca de 5 lances.</p>
+  </div><div class="rp-pane" data-p="ab" hidden><section class="rp-sec" id="rp-ab"><h2 class="rp-h"><span class="rp-n">5</span>Repertório de aberturas</h2><p class="rp-sub">${new Set(allOp.map(x=>x.c+x.f)).size} aberturas diferentes em ${N} partidas. Posições típicas depois de cerca de 5 lances.</p>
     ${opCards?`<div class="rp-ops">${opCards}</div>`:'<p class="mut">Sem aberturas identificadas nestas partidas.</p>'}
     <h3 class="rp-h3">Qualidade de jogo (Stockfish)</h3>${qual}</section>
-  <section class="rp-sec" id="rp-sw"><h2 class="rp-h"><span class="rp-n">6</span>Pontos fortes e oportunidades</h2>
+  </div><div class="rp-pane" data-p="plano" hidden><section class="rp-sec" id="rp-sw"><h2 class="rp-h"><span class="rp-n">6</span>Pontos fortes e oportunidades</h2>
     <div class="rp-2c"><div class="rp-box good"><h4>✓ Pontos fortes</h4>${sw.length?`<ul>${sw.map(x=>`<li>${x}</li>`).join('')}</ul>`:'<p>Amplie a amostra para destacar seus pontos fortes.</p>'}</div>
     <div class="rp-box bad"><h4>▲ Oportunidades</h4><ul>${(op2.length?op2:['Nenhum ponto fraco claro: aumente a amostra e treine táticas.']).map(x=>`<li>${x}</li>`).join('')}</ul></div></div></section>
   <section class="rp-sec" id="rp-plano"><h2 class="rp-h"><span class="rp-n">7</span>Plano de 7 dias</h2><p class="rp-sub">Sessões curtas, ordenadas pelo que mais pode render para você.</p>
-    <div class="rp-days">${plan.map((x,i)=>`<div class="rp-day"><div class="rp-dn">DIA ${i+1}<span>${x.m||''}</span></div><div><b>${x.ic} ${esc(x.t)}</b><p>${esc(x.d)}</p>${x.go?`<button class="btn alt sm no-print" onclick="repGo('${x.go}')">${x.b}</button>`:''}</div></div>`).join('')}</div>
+    <div class="rp-days">${plan.map((x,i)=>`<div class="rp-day"><div class="rp-dn">DIA ${i+1}<span>${x.m||''}</span></div><div><b>${x.ic} ${esc(x.t)}</b><p>${esc(x.d)}</p>${x.go?`<button class="btn alt sm no-print" data-go="${x.go}">${x.b}</button>`:''}</div></div>`).join('')}</div>
     <h3 class="rp-h3">Metas para as próximas ${N} partidas</h3>
     <div class="rp-goals">${goals.slice(0,4).map(([t,f,to])=>`<div><small>${t}</small><b>${f} <span>→</span> ${to}</b></div>`).join('')}</div></section>
-  <footer class="rp-foot"><b>Como calculamos.</b> Resultado = pontuação; Relógio = 100 − 2,5 × % de partidas perdidas por tempo; Resiliência = pontuação logo após derrotas; Início de partida = 100 − 2,5 × % de derrotas em até 20 lances; Rivais fortes = pontuação contra adversários 50+ pontos acima × 1,7; Precisão = média do Stockfish (ou, sem análise, Regularidade = 100 − 15 × maior sequência de derrotas). Índice Gambito = média ponderada (Resultado 25%, demais 15%). Com ${N} partidas, padrões isolados são indícios, não certezas.<br>Gerado em ${fmtDT(Date.now())} · Dados: ${PLN[a.pl]} · Motor: Stockfish · Peças: Cburnett (GPLv2+).</footer>
+  </div><div class="rp-foot"><b>Como calculamos.</b> Resultado = pontuação; Relógio = 100 − 2,5 × % de partidas perdidas por tempo; Resiliência = pontuação logo após derrotas; Início de partida = 100 − 2,5 × % de derrotas em até 20 lances; Rivais fortes = pontuação contra adversários 50+ pontos acima × 1,7; Precisão = média do Stockfish (ou, sem análise, Regularidade = 100 − 15 × maior sequência de derrotas). Índice Gambito = média ponderada (Resultado 25%, demais 15%). Com ${N} partidas, padrões isolados são indícios, não certezas.<br>Gerado em ${fmtDT(Date.now())} · Dados: ${PLN[a.pl]} · Motor: Stockfish · Peças: Cburnett (GPLv2+).</div>
   </div>`;
+}
+
+/* abas do relatório (delegação de eventos) e PDF em formato A4 fixo */
+$('#rpt').addEventListener('click',e=>{
+  const t=e.target.closest('[data-rt]');if(t){rpTab(t.dataset.rt);return}
+  const g=e.target.closest('[data-go]');if(g)repGo(g.dataset.go);
+});
+function rpTab(p){
+  const root=$('#rpt-body');
+  root.querySelectorAll('.rp-pane').forEach(e=>{e.hidden=!(p==='all'||e.dataset.p===p)});
+  root.querySelectorAll('.rp-tab').forEach(b=>{const on=b.dataset.rt===p;b.classList.toggle('on',on);b.setAttribute('aria-selected',on);if(on){const bar=b.parentNode;bar.scrollLeft=b.offsetLeft-bar.clientWidth/2+b.clientWidth/2}});
+  $('#rpt').scrollTop=0;
+}
+function repDoc(){
+  const css=[...document.querySelectorAll('style')].map(s=>s.textContent).join('\n');
+  const fonts=[...document.querySelectorAll('link[rel=stylesheet]')].map(l=>'<link rel="stylesheet" href="'+l.href+'">').join('');
+  const PR='@page{size:A4;margin:0}html,body{margin:0;background:#fff!important}.rpdoc .rp{width:210mm;max-width:none;margin:0;padding:12mm;box-sizing:border-box}.rpdoc .rp-pane[hidden]{display:block!important}.rpdoc .rp-tabs,.rpdoc .no-print{display:none!important}.rpdoc .rp-sec,.rpdoc .rp-cover{box-shadow:none}.rpdoc .rp-sec,.rpdoc .rp-cover,.rpdoc .rp-day,.rpdoc .rp-op,.rpdoc .rp-card,.rpdoc .rp-trait,.rpdoc .rp-box,.rpdoc .rp-qk{break-inside:avoid}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}';
+  return '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Relatorio-Gambito</title>'+fonts+'<style>'+css+'</style><style>'+PR+'</style></head><body class="rpdoc">'+$('#rpt-body').innerHTML+'</body></html>';
+}
+function repOpenBlob(doc){const u=URL.createObjectURL(new Blob([doc],{type:'text/html'}));window.open(u,'_blank');setTimeout(()=>URL.revokeObjectURL(u),60000)}
+function repPrint(){
+  const doc=repDoc();
+  try{
+    const f=document.createElement('iframe');f.setAttribute('aria-hidden','true');
+    f.style.cssText='position:fixed;left:-9999px;top:0;width:210mm;height:297mm;border:0';
+    document.body.appendChild(f);
+    const d=f.contentDocument;d.open();d.write(doc);d.close();
+    const go=()=>{try{f.contentWindow.focus();f.contentWindow.print()}catch(e){repOpenBlob(doc)}setTimeout(()=>f.remove(),60000)};
+    (d.fonts&&d.fonts.ready?Promise.race([d.fonts.ready,new Promise(r=>setTimeout(r,1500))]):Promise.resolve()).then(()=>setTimeout(go,250));
+  }catch(e){repOpenBlob(doc)}
 }
 
 /* ---------- inicialização ---------- */
