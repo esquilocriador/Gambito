@@ -357,22 +357,99 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 .zc.wide .zring text{fill:#fff}
 .zc.wide:hover{border-color:#fff}
 
-/* relatório do jogador */
+/* relatório do jogador (visual) */
 #rpt{position:fixed;inset:0;z-index:90;background:var(--bg);overflow:auto;-webkit-overflow-scrolling:touch}
-.rpt-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--brown);color:var(--cream)}
+.rpt-bar{position:sticky;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--brown);color:var(--cream)}
 .rpt-bar .btn{background:var(--cream);color:var(--brown)}
-.rpt-pg{max-width:820px;margin:18px auto;background:#fff;border-radius:14px;padding:28px;box-shadow:0 10px 30px -20px #3A2519;color:#2A1B12}
-.rpt-pg h1{font-size:30px;line-height:1.15}
-.rpt-pg h2{font-size:20px;margin:24px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
-.rpt-k{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:10px}
-.rpt-k div{border:1px solid var(--line);border-radius:10px;padding:10px;font-size:13px;color:var(--mut)}
-.rpt-k b{display:block;font:400 24px/1.2 'Young Serif',Georgia,serif;color:var(--ink)}
-.rpt-type{background:var(--brown);color:var(--cream);border-radius:14px;padding:18px 20px;margin:12px 0}
-.rpt-type h3{font-size:26px}
-.rpt-tr{display:grid;gap:8px;margin-top:12px}.rpt-tr div{background:var(--br2);border-radius:10px;padding:8px 12px}
-.rpt-tip{border-left:5px solid var(--acc);background:#FBF6EA;border-radius:8px;padding:10px 14px;margin:8px 0}
-@media(max-width:600px){.rpt-pg{margin:0;border-radius:0;padding:18px}}
-@media print{body>*:not(#rpt){display:none!important}html,body{background:#fff}#rpt{position:static;overflow:visible;background:#fff}.rpt-bar,.no-print{display:none!important}.rpt-pg{box-shadow:none;margin:0;max-width:none;padding:0}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}.rpt-tip,.rpt-type,.pf-row{break-inside:avoid}}
+.rp{max-width:920px;margin:0 auto;padding:10px 14px 40px;color:var(--ink)}
+.rp section,.rp header{scroll-margin-top:100px}
+.rp-nav{position:sticky;top:52px;z-index:2;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 2px;background:linear-gradient(var(--bg) 75%,transparent)}
+.rp-nav::-webkit-scrollbar{display:none}
+.rp-nav button{flex:none;border:1.5px solid var(--line);background:#FFFCF5;border-radius:99px;padding:5px 13px;font-weight:600;font-size:13px;cursor:pointer;color:var(--brown)}
+.rp-cover{position:relative;overflow:hidden;background:linear-gradient(135deg,#3A2519,#2A1B12);color:var(--cream);border-radius:22px;padding:28px 26px;margin:6px 0 16px}
+.rp-cover::before{content:'';position:absolute;inset:0;background-image:conic-gradient(rgba(255,255,255,.055) 25%,transparent 0 50%,rgba(255,255,255,.055) 0 75%,transparent 0);background-size:64px 64px;-webkit-mask-image:linear-gradient(115deg,transparent 25%,#000);mask-image:linear-gradient(115deg,transparent 25%,#000)}
+.rp-cover>*{position:relative}
+.rp-cover .wm{position:absolute;right:-18px;bottom:-26px;width:230px;height:230px;opacity:.13;background-size:contain;background-repeat:no-repeat}
+.rp-kick{font-size:12px;letter-spacing:.14em;color:#E0A43A;font-weight:700}
+.rp-cover h1{font-size:clamp(34px,7vw,56px);margin:6px 0 12px;line-height:1.05}
+.rp-chips{display:flex;gap:8px;flex-wrap:wrap}
+.rp-chips span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:3px 12px;font-size:13px}
+.rp-cv{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;margin-top:22px}
+@media(max-width:640px){.rp-cv{grid-template-columns:1fr}.rp-cover{padding:22px 18px}}
+.rp-score{display:flex;align-items:center;gap:14px;color:#fff}
+.rp-score small{display:block;letter-spacing:.12em;font-size:11px;color:#E0A43A;font-weight:700}
+.rp-score b{display:block;font:400 30px/1.1 'Young Serif',Georgia,serif}
+.rp-score span{color:#D5C2A2;font-size:14px}
+.rp-head{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.rp-head li{background:rgba(255,255,255,.08);border-left:4px solid #E0A43A;border-radius:8px;padding:8px 12px;font-size:15px}
+.rp-head b{color:#E0A43A}
+.rp-sec{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;margin:16px 0;box-shadow:0 14px 30px -26px #3A2519}
+.rp-h{display:flex;align-items:center;gap:10px;font-size:23px;margin:0 0 4px}
+.rp-n{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:var(--brown);color:#E0A43A;font:400 16px 'Young Serif',serif;flex:none}
+.rp-sub{color:var(--mut);font-size:14px;margin:0 0 12px}
+.rp-h3{font-size:19px;margin:22px 0 8px}
+.rp em{font-style:normal;font-size:13px;font-weight:700}.rp em.up{color:#4F6B3A}.rp em.dn{color:#C0533F}.rp em.eq{color:var(--mut)}
+.rp-arch{--ac:#7A5233;display:flex;gap:18px;align-items:center;background:#FBF6EA;background:linear-gradient(120deg,color-mix(in srgb,var(--ac) 16%,#fff),#fff);border:1.5px solid var(--ac);border-radius:18px;padding:16px}
+.rp-pc{flex:none;width:110px;height:110px;border-radius:24px;background:var(--ac);display:grid;place-items:center;box-shadow:0 12px 20px -12px var(--ac)}
+.rp-pc i{display:block;width:84px;height:84px;background-size:contain;background-repeat:no-repeat}
+.rp-arch small{letter-spacing:.12em;color:var(--ac);font-weight:700;font-size:11px}
+.rp-arch h3{font-size:28px;color:var(--ac);line-height:1.1}.rp-arch p{margin:4px 0 0}
+@media(max-width:560px){.rp-pc{width:84px;height:84px}.rp-pc i{width:64px;height:64px}.rp-arch h3{font-size:22px}}
+.rp-traits{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:14px}
+.rp-trait{display:grid;gap:2px;border-radius:12px;padding:10px 12px;font-size:14px;border:1px solid var(--line);background:#FFFCF5}
+.rp-trait.good{border-left:5px solid #4F6B3A}.rp-trait.bad{border-left:5px solid #C0533F}.rp-trait.info{border-left:5px solid #3F7CAC}
+.rp-trait span{color:var(--mut)}
+.rp-form{display:flex;gap:3px;margin:12px 0 14px}
+.rp-t{flex:1;min-width:8px;height:40px;border-radius:6px;display:grid;place-items:center;font-style:normal;font-size:11px;color:rgba(255,255,255,.92);position:relative;line-height:1}
+.rp-t.W{background:#6E9B3E}.rp-t.D{background:#B9A88E}.rp-t.L{background:#C0533F}
+.rp-t s{position:absolute;top:-9px;font-size:10px;text-decoration:none}
+.rp-k{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:10px}
+.rp-k div{border:1px solid var(--line);border-radius:10px;padding:10px;font-size:13px;color:var(--mut);background:#FFFCF5}
+.rp-k b{display:block;font:400 24px/1.2 'Young Serif',Georgia,serif;color:var(--ink)}
+.rp-sk{display:grid;grid-template-columns:minmax(0,340px) 1fr;gap:22px;align-items:center}
+@media(max-width:700px){.rp-sk{grid-template-columns:1fr}}
+.rp-radar{width:100%;height:auto}
+.rp-ax{margin-bottom:12px}.rp-axh{display:flex;justify-content:space-between;font-size:14px;margin-bottom:3px}
+.rp-track{height:9px;border-radius:5px;background:var(--line);overflow:hidden}.rp-track i{display:block;height:100%;border-radius:5px}
+.rp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.rp-card{border:1px solid var(--line);border-radius:14px;padding:14px;background:#FFFCF5}.rp-card.wide{grid-column:1/-1}
+.rp-card h4{margin:0 0 8px;font-size:15px}
+.rp-colr{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:14px}.rp-colr span{width:130px;flex:none}.rp-colr b{width:44px;text-align:right}.rp-colr .wdl{margin:0}
+.rp-hr{display:grid;grid-template-columns:52px 1fr 24px;gap:8px;align-items:center;margin:6px 0;font-size:13px}
+.rp-hb{display:flex;height:16px;border-radius:5px;overflow:hidden}
+.rp-leg{font-size:12px;color:var(--mut);margin:8px 0 0}.rp-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin:0 3px 0 8px}
+.rp-2{display:grid;grid-template-columns:7fr 4fr;gap:20px}@media(max-width:600px){.rp-2{grid-template-columns:1fr}}
+.rp-bars{display:flex;gap:6px;height:120px}
+.rp-bc{flex:1;display:grid;gap:2px;text-align:center;height:100%;grid-template-rows:1fr auto auto}
+.rp-bt{display:flex;align-items:flex-end;background:#F1E8D6;border-radius:6px;overflow:hidden}.rp-bt i{display:block;width:100%;border-radius:6px 6px 0 0}
+.rp-bc small{font-size:11px}
+.rp-ins{background:#FBF6EA;border-left:4px solid #C98E1A;border-radius:8px;padding:8px 12px;margin:12px 0 0;font-size:14px}
+.rp-ops{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.rp-op{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px;background:#FFFCF5}
+.rp-op .wdl{margin:8px 0}
+.rp-mb{display:grid;grid-template-columns:repeat(8,1fr);aspect-ratio:1;border-radius:6px;overflow:hidden;box-shadow:0 0 0 3px var(--brown)}
+.rp-mb i{position:relative;display:block}.rp-mb i.l{background:#F0D9B5}.rp-mb i.d{background:#B58863}.rp-mb b{position:absolute;inset:0;background-size:100% 100%}
+.rp-tag{display:inline-block;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:700;color:#fff}.rp-tag.good{background:#4F6B3A}.rp-tag.bad{background:#C0533F}.rp-tag.info{background:#7B6551}
+.rp-q{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.rp-qk{border:1px solid var(--line);border-radius:12px;padding:10px;background:#FFFCF5}.rp-qk b{display:block;font:400 24px/1.2 'Young Serif',serif}.rp-qk small{color:var(--mut);font-size:12px}
+.rp-ph{display:grid;grid-template-columns:90px 1fr 50px;gap:10px;align-items:center;margin:6px 0}
+.rp-cta{background:#FBF6EA;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.rp-2c{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:700px){.rp-2c{grid-template-columns:1fr}}
+.rp-box{border-radius:14px;padding:14px 16px}.rp-box h4{margin:0 0 6px}.rp-box ul{margin:0;padding-left:18px}.rp-box li{margin-bottom:6px;font-size:14px}
+.rp-box.good{background:#EEF3E4;border:1px solid #C9D8B0}.rp-box.bad{background:#FBEDE5;border:1px solid #EBC7B3}
+.rp-days{display:grid;gap:10px}
+.rp-day{display:grid;grid-template-columns:86px 1fr;gap:14px;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#FFFCF5}
+.rp-dn{background:var(--brown);color:#E0A43A;border-radius:10px;font:700 12px/1.3 Figtree,sans-serif;letter-spacing:.08em;display:grid;place-content:center;text-align:center;padding:8px}
+.rp-dn span{display:block;color:#D5C2A2;font-weight:500;letter-spacing:0;margin-top:2px}
+.rp-day p{margin:2px 0 6px;font-size:14px;color:var(--mut)}
+@media(max-width:560px){.rp-day{grid-template-columns:68px 1fr}.rp-op{grid-template-columns:96px 1fr}}
+.rp-goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.rp-goals div{background:var(--brown);color:var(--cream);border-radius:12px;padding:12px 14px}
+.rp-goals small{display:block;color:#D5C2A2}.rp-goals b{font:400 20px 'Young Serif',serif}.rp-goals span{color:#E0A43A}
+.rp-dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+.rp-dl div{border:1px solid var(--line);border-radius:12px;padding:10px;background:#FFFCF5}.rp-dl small{display:block;color:var(--mut);font-size:12px}.rp-dl b{font:400 22px 'Young Serif',serif;margin-right:6px}
+.rp-foot{font-size:12px;color:var(--mut);margin:18px 4px 0;line-height:1.55}
+@media print{body>*:not(#rpt){display:none!important}html,body{background:#fff}#rpt{position:static;overflow:visible;background:#fff}.rpt-bar,.no-print{display:none!important}.rp{max-width:none;padding:0}.rp-sec,.rp-cover{box-shadow:none}.rp-sec,.rp-cover,.rp-day,.rp-op,.rp-card,.rp-trait{break-inside:avoid}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{margin:12mm}}
 .pdslot{position:absolute;inset:7px;border-radius:15px;background:var(--br2);box-shadow:inset 0 3px 8px rgba(0,0,0,.35)}
 @media(min-width:901px){
  #pdock{right:auto;bottom:auto;top:calc(var(--hh,62px) - 1px);left:var(--navx,50%);transform:translateX(-50%);border-radius:0 0 22px 22px}
@@ -2456,12 +2533,41 @@ function openReport(){
 }
 function closeReport(){$('#rpt').hidden=true;document.body.style.overflow=''}
 function repGo(t){closeReport();show(t)}
+/* ---------- Relatório do jogador: versão visual ---------- */
+const rpClamp=v=>Math.max(0,Math.min(100,Math.round(v)));
+const rpCol=v=>v>=70?'#4F6B3A':v>=45?'#3F7CAC':'#C0533F';
+const rpLbl=v=>v>=70?'Ponto forte':v>=45?'Estável':'Prioridade';
+const rpDelta=d=>d==null?'':d>0?`<em class="up">▲ ${d}</em>`:d<0?`<em class="dn">▼ ${-d}</em>`:'<em class="eq">＝</em>';
+function rpJump(id){const e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth',block:'start'})}
+function rpRing(v,col,track,size=124,sw=12){
+  const r=(size-sw)/2,c=2*Math.PI*r,m=size/2;
+  return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" role="img" aria-label="${v} de 100"><circle cx="${m}" cy="${m}" r="${r}" fill="none" stroke="${track}" stroke-width="${sw}"/><circle cx="${m}" cy="${m}" r="${r}" fill="none" stroke="${col}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="${v/100*c} ${c}" transform="rotate(-90 ${m} ${m})"/><text x="${m}" y="${m+9}" text-anchor="middle" font-family="Young Serif,Georgia,serif" font-size="${size*.32}" fill="${col==='#fff'?'#fff':'currentColor'}">${v}</text></svg>`;
+}
+function rpRadar(ax){
+  const n=ax.length,cx=150,cy=142,R=92,pt=(i,k)=>{const a=-Math.PI/2+i*2*Math.PI/n;return [cx+Math.cos(a)*R*k,cy+Math.sin(a)*R*k]},f=p=>p.map(x=>x.toFixed(1)).join(',');
+  const ring=k=>`<polygon points="${ax.map((_,i)=>f(pt(i,k))).join(' ')}" fill="${k===1?'#FBF6EA':'none'}" stroke="#DCCBAE"/>`;
+  const dots=ax.map((a,i)=>{const [x,y]=pt(i,Math.max(.05,a.v/100));return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" fill="${rpCol(a.v)}" stroke="#fff" stroke-width="2"/>`}).join('');
+  const labs=ax.map((a,i)=>{const [x,y]=pt(i,1.24),an=Math.abs(x-cx)<10?'middle':x>cx?'start':'end';return `<text x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="${an}" font-size="11.5" font-weight="700" fill="#2A1B12">${a.n}</text>`}).join('');
+  return `<svg viewBox="-30 0 360 290" class="rp-radar" role="img" aria-label="Radar de habilidades">${[1,.75,.5,.25].map(ring).join('')}${ax.map((_,i)=>{const [x,y]=pt(i,1);return `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#DCCBAE"/>`}).join('')}<polygon points="${ax.map((a,i)=>f(pt(i,Math.max(.05,a.v/100)))).join(' ')}" fill="rgba(201,142,26,.3)" stroke="#C98E1A" stroke-width="2.5" stroke-linejoin="round"/>${dots}${labs}</svg>`;
+}
+function rpBoard(fen,flip){
+  const rows=new Chess(fen).board();let h='';
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){const rr=flip?7-r:r,cc=flip?7-c:c,p=rows[rr][cc];h+=`<i class="${(rr+cc)%2?'d':'l'}">${p?`<b class="p-${p.color}${p.type.toUpperCase()}"></b>`:''}</i>`}
+  return `<div class="rp-mb" role="img" aria-label="Posição típica">${h}</div>`;
+}
+const RP_ARCH={
+  Q:{n:'A Dama Dominante',c:'#C98E1A',t:'Você converte vantagem e impõe o ritmo da partida.'},
+  N:{n:'O Cavaleiro Tático',c:'#A3392B',t:'Jogo rápido, direto e cheio de golpes: a partida se decide cedo.'},
+  R:{n:'A Torre Persistente',c:'#3F7CAC',t:'Você resiste, alonga a partida e vence no desgaste.'},
+  B:{n:'O Bispo Estrategista',c:'#7B5BA5',t:'Equilíbrio entre plano e cálculo, com partidas de duração média.'},
+  P:{n:'O Peão em Ascensão',c:'#4F6B3A',t:'Base em construção: cada ajuste aqui rende muito rating.'}
+};
 function repBuild(){
   const a=P.cur,sp=P.rp.sp,n=P.rp.n,pc=v=>Math.round(v);
   const all=P.games.filter(g=>g.sp===sp).slice(0,n);
-  if(all.length<5)return '<div class="rpt-pg"><h1>Relatório do jogador</h1><p>São necessárias pelo menos 5 partidas deste ritmo. Importe mais partidas no perfil.</p></div>';
+  if(all.length<5)return '<div class="rp"><div class="rp-sec"><h2 class="rp-h">Relatório do jogador</h2><p>São necessárias pelo menos 5 partidas deste ritmo. Importe mais partidas no perfil.</p></div></div>';
   const gs=all.slice().reverse(),N=gs.length,w=wdl(gs),sc=score(w),wb=wdl(gs.filter(g=>g.col==='w')),bb=wdl(gs.filter(g=>g.col==='b'));
-  const rt=gs.filter(g=>g.mr!=null),r0=rt.length?rt[0].mr:null,r1=rt.length?rt[rt.length-1].mr:null;
+  const rt=gs.filter(g=>g.mr!=null),r0=rt.length?rt[0].mr:null,r1=rt.length?rt[rt.length-1].mr:null,dR=r0!=null?r1-r0:null;
   const losses=gs.filter(g=>g.res==='L'),wins=gs.filter(g=>g.res==='W');
   const tl=losses.filter(g=>g.term==='time').length,mateW=wins.filter(g=>g.term==='mate').length;
   const mvs=g=>Math.ceil(g.ply/2),avgMv=gs.reduce((s,g)=>s+mvs(g),0)/N,shortL=losses.filter(g=>mvs(g)<=20).length;
@@ -2469,80 +2575,130 @@ function repBuild(){
   const af=[];gs.forEach((g,i)=>{if(i&&gs[i-1].res==='L')af.push(g)});const afS=af.length?score(wdl(af)):null;
   const k=gs.filter(g=>g.mr!=null&&g.or!=null),dd=g=>g.or-g.mr;
   const st=wdl(k.filter(g=>dd(g)>=50)),eq=wdl(k.filter(g=>Math.abs(dd(g))<50)),wk=wdl(k.filter(g=>dd(g)<=-50));
-  const opn=c=>{const m=new Map();gs.filter(g=>g.col===c&&g.fam).forEach(g=>{const r=m.get(g.fam)||[];r.push(g);m.set(g.fam,r)});return [...m].map(([f,v])=>[f,wdl(v)]).sort((x,y)=>y[1].n-x[1].n)};
-  const opw=opn('w'),opb=opn('b'),allOp=[...opw.map(x=>['w',...x]),...opb.map(x=>['b',...x])];
-  const worst=allOp.filter(x=>x[2].n>=3&&score(x[2])<40).sort((x,y)=>score(x[2])-score(y[2]))[0];
-  const best=allOp.filter(x=>x[2].n>=3&&score(x[2])>=60).sort((x,y)=>score(y[2])-score(x[2]))[0];
   const an=gs.map(g=>P.an.get(g.id)).filter(x=>x&&x.accuracy!=null);
+  const acc=an.length?an.reduce((s,x)=>s+x.accuracy,0)/an.length:null;
+  const bl2=an.length?an.reduce((s,x)=>s+((x.cnt&&x.cnt.blunder)||0),0)/an.length:null,ms2=an.length?an.reduce((s,x)=>s+((x.cnt&&x.cnt.mistake)||0),0)/an.length:null;
+  const ph={o:[0,0],m:[0,0],e:[0,0]};an.forEach(x=>Object.keys(ph).forEach(f=>{ph[f][0]+=x.ph[f].l;ph[f][1]+=x.ph[f].n}));
+  const pv=Object.keys(ph).filter(f=>ph[f][1]>=8).map(f=>[f,ph[f][0]/ph[f][1]]).sort((x,y)=>y[1]-x[1]);
   const dcol=score(wb)-score(bb),colOk=wb.n>=5&&bb.n>=5;
-  /* tipo de jogador */
-  const style=avgMv<28?{n:'Tático e agressivo',d:`Suas partidas são curtas (média de ${pc(avgMv)} lances) e costumam se decidir cedo.`}
-    :avgMv<=42?{n:'Equilibrado',d:`Suas partidas têm duração média (${pc(avgMv)} lances), com decisão tanto no meio-jogo quanto no final.`}
-    :{n:'Posicional e de resistência',d:`Suas partidas são longas (média de ${pc(avgMv)} lances): você tende a manter o jogo vivo até as fases finais.`};
-  const tr=[];
-  if(losses.length>=3&&tl/losses.length>=.3)tr.push(['Vulnerável ao relógio',`${pc(tl/losses.length*100)}% das derrotas foram por tempo.`]);
-  if(colOk&&Math.abs(dcol)>=15)tr.push([dcol>0?'Mais forte de brancas':'Mais forte de pretas',`${pc(score(dcol>0?wb:bb))}% com ${dcol>0?'brancas':'pretas'} contra ${pc(score(dcol>0?bb:wb))}% com ${dcol>0?'pretas':'brancas'}.`]);
-  if(af.length>=4&&afS<sc-15)tr.push(['Sensível a derrotas',`Depois de perder, sua pontuação cai para ${pc(afS)}% (média geral ${pc(sc)}%).`]);
-  if(st.n>=3&&score(st)>=45)tr.push(['Competitivo contra mais fortes',`${pc(score(st))}% de pontuação contra adversários 50+ pontos acima.`]);
-  if(wk.n>=4&&score(wk)<70)tr.push(['Irregular contra mais fracos',`Só ${pc(score(wk))}% contra adversários 50+ pontos abaixo.`]);
-  if(bl>=4)tr.push(['Sofre com sequências negativas',`Maior sequência de derrotas: ${bl}.`]);
-  if(wins.length>=3&&mateW/wins.length>=.4)tr.push(['Finalizador',`${pc(mateW/wins.length*100)}% das vitórias vieram por xeque-mate.`]);
-  if(w.D/N>=.2)tr.push(['Sólido',`${pc(w.D/N*100)}% das partidas terminaram empatadas.`]);
-  if(!tr.length)tr.push(['Estável','Nenhum padrão extremo apareceu nestas partidas.']);
-  /* pistas de melhoria */
-  const tips=[];
-  if(losses.length&&tl>=2&&tl/losses.length>=.25)tips.push({t:'Gestão do relógio',d:`${tl} de ${losses.length} derrotas foram por tempo. Defina marcos (por exemplo, não gastar mais de 30% do tempo até o lance 15), jogue a abertura mais rápido e teste ritmos com incremento.`,a:['Treinar aberturas','aberturas']});
-  if(worst)tips.push({t:`Abertura problemática: ${worst[1]}`,d:`Com ${worst[0]==='w'?'brancas':'pretas'}: ${worst[2].n} partidas e ${pc(score(worst[2]))}% de pontuação. Revise a linha, descubra onde o jogo se perde e prepare uma alternativa.`,a:['Treinar aberturas','aberturas']});
-  if(colOk&&Math.abs(dcol)>=15)tips.push({t:`Reforçar o jogo com ${dcol>0?'as pretas':'as brancas'}`,d:`A diferença de ${pc(Math.abs(dcol))} pontos percentuais entre as cores sugere um repertório menos preparado com ${dcol>0?'as pretas':'as brancas'}. Escolha uma ou duas aberturas e repita-as.`,a:['Treinar aberturas','aberturas']});
-  if(losses.length&&shortL>=2&&shortL/losses.length>=.3)tips.push({t:'Derrotas muito cedo',d:`${shortL} derrotas em 20 lances ou menos. Costuma indicar um erro tático básico ou uma abertura mal conhecida: treine mates curtos, garfos e peças penduradas e confira as ameaças antes de cada lance.`,a:['Treinar táticas','problemas']});
-  if(af.length>=4&&afS<sc-15)tips.push({t:'Reação a derrotas',d:'Seu rendimento cai logo após perder. Faça uma pausa curta, evite procurar revanche imediata e revise o erro antes de jogar de novo.'});
-  if(wk.n>=4&&score(wk)<70)tips.push({t:'Consistência contra adversários mais fracos',d:'Pontos perdidos contra jogadores abaixo do seu nível pesam no rating. Evite jogar rápido demais e procure o plano mais simples e seguro.'});
-  let qual='';
-  if(an.length){
-    const acc=an.reduce((s,x)=>s+x.accuracy,0)/an.length,bl2=an.reduce((s,x)=>s+((x.cnt&&x.cnt.blunder)||0),0)/an.length,ms=an.reduce((s,x)=>s+((x.cnt&&x.cnt.mistake)||0),0)/an.length;
-    const ph={o:[0,0],m:[0,0],e:[0,0]};an.forEach(x=>Object.keys(ph).forEach(f=>{ph[f][0]+=x.ph[f].l;ph[f][1]+=x.ph[f].n}));
-    const pv=Object.keys(ph).filter(f=>ph[f][1]>=8).map(f=>[f,ph[f][0]/ph[f][1]]).sort((x,y)=>y[1]-x[1]);
-    qual=`<h2>Qualidade de jogo (motor)</h2><div class="rpt-k"><div><b>${acc.toFixed(1)}%</b>precisão média</div><div><b>${bl2.toFixed(1)}</b>erros graves por partida</div><div><b>${ms.toFixed(1)}</b>erros por partida</div><div><b>${an.length}</b>partidas analisadas</div></div>${pv.length?`<p>Fase em que você mais perde vantagem por lance: <b>${PHN[pv[0][0]]}</b> (${pv[0][1].toFixed(1)}% de chance de vitória por lance).</p>`:''}<p class="mut">Base: ${an.length} de ${N} partidas já analisadas com o Stockfish.</p>`;
-    if(bl2>=1)tips.push({t:'Erros graves',d:`Você comete em média ${bl2.toFixed(1)} erros graves por partida. Antes de cada lance, procure capturas, xeques e ameaças do adversário.`,a:['Treinar táticas','problemas']});
-    if(pv.length>1&&pv[0][1]>=pv[1][1]*1.3)tips.push({t:`Fase mais fraca: ${PHN[pv[0][0]].toLowerCase()}`,d:`É onde você mais perde vantagem por lance. Dedique parte do treino a ${pv[0][0]==='o'?'aberturas':pv[0][0]==='m'?'táticas e planos de meio-jogo':'finais'}.`});
-  }else{
-    qual=`<h2>Qualidade de jogo (motor)</h2><p class="mut">Nenhuma destas partidas foi analisada ainda.</p>`;
-    tips.push({t:'Analise suas partidas',d:'Com 5 ou mais partidas analisadas pelo Stockfish, o relatório passa a incluir precisão, erros graves e a fase mais fraca.',a:['Ir ao Perfil','perfil']});
-  }
-  if(!tips.length)tips.push({t:'Continue assim',d:'Nenhum ponto fraco claro apareceu nestas partidas. Aumente a amostra e treine táticas para subir de nível.',a:['Treinar táticas','problemas']});
-  /* seções */
+  /* índices 0-100 */
+  const IX={res:rpClamp(sc),clock:rpClamp(100-tl/N*250),resil:rpClamp(afS!=null&&af.length>=3?afS:sc),start:rpClamp(100-shortL/N*250),
+    strong:rpClamp(st.n>=3?score(st)*1.7:eq.n?score(eq)*1.1:sc),last:acc!=null?rpClamp(acc):rpClamp(100-bl*15)};
+  const AX=[{k:'res',n:'Resultado',d:'Pontuação nas partidas (vitórias + ½ empates).'},{k:'clock',n:'Relógio',d:'Quanto você evita perder por tempo.'},{k:'resil',n:'Resiliência',d:'Rendimento logo depois de uma derrota.'},{k:'start',n:'Início de partida',d:'Quanto você evita derrotas em até 20 lances.'},{k:'strong',n:'Rivais fortes',d:'Desempenho contra adversários 50+ pontos acima.'},{k:'last',n:acc!=null?'Precisão':'Regularidade',d:acc!=null?'Precisão média medida pelo Stockfish.':'Evitar longas sequências de derrotas.'}].map(x=>({...x,v:IX[x.k]}));
+  const gi=rpClamp(IX.res*.25+IX.clock*.15+IX.resil*.15+IX.start*.15+IX.strong*.15+IX.last*.15);
+  const tier=gi>=75?'Elite':gi>=60?'Avançado':gi>=45?'Competitivo':gi>=30?'Em construção':'Fundamentos';
+  const sorted=AX.slice().sort((x,y)=>y.v-x.v),top=sorted[0],low=sorted[sorted.length-1];
+  /* arquétipo */
+  const key=sc>=62?'Q':avgMv<28?'N':avgMv>42?'R':sc>=48?'B':'P',AR=RP_ARCH[key];
+  const traits=[];
+  if(losses.length>=3&&tl/losses.length>=.3)traits.push(['⏱ Vulnerável ao relógio',`${pc(tl/losses.length*100)}% das derrotas foram por tempo.`,'bad']);
+  if(colOk&&Math.abs(dcol)>=15)traits.push([dcol>0?'♔ Mais forte de brancas':'♚ Mais forte de pretas',`${pc(score(dcol>0?wb:bb))}% com ${dcol>0?'brancas':'pretas'} contra ${pc(score(dcol>0?bb:wb))}% com ${dcol>0?'pretas':'brancas'}.`,'info']);
+  if(af.length>=4&&afS<sc-15)traits.push(['🎢 Sensível a derrotas',`Depois de perder, a pontuação cai para ${pc(afS)}% (média ${pc(sc)}%).`,'bad']);
+  if(st.n>=3&&score(st)>=45)traits.push(['🎯 Competitivo contra mais fortes',`${pc(score(st))}% contra adversários 50+ pontos acima.`,'good']);
+  if(wk.n>=4&&score(wk)<70)traits.push(['⚠ Irregular contra mais fracos',`Só ${pc(score(wk))}% contra adversários 50+ pontos abaixo.`,'bad']);
+  if(bl>=4)traits.push(['📉 Sequências negativas',`Maior sequência de derrotas: ${bl}.`,'bad']);
+  if(wins.length>=3&&mateW/wins.length>=.4)traits.push(['♛ Finalizador',`${pc(mateW/wins.length*100)}% das vitórias vieram por xeque-mate.`,'good']);
+  if(w.D/N>=.2)traits.push(['🤝 Sólido',`${pc(w.D/N*100)}% das partidas terminaram empatadas.`,'info']);
+  if(!traits.length)traits.push(['⚖ Estável','Nenhum padrão extremo apareceu nestas partidas.','info']);
+  /* aberturas */
+  const opn=c=>{const m=new Map();gs.filter(g=>g.col===c&&g.fam).forEach(g=>{const r=m.get(g.fam)||[];r.push(g);m.set(g.fam,r)});return [...m].map(([f,v])=>({f,c,v,r:wdl(v)})).sort((x,y)=>y.r.n-x.r.n)};
+  const opw=opn('w'),opb=opn('b'),allOp=[...opw,...opb];
+  const worst=allOp.filter(x=>x.r.n>=3&&score(x.r)<40).sort((x,y)=>score(x.r)-score(y.r))[0],best=allOp.filter(x=>x.r.n>=3&&score(x.r)>=60).sort((x,y)=>score(y.r)-score(x.r))[0];
+  const opCard=o=>{
+    let bd='';try{const g=o.v.slice().sort((x,y)=>y.t-x.t)[0],r=opReplay(g);bd=rpBoard(r.f[Math.min(10,r.f.length-1)],o.c==='b')}catch(e){}
+    const s=score(o.r),vd=o.r.n<3?['Poucos jogos','info']:s>=60?['Arma','good']:s<40?['Atenção','bad']:['Neutra','info'];
+    return `<div class="rp-op">${bd}<div><b>${esc(o.f)}</b><div class="mut">Com ${o.c==='w'?'brancas':'pretas'} · ${o.r.n} ${o.r.n===1?'partida':'partidas'}</div>${bar(o.r)}<span class="rp-tag ${vd[1]}">${vd[0]} · ${pc(s)}%</span></div></div>`};
+  const opCards=[...opw.slice(0,2),...opb.slice(0,2)].map(opCard).join('');
+  /* tempo: dia e período */
+  const grp=(f,names)=>names.map((nm,i)=>[nm,wdl(gs.filter(g=>f(g)===i))]);
+  const dow=grp(g=>new Date(g.t).getDay(),['Dom','Seg','Ter','Qua','Qui','Sex','Sáb']),per=grp(g=>{const h=new Date(g.t).getHours();return h<6?0:h<12?1:h<18?2:3},['Madrugada','Manhã','Tarde','Noite']);
+  const bestPer=per.filter(x=>x[1].n>=3).sort((x,y)=>score(y[1])-score(x[1]))[0],worstPer=per.filter(x=>x[1].n>=3).sort((x,y)=>score(x[1])-score(y[1]))[0];
+  const mini=l=>`<div class="rp-bars">${l.map(([nm,r])=>`<div class="rp-bc"><div class="rp-bt"><i style="height:${r.n?Math.max(6,score(r)):0}%;background:${r.n<2?'#DCCBAE':score(r)>=55?'#6E9B3E':score(r)>=40?'#E3B21E':'#C0533F'}"></i></div><small>${nm}</small><small class="mut">${r.n||'–'}</small></div>`).join('')}</div>`;
+  /* duração */
+  const B=[['até 20',0,20],['21–30',21,30],['31–40',31,40],['41–60',41,60],['61+',61,999]].map(([l,lo,hi])=>[l,wdl(gs.filter(g=>mvs(g)>=lo&&mvs(g)<=hi))]),mxB=Math.max(...B.map(x=>x[1].n),1);
+  const hist=B.map(([l,r])=>`<div class="rp-hr"><span>${l}</span><div class="rp-hb" style="width:${Math.max(r.n?6:0,r.n/mxB*100)}%"><i style="flex:${r.W};background:#6E9B3E"></i><i style="flex:${r.D};background:#B9A88E"></i><i style="flex:${r.L};background:#C0533F"></i></div><small class="mut">${r.n}</small></div>`).join('');
+  /* forma e rating */
+  const form=gs.map(g=>`<i class="rp-t ${g.res}" title="${RL[g.res]} contra ${esc(g.opp)}">${g.col==='w'?'○':'●'}${g.term==='time'&&g.res==='L'?'<s>⏱</s>':''}</i>`).join('');
   const sv=rt.map(g=>g.mr);let spark='';
-  if(sv.length>1){const W=600,H=90,lo=Math.min(...sv),hi=Math.max(...sv),pd=Math.max(5,(hi-lo)*.1),L=lo-pd,Hh=hi+pd,X=i=>4+i/(sv.length-1)*(W-8),Y=v=>H-4-(v-L)/(Hh-L)*(H-8);
-    spark=`<svg viewBox="0 0 ${W} ${H}" class="pf-chart" role="img" aria-label="Evolução do rating"><path d="${sv.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join(' ')}" fill="none" stroke="#7A5233" stroke-width="2.5" stroke-linejoin="round"/></svg>`}
-  const opRows=(l)=>l.slice(0,3).map(([f,r])=>rowW(f,r)).join('')||'<p class="mut">Sem aberturas identificadas.</p>';
-  const terms=Object.keys(TERM).map(t=>[t,gs.filter(g=>g.term===t&&g.res==='W').length,gs.filter(g=>g.term===t&&g.res==='D').length,gs.filter(g=>g.term===t&&g.res==='L').length]).filter(r=>r[1]+r[2]+r[3]>0);
-  const d=r0!=null?r1-r0:null;
-  const strengths=[];
-  if(best)strengths.push(`Boa abertura: <b>${esc(best[1])}</b> com ${best[0]==='w'?'brancas':'pretas'} (${pc(score(best[2]))}% em ${best[2].n} partidas).`);
-  if(d>0)strengths.push(`Rating em alta: ${d>0?'+':''}${d} pontos no período.`);
-  if(st.n>=3&&score(st)>=45)strengths.push('Bom rendimento contra adversários mais fortes.');
-  if(bw>=4)strengths.push(`Melhor sequência de vitórias: ${bw}.`);
-  return `<div class="rpt-pg">
-    <p class="mut" style="margin:0">Gambito · Relatório do jogador</p>
-    <h1>${esc(a.name)} <span class="mut" style="font-size:18px">${PLN[a.pl]} · ${SPN[sp]}</span></h1>
-    <p class="mut">Últimas ${N} partidas de ${SPN[sp].toLowerCase()} (${fmtDate(gs[0].t)} a ${fmtDate(gs[N-1].t)}). Gerado em ${fmtDT(Date.now())}.</p>
-    <div class="rpt-type"><div class="mut" style="color:#C9B596">Tipo de jogador</div><h3>${style.n}</h3><p style="margin:4px 0 0;color:#EADBBF">${style.d}</p>
-      <div class="rpt-tr">${tr.map(([t,x])=>`<div><b>${t}</b><br><span style="color:#D5C2A2">${x}</span></div>`).join('')}</div></div>
-    <h2>Resultados</h2>
-    <div class="rpt-k"><div><b>${N}</b>partidas</div><div><b>${pc(sc)}%</b>pontuação</div><div><b>${w.W}-${w.D}-${w.L}</b>V-E-D</div><div><b>${r1!=null?r1:'–'}</b>rating atual${d!=null?` (${d>0?'+':''}${d})`:''}</div><div><b>${pc(avgMv)}</b>lances por partida</div><div><b>${bw}/${bl}</b>maior seq. V/D</div></div>
-    ${bar(w)}${spark}
-    <h2>Por cor e por adversário</h2>
-    ${rowW('Brancas',wb)}${rowW('Pretas',bb)}
-    ${k.length?rowW('Adversários mais fortes (+50)',st)+rowW('Parecidos (±50)',eq)+rowW('Mais fracos (−50)',wk):''}
-    <h2>Aberturas mais jogadas</h2><b>Com as brancas</b>${opRows(opw)}<div style="height:10px"></div><b>Com as pretas</b>${opRows(opb)}
-    <h2>Como as partidas terminam</h2>
-    <table class="pf-tb"><thead><tr><th>Final</th><th>Vitórias</th><th>Empates</th><th>Derrotas</th></tr></thead><tbody>${terms.map(r=>`<tr><td>${TERM[r[0]]}</td><td>${r[1]||'–'}</td><td>${r[2]||'–'}</td><td>${r[3]||'–'}</td></tr>`).join('')}</tbody></table>
-    ${qual}
-    ${strengths.length?`<h2>Pontos fortes</h2><ul>${strengths.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
-    <h2>Pistas de melhoria</h2>
-    ${tips.slice(0,6).map((x,i)=>`<div class="rpt-tip"><b>${i+1}. ${esc(x.t)}</b><p style="margin:4px 0 0">${esc(x.d)}</p>${x.a?`<button class="btn alt sm no-print" style="margin-top:8px" onclick="repGo('${x.a[1]}')">${x.a[0]}</button>`:''}</div>`).join('')}
-    <p class="mut" style="margin-top:18px;font-size:13px">Amostra de ${N} partidas: padrões com poucas partidas são indícios, não certezas. Atualize o relatório conforme você joga mais.</p></div>`;
+  if(sv.length>1){const W=600,H=130,lo=Math.min(...sv),hi=Math.max(...sv),pd=Math.max(6,(hi-lo)*.15),L=lo-pd,Hh=hi+pd,X=i=>8+i/(sv.length-1)*(W-16),Y=v=>H-8-(v-L)/(Hh-L)*(H-16),pts=sv.map((v,i)=>X(i).toFixed(1)+' '+Y(v).toFixed(1)),iMx=sv.indexOf(hi),iMn=sv.indexOf(lo);
+    spark=`<svg viewBox="0 0 ${W} ${H}" class="pf-chart" role="img" aria-label="Evolução do rating de ${r0} para ${r1}"><defs><linearGradient id="rpg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C98E1A" stop-opacity=".45"/><stop offset="1" stop-color="#C98E1A" stop-opacity="0"/></linearGradient></defs><path d="M${pts.join(' L')} L${X(sv.length-1)} ${H} L${X(0)} ${H}Z" fill="url(#rpg)"/><path d="M${pts.join(' L')}" fill="none" stroke="#7A5233" stroke-width="2.5" stroke-linejoin="round"/><circle cx="${X(iMx)}" cy="${Y(hi)}" r="5" fill="#4F6B3A" stroke="#fff" stroke-width="2"/><text x="${X(iMx)}" y="${Y(hi)-9}" text-anchor="middle" font-size="12" font-weight="700" fill="#4F6B3A">${hi}</text><circle cx="${X(iMn)}" cy="${Y(lo)}" r="5" fill="#C0533F" stroke="#fff" stroke-width="2"/><text x="${X(iMn)}" y="${Y(lo)+19}" text-anchor="middle" font-size="12" font-weight="700" fill="#C0533F">${lo}</text></svg>`}
+  /* oportunidades e plano */
+  const tips=[];
+  if(losses.length&&tl>=2&&tl/losses.length>=.25)tips.push({ic:'⏱',t:'Gestão do relógio',d:`${tl} de ${losses.length} derrotas foram por tempo. Defina marcos (não gastar mais de 30% do tempo até o lance 15), jogue a abertura mais rápido e teste ritmos com incremento.`,go:'aberturas',b:'Treinar aberturas',m:'20 min'});
+  if(worst)tips.push({ic:'📖',t:`Abertura problemática: ${worst.f}`,d:`Com ${worst.c==='w'?'brancas':'pretas'}: ${worst.r.n} partidas e ${pc(score(worst.r))}% de pontuação. Revise a linha, descubra onde o jogo se perde e prepare uma alternativa.`,go:'aberturas',b:'Treinar aberturas',m:'20 min'});
+  if(colOk&&Math.abs(dcol)>=15)tips.push({ic:'♟',t:`Reforçar o jogo com ${dcol>0?'as pretas':'as brancas'}`,d:`A diferença de ${pc(Math.abs(dcol))} pontos percentuais entre as cores sugere repertório menos preparado com ${dcol>0?'as pretas':'as brancas'}. Escolha uma ou duas aberturas e repita-as.`,go:'aberturas',b:'Treinar aberturas',m:'20 min'});
+  if(losses.length&&shortL>=2&&shortL/losses.length>=.3)tips.push({ic:'⚔',t:'Derrotas muito cedo',d:`${shortL} derrotas em 20 lances ou menos: costuma indicar erro tático básico ou abertura mal conhecida. Treine mates curtos, garfos e peças penduradas e confira as ameaças antes de cada lance.`,go:'problemas',b:'Treinar táticas',m:'15 min'});
+  if(af.length>=4&&afS<sc-15)tips.push({ic:'🧘',t:'Reação a derrotas',d:'Seu rendimento cai logo após perder. Faça uma pausa curta, evite procurar revanche imediata e revise o erro antes de jogar de novo.',m:'5 min'});
+  if(wk.n>=4&&score(wk)<70)tips.push({ic:'🎯',t:'Consistência contra mais fracos',d:'Pontos perdidos contra jogadores abaixo do seu nível pesam no rating. Evite jogar rápido demais e procure o plano mais simples e seguro.',m:'Em jogo'});
+  if(an.length){
+    if(bl2>=1)tips.push({ic:'🔍',t:'Erros graves',d:`Você comete em média ${bl2.toFixed(1)} erros graves por partida. Antes de cada lance, procure capturas, xeques e ameaças do adversário.`,go:'problemas',b:'Treinar táticas',m:'15 min'});
+    if(pv.length>1&&pv[0][1]>=pv[1][1]*1.3)tips.push({ic:'📚',t:`Fase mais fraca: ${PHN[pv[0][0]].toLowerCase()}`,d:`É onde você mais perde vantagem por lance. Dedique parte do treino a ${pv[0][0]==='o'?'aberturas':pv[0][0]==='m'?'táticas e planos de meio-jogo':'finais'}.`,m:'20 min'});
+  }else tips.push({ic:'🧠',t:'Analise suas partidas',d:'Com 5 ou mais partidas analisadas pelo Stockfish, o relatório passa a incluir precisão, erros graves e a fase mais fraca.',go:'perfil',b:'Ir ao Perfil',m:'10 min'});
+  const fill=[{ic:'♜',t:'Finais básicos',d:'Revise finais de torre e de peões: rei ativo, oposição e a posição de Lucena.',m:'20 min'},{ic:'✎',t:'Revisão de uma derrota',d:'Escolha a derrota mais recente, analise-a com o motor e anote o erro decisivo.',go:'analise',b:'Abrir análise',m:'20 min'},{ic:'♞',t:'Mates e garfos',d:'Resolva 15 problemas de mate em 1–2 lances e garfos.',go:'problemas',b:'Treinar táticas',m:'15 min'}];
+  const plan=[...tips,...fill].slice(0,6);
+  plan.push({ic:'★',t:'Aplique tudo em 3 partidas',d:'Jogue 3 partidas do mesmo ritmo com atenção ao ponto mais fraco e compare com este relatório.',m:'45 min'});
+  const goals=[];
+  if(tl>0&&IX.clock<85)goals.push([`Derrotas por tempo`,`${tl}`,`${Math.max(0,tl-2)} ou menos`]);
+  if(IX.start<85&&shortL>0)goals.push(['Derrotas em até 20 lances',`${shortL}`,`${Math.max(0,shortL-1)} ou menos`]);
+  if(acc!=null)goals.push(['Precisão média',`${acc.toFixed(1)}%`,`${Math.min(99,acc+3).toFixed(1)}%`]);
+  goals.push(['Pontuação',`${pc(sc)}%`,`${Math.min(100,pc(sc)+5)}%`]);
+  const sw=[];
+  if(best)sw.push(`Boa abertura: <b>${esc(best.f)}</b> com ${best.c==='w'?'brancas':'pretas'} (${pc(score(best.r))}% em ${best.r.n} partidas).`);
+  if(dR>0)sw.push(`Rating em alta: +${dR} pontos no período.`);
+  if(st.n>=3&&score(st)>=45)sw.push('Bom rendimento contra adversários mais fortes.');
+  if(bw>=4)sw.push(`Melhor sequência de vitórias: ${bw}.`);
+  if(top.v>=70)sw.push(`${top.n} é seu índice mais alto (${top.v}/100).`);
+  if(bestPer)sw.push(`Você rende melhor à ${bestPer[0]==='Madrugada'?'madrugada':bestPer[0].toLowerCase()} (${pc(score(bestPer[1]))}% em ${bestPer[1].n} partidas).`);
+  const op2=[];tips.slice(0,3).forEach(x=>op2.push(`<b>${esc(x.t)}.</b> ${esc(x.d.split('. ')[0])}.`));
+  /* comparação com o relatório anterior (salvo neste aparelho) */
+  const hk='gb.rep.'+a.id+'.'+sp;let hist0=[];try{hist0=JSON.parse(localStorage.getItem(hk))||[]}catch(e){}
+  const now=Date.now(),prev=hist0.filter(x=>x.t<now-6e5).slice(-1)[0];
+  try{const keep=hist0.filter(x=>x.t<now-6e5);keep.push({t:now,gi,ix:IX,sc:Math.round(sc),r:r1});localStorage.setItem(hk,JSON.stringify(keep.slice(-8)))}catch(e){}
+  const cmp=prev?`<section class="rp-sec" id="rp-evol"><h2 class="rp-h"><span class="rp-n">↗</span>Desde o último relatório</h2><p class="rp-sub">Comparado com o relatório de ${fmtDate(prev.t)}.</p><div class="rp-dl"><div><small>Índice Gambito</small><b>${gi}</b>${rpDelta(gi-prev.gi)}</div>${AX.map(x=>`<div><small>${x.n}</small><b>${x.v}</b>${rpDelta(prev.ix[x.k]!=null?x.v-prev.ix[x.k]:null)}</div>`).join('')}<div><small>Pontuação</small><b>${pc(sc)}%</b>${rpDelta(pc(sc)-prev.sc)}</div></div></section>`:'';
+  /* qualidade do motor */
+  const qual=an.length?`<div class="rp-q"><div class="rp-qk"><b>${acc.toFixed(1)}%</b><small>precisão média</small></div><div class="rp-qk"><b>${bl2.toFixed(1)}</b><small>erros graves por partida</small></div><div class="rp-qk"><b>${ms2.toFixed(1)}</b><small>erros por partida</small></div><div class="rp-qk"><b>${an.length}</b><small>partidas analisadas</small></div></div>${pv.length?`<p class="rp-sub" style="margin-top:12px">Chance de vitória perdida por lance, por fase:</p>${['o','m','e'].map(f=>{const x=pv.find(y=>y[0]===f);return x?`<div class="rp-ph"><span>${PHN[f]}</span><div class="rp-track"><i style="width:${Math.min(100,x[1]*4)}%;background:${x[1]>=pv[0][1]?'#C0533F':'#C98E1A'}"></i></div><small>${x[1].toFixed(1)}%</small></div>`:''}).join('')}`:''}`
+    :`<div class="rp-cta">Nenhuma destas partidas foi analisada ainda. <button class="btn sm no-print" onclick="repGo('perfil')">Analisar partidas</button></div>`;
+  const d1=fmtDate(gs[0].t),d2=fmtDate(gs[N-1].t);
+  return `<div class="rp">
+  <nav class="rp-nav no-print" aria-label="Seções do relatório">${[['rp-resumo','Resumo'],['rp-estilo','Estilo'],['rp-forma','Forma'],['rp-skills','Habilidades'],['rp-jogo','Seu jogo'],['rp-ab','Aberturas'],['rp-plano','Plano']].map(([i,l])=>`<button onclick="rpJump('${i}')">${l}</button>`).join('')}</nav>
+  <header class="rp-cover" id="rp-resumo"><i class="wm p-w${key}"></i>
+    <div class="rp-kick">♞ GAMBITO · RELATÓRIO DO JOGADOR</div>
+    <h1>${esc(a.name)}</h1>
+    <div class="rp-chips"><span>${PLN[a.pl]}</span><span>${SPN[sp]}</span><span>${N} partidas</span><span>${d1} – ${d2}</span></div>
+    <div class="rp-cv"><div class="rp-score">${rpRing(gi,'#E0A43A','rgba(255,255,255,.18)')}<div><small>ÍNDICE GAMBITO</small><b>${tier}</b><span>${gi} de 100</span></div></div>
+      <ul class="rp-head"><li><b>${pc(sc)}%</b> de pontuação em ${N} partidas${dR!=null?`, rating ${dR>0?'+':''}${dR}`:''}.</li><li>Ponto mais forte: <b>${top.n}</b> (${top.v}/100).</li><li>Maior oportunidade: <b>${low.n}</b> (${low.v}/100).</li></ul></div></header>
+  ${cmp}
+  <section class="rp-sec" id="rp-estilo"><h2 class="rp-h"><span class="rp-n">1</span>Seu estilo</h2>
+    <div class="rp-arch" style="--ac:${AR.c}"><div class="rp-pc"><i class="p-w${key}"></i></div><div><small>ARQUÉTIPO</small><h3>${AR.n}</h3><p>${AR.t} Média de <b>${pc(avgMv)} lances</b> por partida.</p></div></div>
+    <div class="rp-traits">${traits.map(([t,x,c])=>`<div class="rp-trait ${c}"><b>${t}</b><span>${x}</span></div>`).join('')}</div></section>
+  <section class="rp-sec" id="rp-forma"><h2 class="rp-h"><span class="rp-n">2</span>Forma recente</h2><p class="rp-sub">Da partida mais antiga (esquerda) à mais recente. ○ brancas · ● pretas · ⏱ derrota por tempo.</p>
+    <div class="rp-form">${form}</div>
+    <div class="rp-k"><div><b>${N}</b>partidas</div><div><b>${pc(sc)}%</b>pontuação</div><div><b>${w.W}-${w.D}-${w.L}</b>V-E-D</div><div><b>${r1!=null?r1:'–'}</b>rating${dR!=null?` ${rpDelta(dR)}`:''}</div><div><b>${bw}</b>maior seq. de vitórias</div><div><b>${bl}</b>maior seq. de derrotas</div></div>
+    ${bar(w)}${spark}</section>
+  <section class="rp-sec" id="rp-skills"><h2 class="rp-h"><span class="rp-n">3</span>Mapa de habilidades</h2><p class="rp-sub">Seis índices de 0 a 100 calculados a partir das suas partidas.</p>
+    <div class="rp-sk">${rpRadar(AX)}<div>${AX.map(x=>`<div class="rp-ax"><div class="rp-axh"><b>${x.n}</b><span style="color:${rpCol(x.v)}">${x.v} · ${rpLbl(x.v)}</span></div><div class="rp-track"><i style="width:${x.v}%;background:${rpCol(x.v)}"></i></div><small class="mut">${x.d}</small></div>`).join('')}</div></div></section>
+  <section class="rp-sec" id="rp-jogo"><h2 class="rp-h"><span class="rp-n">4</span>Seu jogo em detalhe</h2>
+    <div class="rp-grid">
+      <div class="rp-card"><h4>Por cor</h4>${[['♔ Brancas',wb],['♚ Pretas',bb]].map(([l,r])=>`<div class="rp-colr"><span>${l}</span><div style="flex:1">${bar(r)}</div><b>${r.n?pc(score(r))+'%':'–'}</b></div>`).join('')}</div>
+      <div class="rp-card"><h4>Contra quem você joga</h4>${k.length?[['Mais fortes (+50)',st],['Parecidos (±50)',eq],['Mais fracos (−50)',wk]].map(([l,r])=>`<div class="rp-colr"><span>${l}</span><div style="flex:1">${bar(r)}</div><b>${r.n?pc(score(r))+'%':'–'}</b></div>`).join(''):'<p class="mut">Sem dados de rating dos adversários.</p>'}</div>
+      <div class="rp-card"><h4>Duração das partidas (lances)</h4>${hist}<p class="rp-leg"><i style="background:#6E9B3E"></i>V <i style="background:#B9A88E"></i>E <i style="background:#C0533F"></i>D</p></div>
+      <div class="rp-card"><h4>Como terminam</h4>${Object.keys(TERM).map(t=>{const r=wdl(gs.filter(g=>g.term===t));return r.n?`<div class="rp-colr"><span>${TERM[t]}</span><div style="flex:1">${bar(r)}</div><b>${r.n}</b></div>`:''}).join('')}</div>
+      <div class="rp-card wide"><h4>Quando você rende mais</h4><p class="rp-sub">Altura da barra = pontuação. Verde ≥ 55%, âmbar ≥ 40%.</p><div class="rp-2">${mini(dow)}${mini(per)}</div>${bestPer&&worstPer&&bestPer[0]!==worstPer[0]?`<p class="rp-ins">Melhor período: <b>${bestPer[0]}</b> (${pc(score(bestPer[1]))}%). Pior: <b>${worstPer[0]}</b> (${pc(score(worstPer[1]))}%). Amostra pequena: use como pista.</p>`:''}</div>
+    </div></section>
+  <section class="rp-sec" id="rp-ab"><h2 class="rp-h"><span class="rp-n">5</span>Repertório de aberturas</h2><p class="rp-sub">${new Set(allOp.map(x=>x.c+x.f)).size} aberturas diferentes em ${N} partidas. Posições típicas depois de cerca de 5 lances.</p>
+    ${opCards?`<div class="rp-ops">${opCards}</div>`:'<p class="mut">Sem aberturas identificadas nestas partidas.</p>'}
+    <h3 class="rp-h3">Qualidade de jogo (Stockfish)</h3>${qual}</section>
+  <section class="rp-sec" id="rp-sw"><h2 class="rp-h"><span class="rp-n">6</span>Pontos fortes e oportunidades</h2>
+    <div class="rp-2c"><div class="rp-box good"><h4>✓ Pontos fortes</h4>${sw.length?`<ul>${sw.map(x=>`<li>${x}</li>`).join('')}</ul>`:'<p>Amplie a amostra para destacar seus pontos fortes.</p>'}</div>
+    <div class="rp-box bad"><h4>▲ Oportunidades</h4><ul>${(op2.length?op2:['Nenhum ponto fraco claro: aumente a amostra e treine táticas.']).map(x=>`<li>${x}</li>`).join('')}</ul></div></div></section>
+  <section class="rp-sec" id="rp-plano"><h2 class="rp-h"><span class="rp-n">7</span>Plano de 7 dias</h2><p class="rp-sub">Sessões curtas, ordenadas pelo que mais pode render para você.</p>
+    <div class="rp-days">${plan.map((x,i)=>`<div class="rp-day"><div class="rp-dn">DIA ${i+1}<span>${x.m||''}</span></div><div><b>${x.ic} ${esc(x.t)}</b><p>${esc(x.d)}</p>${x.go?`<button class="btn alt sm no-print" onclick="repGo('${x.go}')">${x.b}</button>`:''}</div></div>`).join('')}</div>
+    <h3 class="rp-h3">Metas para as próximas ${N} partidas</h3>
+    <div class="rp-goals">${goals.slice(0,4).map(([t,f,to])=>`<div><small>${t}</small><b>${f} <span>→</span> ${to}</b></div>`).join('')}</div></section>
+  <footer class="rp-foot"><b>Como calculamos.</b> Resultado = pontuação; Relógio = 100 − 2,5 × % de partidas perdidas por tempo; Resiliência = pontuação logo após derrotas; Início de partida = 100 − 2,5 × % de derrotas em até 20 lances; Rivais fortes = pontuação contra adversários 50+ pontos acima × 1,7; Precisão = média do Stockfish (ou, sem análise, Regularidade = 100 − 15 × maior sequência de derrotas). Índice Gambito = média ponderada (Resultado 25%, demais 15%). Com ${N} partidas, padrões isolados são indícios, não certezas.<br>Gerado em ${fmtDT(Date.now())} · Dados: ${PLN[a.pl]} · Motor: Stockfish · Peças: Cburnett (GPLv2+).</footer>
+  </div>`;
 }
+
 /* ---------- inicialização ---------- */
 (async()=>{
   await dbOpen();
