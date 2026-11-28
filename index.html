@@ -44,7 +44,7 @@ section{display:none}section.on{display:block}
 .hero .lead{font-size:19px;color:var(--mut);max-width:46ch;margin:18px 0 26px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .an{display:grid;grid-template-columns:minmax(0,640px) minmax(320px,1fr);gap:26px;align-items:start}
-@media(max-width:900px){.hero,.an,.two{grid-template-columns:1fr}.hero{gap:26px}header{padding:10px 14px;gap:8px}.logo{font-size:20px}nav{overflow-x:auto;scrollbar-width:none;min-width:0}nav::-webkit-scrollbar{display:none}nav button{padding:8px 11px;font-size:15px}main{padding:20px 14px 50px}.an>*{min-width:0}}
+@media(max-width:900px){.hero,.an,.two{grid-template-columns:minmax(0,1fr)}.hero{gap:26px}header{padding:10px 14px;gap:8px}.logo{font-size:20px}nav{overflow-x:auto;scrollbar-width:none;min-width:0}nav::-webkit-scrollbar{display:none}nav button{padding:8px 11px;font-size:15px}main{padding:20px 14px 50px}.an>*{min-width:0}}
 .btn{background:var(--brown);color:var(--cream);border:0;border-radius:9px;padding:10px 18px;font-weight:600;cursor:pointer}
 .btn:hover{background:var(--br3)}.btn:disabled{opacity:.5;cursor:default}
 .btn.alt{background:transparent;color:var(--brown);border:1.5px solid var(--acc)}
@@ -245,7 +245,7 @@ footer{max-width:1160px;margin:0 auto;padding:0 22px 40px;color:var(--mut);font-
  #zv-train{gap:14px}
  #zbar{order:0}
  #zv-train .an{gap:12px}
- #zv-train .bg{width:100%;max-width:max(260px,min(100%,calc(100vh - 392px)));max-width:max(260px,min(100%,calc(100svh - 392px)));margin:0 auto}
+ #zv-train .bg{width:100%;max-width:max(260px,min(100%,calc(100vh - 330px)));max-width:max(260px,min(100%,calc(100svh - 330px)));margin:0 auto}
  .pz{padding:14px;gap:10px}
  .pz>.pz-act{order:1}.pz>.fb{order:2}.pz>.pz-sol{order:3}.pz>.pz-head{order:4}.pz>.pz-stat{order:5}.pz>.pz-daily{order:6}
  .pz-act{flex-wrap:nowrap;gap:8px}.pz-act .btn{padding:10px 12px;white-space:nowrap}.pz-act #pnext{flex:1}
@@ -471,6 +471,54 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
  #pdock::after{content:'';position:absolute;right:-16px;top:0;width:16px;height:16px;background:radial-gradient(circle at 100% 100%,transparent 15.5px,var(--brown) 16px)}
  #pawn{right:auto;bottom:auto;top:calc(var(--hh,62px) + (var(--pdh) - 40px)/2 - 1px);left:calc(var(--navx,50%) - 20px)}
 }
+
+/* compacto: partidas, seletor da análise e problemas no celular */
+.stack{grid-template-columns:minmax(0,1fr)}
+.gl{grid-template-columns:repeat(auto-fill,minmax(min(290px,100%),1fr));gap:8px;margin-top:10px}
+.gi{display:grid;grid-template-columns:28px minmax(0,1fr) auto auto;gap:10px;align-items:center;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;padding:7px 10px 7px 8px;border:1px solid var(--line);border-left:4px solid var(--rc,var(--line));border-radius:10px;background:#FFFCF5}
+.gi:hover{background:#F6ECD6}
+.gi .res{width:28px;height:28px;border-radius:8px;font-size:14px}
+.gi .t{display:block;min-width:0;line-height:1.25}
+.gi .t>span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gi .t span.mut{display:block;-webkit-line-clamp:unset}
+.gi .t .l1 span{display:inline}
+.gi .l2{font-size:12.5px}
+.gi .gc{font-style:normal;margin-right:5px;color:var(--mut)}
+.gacc{font-size:12px;font-weight:700;color:var(--ok);background:#DDE8CF;border-radius:99px;padding:1px 8px}
+.gi .chev{color:var(--mut);font-size:20px;line-height:1}
+.apick{margin-bottom:16px;padding:14px 16px}
+.apick summary{font-size:16px}
+.apk-top{display:flex;gap:8px;margin:10px 0 8px}
+.apk-top input{flex:1;min-width:0;min-height:40px;padding:8px 12px}
+.apk-top select{min-height:40px;max-width:46%}
+.apk-seg{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 10px}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:99px;overflow:hidden;background:#FFFCF5}
+.seg button{border:0;background:none;padding:5px 12px;font-size:13px;font-weight:600;color:var(--brown);cursor:pointer;min-height:32px}
+.seg button.on{background:var(--brown);color:var(--cream)}
+.zchip small{opacity:.7;font-size:11px;margin-left:2px}
+.apk-hint{font-size:13px;margin:12px 0 0}
+#zbar{display:grid;gap:4px;min-width:0}
+.zchip.more{border-style:dashed}
+.pf-tabs.zsub{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0}
+.zsub .pf-pill{padding:7px 6px;font-size:14px;text-align:center}
+.zadv{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#FFFCF5}
+.zadv summary{font-weight:600;font-size:14px;color:var(--mut)}
+.zadv .zrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.zadv .zrow select{min-width:0;width:100%}
+@media(max-width:900px){
+ #zv-train{gap:10px}#zv-train .an{gap:10px}
+ .pz{padding:0;border:0;background:none;gap:8px}
+ .pz>.fb{order:1;min-height:40px;padding:8px 12px;font-size:15px}
+ .pz>.pz-act{order:2;display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:8px}
+ .pz>.pz-sol{order:3}.pz>.pz-head{order:4}.pz>.pz-stat{order:5}.pz>.zadv{order:6}
+ .pz-head h2{display:none}
+ .pz-stat{gap:18px}.pz-stat b{font-size:22px}
+}
+@media(max-width:600px){
+ .zgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.zhero{grid-template-columns:1fr}
+ .zc{padding:10px}.zc b{font-size:14px}.zt{width:36px;height:36px;font-size:16px}.zring{width:36px;height:36px}
+ .zg{padding:16px 12px}
+}
 </style>
 </head>
 <body>
@@ -575,15 +623,11 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
 </section>
 
 <section id="analise">
-  <details class="card" id="apick" open style="margin-bottom:22px"><summary>Escolher partida para analisar</summary>
-    <div class="pf-bar" style="margin:12px 0"><span id="apk-acc"></span>
-      <select id="apk-sp" aria-label="Ritmo" onchange="renderPick()"><option value="all">Todos os ritmos</option><option value="bullet">Bullet</option><option value="blitz">Blitz</option><option value="rapid">Rápida</option><option value="classical">Clássica</option><option value="daily">Diária</option></select>
-      <select id="apk-col" aria-label="Cor" onchange="renderPick()"><option value="all">Brancas e pretas</option><option value="w">Só brancas</option><option value="b">Só pretas</option></select>
-      <select id="apk-res" aria-label="Resultado" onchange="renderPick()"><option value="all">Todos os resultados</option><option value="W">Vitórias</option><option value="D">Empates</option><option value="L">Derrotas</option></select>
-      <select id="apk-an" aria-label="Análise" onchange="renderPick()"><option value="all">Analisadas ou não</option><option value="y">Já analisadas</option><option value="n">Ainda não analisadas</option></select>
-      <input id="apk-q" type="search" placeholder="Buscar adversário ou abertura" aria-label="Buscar adversário ou abertura" oninput="renderPick()" style="flex:1;min-width:150px"></div>
+  <details class="card apick" id="apick" open><summary>Escolher partida para analisar <span class="mut" id="apk-n"></span></summary>
+    <div class="apk-top"><input id="apk-q" type="search" placeholder="Buscar adversário ou abertura" aria-label="Buscar adversário ou abertura" oninput="P.pk.q=this.value;renderPick()"><span id="apk-acc"></span></div>
+    <div id="apk-f"></div>
     <div id="apk-list"></div>
-    <p class="mut" style="margin:14px 0 0;font-size:14px">Prefere outra fonte? Cole um PGN mais abaixo ou abra uma partida de um jogador na aba Seguindo.</p></details>
+    <p class="mut apk-hint">Prefere outra fonte? Cole um PGN mais abaixo ou abra uma partida de um jogador na aba Seguindo.</p></details>
   <div class="an">
     <div class="bg">
       <div class="pbar top" id="bt"></div>
@@ -653,7 +697,7 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
     <button class="pf-pill" data-v="stats" aria-pressed="false" onclick="zView('stats')">Estatísticas</button>
   </div>
   <div id="zv-train" class="stack">
-  <div class="card" id="zbar"></div>
+  <div id="zbar"></div>
   <div class="an">
     <div class="bg" style="grid-template-columns:minmax(0,1fr);grid-template-rows:auto">
       <div class="board" id="pb" style="grid-column:1;grid-row:1"></div>
@@ -664,12 +708,12 @@ nav button.drop{outline:3px solid var(--gold);outline-offset:-3px;background:var
       <div class="fb" id="psay" role="status" aria-live="polite">Encontre o melhor lance.</div>
       <div class="row pz-act">
         <button class="btn alt" onclick="hint()">Dica</button>
-        <button class="btn alt" onclick="sol()">Ver solução</button>
+        <button class="btn alt" onclick="sol()">Solução</button>
         <button class="btn" id="pnext" onclick="nextZ()">Próximo<span class="hm"> problema</span></button>
       </div>
       <p class="mut pz-sol" id="psol" style="margin:0"></p>
       <div class="stat pz-stat"><div><b id="cnt">0</b><span class="mut">resolvidos</span></div><div><b id="stk">0</b><span class="mut">em sequência</span></div></div>
-      <button class="btn alt pz-daily" onclick="daily()">Problema do dia no Lichess</button>
+      <details class="zadv" id="zadv"></details>
     </div>
   </div>
   </div>
@@ -1723,9 +1767,11 @@ function opmHtml(gs,M){
       <button class="pf-pill${tab==='eng'?' on':''}" aria-pressed="${tab==='eng'}" onclick="opTab('eng')">Pelo motor</button>
       <button class="pf-pill${tab==='res'?' on':''}" aria-pressed="${tab==='res'}" onclick="opTab('res')">Pelo resultado</button></div>${body}`;
 }
+const fmtD2=t=>{const d=new Date(t),o=d.getFullYear()!==new Date().getFullYear();return d.toLocaleDateString(LOC,o?{day:'2-digit',month:'short',year:'2-digit'}:{day:'2-digit',month:'short'})};
+const giRow=(g,attr,acc)=>`<button class="gi" style="--rc:${RC[g.res]}" ${attr} aria-label="Revisar partida contra ${esc(g.opp)}"><span class="res" style="background:${RC[g.res]}">${RL[g.res]}</span><span class="t"><span class="l1"><i class="gc">${g.col==='w'?'○':'●'}</i>vs <b>${esc(g.opp)}</b> <span class="mut">${g.or??'?'}</span></span><span class="l2 mut">${SPN[g.sp]}${g.op?' · '+esc(g.op):''} · ${fmtD2(g.t)}</span></span>${acc||'<span></span>'}<span class="chev" aria-hidden="true">›</span></button>`;
 function gameItem(g){
-  const r=P.an.get(g.id),ac=r&&r.accuracy!=null?` · precisão ${r.accuracy.toFixed(0)}%`:'';
-  return `<div class="gi"><span class="res" style="background:${RC[g.res]}" title="${{W:'Vitória',D:'Empate',L:'Derrota'}[g.res]}">${RL[g.res]}</span><div class="t"><span><b>${esc(g.me)}</b> (${g.mr??'?'}) contra <b>${esc(g.opp)}</b> (${g.or??'?'})</span><span class="mut">${SPN[g.sp]}${g.op?' · '+esc(g.op):''} · ${fmtDate(g.t)}${ac}</span></div><button class="btn alt sm" data-g="${esc(g.id)}" onclick="openGame(this.dataset.g)">Revisar</button></div>`;
+  const r=P.an.get(g.id);
+  return giRow(g,`data-g="${esc(g.id)}" onclick="openGame(this.dataset.g)"`,r&&r.accuracy!=null?`<span class="gacc" title="Precisão">${r.accuracy.toFixed(0)}%</span>`:'');
 }
 
 /* ---------- renderização ---------- */
@@ -2003,24 +2049,19 @@ const ring=(pct,col,trk='#DCCBAE')=>{const c=2*Math.PI*17,d=pct==null?0:pct/100*
 const lvl=(s,rate)=>s>=40&&rate>=80?{n:'Mestre',c:'#C98E1A'}:s>=15?{n:'Avançado',c:'#7B5BA5'}:s>=5?{n:'Praticante',c:'#3F7CAC'}:s>=1?{n:'Iniciante',c:'#6E9B3E'}:{n:'Novo',c:'#9C8A70'};
 const prog=(s,rate)=>s>=40?(rate>=80?100:99):Math.round(s/40*100); // avanço rumo a Mestre: 40 resolvidos sem erro e 80% de acerto
 function renderBar(){
-  const el=$('#zbar');if(!el)return;
+  const el=$('#zbar'),ad=$('#zadv');if(!el)return;
   const dis=Z.busy?' disabled':'',sel=(v,o)=>o.map(([k,l])=>`<option value="${k}"${v===k?' selected':''}>${l}</option>`).join('');
   const QK=['mateIn1','mateIn2','mateIn3','fork','pin','skewer','discoveredAttack','backRankMate','endgame','opening','middlegame'];
   const keys=['mix',...(Z.cat!=='mix'&&!QK.includes(Z.cat)?[Z.cat]:[]),...QK];
   const chip=k=>{const on=Z.cat===k,c=k==='mix'?'#3A2519':catColor(k);return `<button class="zchip${on?' on':''}" style="--zc:${c}" aria-pressed="${on}" data-k="${k}" onclick="pickCat(this.dataset.k)"${dis}><b>${ICON[k]||'♟'}</b>${esc(k==='mix'?'Misto':THN[k]||k)}</button>`};
-  const opts=`<option value="mix"${Z.cat==='mix'?' selected':''}>Misto (todas)</option>`+GROUPS.map(g=>`<optgroup label="${esc(g.n)}">${g.t.map(k=>`<option value="${k}"${Z.cat===k?' selected':''}>${esc(THN[k]||k)}</option>`).join('')}</optgroup>`).join('');
-  el.innerHTML=`<div class="zchips" role="group" aria-label="Tipo de problema">${keys.map(chip).join('')}</div>
-    <div class="zrow"><select aria-label="Todas as categorias" onchange="pickCat(this.value)"${dis}>${opts}</select>
-      <select aria-label="Nível" onchange="Z.diff=this.value;nextZ()"${dis}>${sel(Z.diff,Object.keys(DIFF).map(k=>[k,DIFF[k][0]]))}</select></div>
-    <details class="zmore"><summary>Mais opções</summary>
-      <div class="pf-bar" style="margin-top:10px">
-        <select aria-label="Modo" onchange="Z.mode=this.value;nextZ()"${dis}>${sel(Z.mode,[['new','Problemas novos'],['review','Revisar erros']])}</select>
-        <button class="btn alt sm" onclick="downloadPack()"${Z.busy?' disabled':''}>${Z.fetching&&!Z.cancel?'Parar download':'Baixar +25 desta categoria'}</button>
-        <button class="btn alt sm" onclick="zView('cats')">Explorar categorias</button></div>
-      <p class="mut" id="zinfo" style="margin:8px 0 0"></p></details>
-    <p class="mut" id="zmsg" role="status" aria-live="polite">${esc(Z.msg)}</p>`;
+  el.innerHTML=`<div class="zchips" role="group" aria-label="Tipo de problema">${keys.map(chip).join('')}<button class="zchip more" style="--zc:#7A5233" onclick="zView('cats')"><b>▦</b>Todas</button></div><p class="mut" id="zmsg" role="status" aria-live="polite">${esc(Z.msg)}</p>`;
   const row=el.querySelector('.zchips'),on=row&&row.querySelector('.zchip.on');
   if(on)row.scrollLeft=on.offsetLeft-row.clientWidth/2+on.clientWidth/2;
+  if(ad)ad.innerHTML=`<summary>Ajustes</summary>
+    <div class="zrow"><select aria-label="Nível" onchange="Z.diff=this.value;nextZ()"${dis}>${sel(Z.diff,Object.keys(DIFF).map(k=>[k,DIFF[k][0]]))}</select>
+      <select aria-label="Modo" onchange="Z.mode=this.value;nextZ()"${dis}>${sel(Z.mode,[['new','Problemas novos'],['review','Revisar erros']])}</select></div>
+    <div class="row"><button class="btn alt sm" onclick="downloadPack()"${Z.busy?' disabled':''}>${Z.fetching&&!Z.cancel?'Parar download':'Baixar +25 desta categoria'}</button><button class="btn alt sm" onclick="daily();zView('train')">Problema do dia</button></div>
+    <p class="mut" id="zinfo" style="margin:8px 0 0"></p>`;
   zinfo();
 }
 function catCard(k,col){
@@ -2167,9 +2208,7 @@ async function loadF(id,force){
   catch(e){F.cache[id]={t:c?c.t:0,games:c?c.games:null,loading:false,err:fErr(e)}}
   renderF();
 }
-function fGameItem(g,i){
-  return `<div class="gi"><span class="res" style="background:${RC[g.res]}" title="${{W:'Vitória',D:'Empate',L:'Derrota'}[g.res]}">${RL[g.res]}</span><div class="t"><span>contra <b>${esc(g.opp)}</b> (${g.or??'?'})</span><span class="mut">${SPN[g.sp]} · ${g.col==='w'?'Brancas':'Pretas'} (${g.mr??'?'})${g.op?' · '+esc(g.op):''} · ${fmtDate(g.t)}</span></div><button class="btn alt sm" data-i="${i}" onclick="openF(+this.dataset.i)">Revisar</button></div>`;
-}
+function fGameItem(g,i){return giRow(g,`data-i="${i}" onclick="openF(+this.dataset.i)"`,'')}
 function openF(i){
   const c=F.cache[F.cur],g=c&&c.games&&c.games[i];if(!g)return;
   const w=g.col==='w';
@@ -2330,13 +2369,13 @@ function oLibHtml(){
     const l=pool.filter(o=>o.s===s);if(!l.length)return "";
     return `<div class="card zg" style="--zc:${s==="w"?"#7A5233":"#3A2519"}"><h3 class="zgh"><i></i>Com as ${s==="w"?"brancas":"pretas"}</h3><div class="zgrid">${l.map(o=>{
       const r=OS.d[o.id],lv=oLvl(o.id);
-      return `<button class="zc${O.op&&O.op.id===o.id?" on":""}" style="--zc:${lv.c}" onclick="oStart('${o.id}');oTop()"><b>${esc(oN(o))}</b><span class="mut">${esc(IS_EN?o.pt:o.en)} · ${o.eco}</span><div class="pf-prog"><i style="width:${oMast(o.id)}%"></i></div><span class="mut">${r&&r.runs?r.runs+" treinos · "+r.err+" erros":"Ainda não treinada"}${r&&r.qn?" · nomes "+(r.qa||0)+"/"+r.qn:""}</span><span class="zlv" style="background:${lv.c}">${lv.n}</span></button>`}).join("")}</div></div>`}).join("");
+      return `<button class="zc${O.op&&O.op.id===o.id?" on":""}" style="--zc:${lv.c}" onclick="oStart('${o.id}');oTop()"><b>${esc(oN(o))}</b><span class="mut">${IS_EN?"":esc(o.en)+" · "}${o.eco}</span><div class="pf-prog"><i style="width:${oMast(o.id)}%"></i></div><span class="mut">${r&&r.runs?r.runs+" treinos · "+r.err+" erros":"Ainda não treinada"}${r&&r.qn?" · nomes "+(r.qa||0)+"/"+r.qn:""}</span><span class="zlv" style="background:${lv.c}">${lv.n}</span></button>`}).join("")}</div></div>`}).join("");
 }
 function oRender(){
   const op=O.op;if(!op)return;
   const q=O.mode==="quiz"&&!O.answered,L=oLine(op);
   OB.draw();
-  $("#oname").innerHTML=`<div class="obk"><span class="obs">${op.s==="w"?"♔ Você joga de brancas":"♚ Você joga de pretas"}</span>${q?"":`<span class="obs">ECO ${op.eco}</span>`}<span class="obs">${esc(MODES.find(x=>x[0]===O.mode)[1])}</span></div><h2 class="obt">${q?"Que abertura é esta?":esc(oN(op))}</h2>${q?"":`<div class="obe">${esc(IS_EN?op.pt:op.en)}</div><p class="obi">${esc(oI(op))}</p>`}`;
+  $("#oname").innerHTML=`<div class="obk"><span class="obs">${op.s==="w"?"♔ Você joga de brancas":"♚ Você joga de pretas"}</span>${q?"":`<span class="obs">ECO ${op.eco}</span>`}<span class="obs">${esc(MODES.find(x=>x[0]===O.mode)[1])}</span></div><h2 class="obt">${q?"Que abertura é esta?":esc(oN(op))}</h2>${q?"":`${IS_EN?"":`<div class="obe">${esc(op.en)}</div>`}<p class="obi">${esc(oI(op))}</p>`}`;
   const dn=O.done,done=O.mode==="quiz"?O.answered:dn;
   const chips=L.map((x,k)=>{
     const mine=(k%2===0)===(op.s==="w"),st=k<O.ply?"d":k===O.ply&&!dn?"c":"f",num=k%2===0?`${k/2+1}. `:"";
@@ -2429,9 +2468,9 @@ function tr(s){
 }
 function trNode(n){
   if(n.nodeType===3){const v=tr(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v;return}
-  if(n.nodeType!==1||/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.tagName))return;
+  if(n.nodeType!==1||/^(SCRIPT|STYLE)$/.test(n.tagName))return;
   ["placeholder","aria-label","title"].forEach(a=>{const x=n.getAttribute(a);if(x){const v=tr(x);if(v!==x)n.setAttribute(a,v)}});
-  n.childNodes.forEach(trNode);
+  if(n.tagName!=="TEXTAREA")n.childNodes.forEach(trNode);
 }
 if(IS_EN){
   document.documentElement.lang="en";document.title="Gambito: chess training hub";
@@ -2510,23 +2549,27 @@ async function fillBatch(angle,nb=15){
   return n;
 }
 
-/* ---------- Análise: escolher partida do histórico ---------- */
-P.pk={n:8};
+/* ---------- Análise: escolher partida do histórico (compacto) ---------- */
+P.pk={n:8,sp:'all',col:'all',res:'all',an:'all',q:''};
 function pickGames(){
-  const v=id=>{const e=$(id);return e?e.value:'all'};
-  const sp=v('#apk-sp'),col=v('#apk-col'),res=v('#apk-res'),an=v('#apk-an'),q=(($('#apk-q')||{}).value||'').trim().toLowerCase();
-  return P.games.filter(g=>(sp==='all'||g.sp===sp)&&(col==='all'||g.col===col)&&(res==='all'||g.res===res)&&(an==='all'||(an==='y')===P.an.has(g.id))&&(!q||(g.opp||'').toLowerCase().includes(q)||(g.op||'').toLowerCase().includes(q)));
+  const f=P.pk,q=f.q.trim().toLowerCase();
+  return P.games.filter(g=>(f.sp==='all'||g.sp===f.sp)&&(f.col==='all'||g.col===f.col)&&(f.res==='all'||g.res===f.res)&&(f.an==='all'||(f.an==='y')===P.an.has(g.id))&&(!q||(g.opp||'').toLowerCase().includes(q)||(g.op||'').toLowerCase().includes(q)));
 }
-function renderPick(more){
+function pkSet(k,v){P.pk[k]=v;P.pk.n=8;renderPick()}
+function renderPick(){
   const box=$('#apk-list');if(!box)return;
-  if(!more)P.pk.n=8;
-  const a=P.cur,acc=$('#apk-acc');
+  const a=P.cur,acc=$('#apk-acc'),F=$('#apk-f'),f=P.pk;
   if(acc)acc.innerHTML=P.accs.length>1?`<select aria-label="Conta" onchange="loadAccount(this.value)">${P.accs.map(x=>`<option value="${esc(x.id)}"${a&&a.id===x.id?' selected':''}>${esc(x.name)} · ${PLN[x.pl]}</option>`).join('')}</select>`:'';
   if(!a||!P.games.length){
+    F.innerHTML='';$('#apk-n').textContent='';
     box.innerHTML='<p class="mut" style="margin:0">'+(a?'Nenhuma partida salva ainda. Sincronize no perfil.':'Conecte sua conta para escolher partidas do seu histórico.')+'</p><div class="row" style="margin-top:10px"><button class="btn sm" onclick="show(\'perfil\')">'+(a?'Abrir perfil':'Conectar conta')+'</button></div>';return;
   }
-  const l=pickGames();
-  box.innerHTML=`<p class="mut" style="margin:0 0 8px">${l.length} ${l.length===1?'partida':'partidas'} no filtro</p><div class="gl">${l.slice(0,P.pk.n).map(gameItem).join('')||'<p class="mut">Nenhuma partida com esses filtros.</p>'}</div>${l.length>P.pk.n?`<div class="row" style="margin-top:12px"><button class="btn alt sm" onclick="P.pk.n+=8;renderPick(1)">Mostrar mais (${l.length-P.pk.n})</button></div>`:''}`;
+  const cnt={};P.games.forEach(g=>cnt[g.sp]=(cnt[g.sp]||0)+1);if(f.sp!=='all'&&!cnt[f.sp])f.sp='all';
+  const chip=(on,fn,l,n)=>`<button class="zchip${on?' on':''}" style="--zc:#7A5233" aria-pressed="${on}" onclick="${fn}">${l}<small>${n}</small></button>`;
+  const seg=(k,o)=>`<div class="seg" role="group">${o.map(([v,l,t])=>`<button class="${f[k]===v?'on':''}" aria-pressed="${f[k]===v}" onclick="pkSet('${k}','${v}')"${t?` title="${t}" aria-label="${t}"`:''}>${l}</button>`).join('')}</div>`;
+  F.innerHTML=`<div class="zchips">${chip(f.sp==='all',"pkSet('sp','all')",'Todos',P.games.length)}${SPO.filter(k=>cnt[k]).map(k=>chip(f.sp===k,`pkSet('sp','${k}')`,SPN[k],cnt[k])).join('')}</div><div class="apk-seg">${seg('col',[['all','Todas'],['w','♔','Brancas'],['b','♚','Pretas']])}${seg('res',[['all','Todos'],['W',RL.W,'Vitórias'],['D',RL.D,'Empates'],['L',RL.L,'Derrotas']])}${seg('an',[['all','Todas'],['y','✓ Analisadas'],['n','Pendentes']])}</div>`;
+  const l=pickGames();$('#apk-n').textContent='· '+l.length;
+  box.innerHTML=`<div class="gl">${l.slice(0,f.n).map(gameItem).join('')||'<p class="mut">Nenhuma partida com esses filtros.</p>'}</div>${l.length>f.n?`<button class="btn alt sm" style="margin-top:10px;width:100%" onclick="P.pk.n+=10;renderPick()">Mostrar mais (${l.length-f.n})</button>`:''}`;
 }
 
 /* ---------- Relatório do jogador ---------- */
@@ -2742,6 +2785,209 @@ function repPrint(){
     const go=()=>{try{f.contentWindow.focus();f.contentWindow.print()}catch(e){repOpenBlob(doc)}setTimeout(()=>f.remove(),60000)};
     (d.fonts&&d.fonts.ready?Promise.race([d.fonts.ready,new Promise(r=>setTimeout(r,1500))]):Promise.resolve()).then(()=>setTimeout(go,250));
   }catch(e){repOpenBlob(doc)}
+}
+
+/* =====================================================================
+   INGLÊS: dados (categorias, níveis, etc.), dicionário exato e regras de frases
+   ===================================================================== */
+if(IS_EN){
+  Object.assign(THN,{mate:"Mate (any)",mateIn1:"Mate in 1",mateIn2:"Mate in 2",mateIn3:"Mate in 3",mateIn4:"Mate in 4",mateIn5:"Mate in 5 or more",backRankMate:"Back-rank mate",smotheredMate:"Smothered mate",anastasiaMate:"Anastasia’s mate",arabianMate:"Arabian mate",bodenMate:"Boden’s mate",doubleBishopMate:"Double bishop mate",dovetailMate:"Dovetail mate",hookMate:"Hook mate",fork:"Fork",pin:"Pin",skewer:"Skewer",discoveredAttack:"Discovered attack",doubleCheck:"Double check",xRayAttack:"X-ray attack",attraction:"Attraction",deflection:"Deflection",interference:"Interference",clearance:"Clearance",intermezzo:"Intermezzo",quietMove:"Quiet move",zugzwang:"Zugzwang",sacrifice:"Sacrifice",hangingPiece:"Hanging piece",trappedPiece:"Trapped piece",capturingDefender:"Capturing the defender",defensiveMove:"Defensive move",endgame:"Endgame (general)",pawnEndgame:"Pawn endgame",rookEndgame:"Rook endgame",bishopEndgame:"Bishop endgame",knightEndgame:"Knight endgame",queenEndgame:"Queen endgame",queenRookEndgame:"Queen and rook endgame",opening:"Opening",middlegame:"Middlegame",advancedPawn:"Advanced pawn",promotion:"Promotion",underPromotion:"Underpromotion",enPassant:"En passant",castling:"Castling",kingsideAttack:"Kingside attack",queensideAttack:"Queenside attack",exposedKing:"Exposed king",attackingF2F7:"Attacking f2/f7",oneMove:"One move",short:"Short (2 moves)",long:"Long (3 moves)",veryLong:"Very long (4+)",crushing:"Crushing advantage",advantage:"Get an advantage",equality:"Equalize",mix:"Mixed"});
+  const GN=[["Checkmates","Deliver mate in the right number of moves and learn the classic patterns."],["Tactical motifs","The strikes that win material in the middlegame."],["Endgames","Convert or save positions with few pieces."],["Game phases","Typical puzzles from each stage of the game."],["Pawns and special moves","Promotions, en passant, castling and advanced pawns."],["King attack","Direct attack on the opponent’s king."],["Length and goal","Choose by the puzzle length or by what it asks for."]];
+  GROUPS.forEach((g,i)=>{if(GN[i]){g.n=GN[i][0];g.d=GN[i][1]}});
+  DIFF.any[0]="Any level";DIFF.easy[0]="Easy (up to 1300)";DIFF.mid[0]="Medium (1300–1800)";DIFF.hard[0]="Hard (1800–2200)";DIFF.vhard[0]="Very hard (2200+)";
+  Object.assign(TERM,{mate:"Checkmate",resign:"Resignation",time:"Time",draw:"Draw",other:"Other"});
+  Object.assign(SPN,{rapid:"Rapid",classical:"Classical",daily:"Daily"});
+  Object.assign(PHN,{o:"Opening",m:"Middlegame",e:"Endgame"});
+  Object.assign(RL,{W:"W",D:"D",L:"L"});
+  const CE={brilliant:["Brilliant","is a brilliant move"],great:["Great","is a great move"],best:["Best","is the best move"],excellent:["Excellent","is an excellent move"],good:["Good","is a good move"],book:["Book","is a book move (opening theory)"],inacc:["Inaccuracy","is an inaccuracy"],mistake:["Mistake","is a mistake"],blunder:["Blunder","is a blunder"]};
+  Object.keys(CE).forEach(k=>{CL[k].n=CE[k][0];CL[k].t=CE[k][1]});
+  Object.assign(RP_ARCH.Q,{n:"The Dominant Queen",t:"You convert advantages and set the pace of the game."});
+  Object.assign(RP_ARCH.N,{n:"The Tactical Knight",t:"Fast, direct play full of strikes: the game is decided early."});
+  Object.assign(RP_ARCH.R,{n:"The Persistent Rook",t:"You resist, lengthen the game and win by attrition."});
+  Object.assign(RP_ARCH.B,{n:"The Strategic Bishop",t:"A balance of planning and calculation, with medium-length games."});
+  Object.assign(RP_ARCH.P,{n:"The Rising Pawn",t:"A base under construction: every adjustment here earns a lot of rating."});
+  Object.assign(TR,{
+"Navegação principal":"Main navigation","Tabuleiro de exemplo":"Sample board","Quantidade de partidas na primeira importação":"Number of games on the first import","Ritmo do relatório":"Report time control","Quantidade de partidas":"Number of games","Ritmo":"Time control","Período":"Period","Critério":"Criterion","Resultado":"Result","Ritmo do gráfico":"Chart time control","Jogadores seguidos":"Followed players","Buscar adversário ou abertura":"Search opponent or opening","Início da partida":"Start of game","Lance anterior":"Previous move","Próximo lance":"Next move","Fim da partida":"End of game","Gráfico de vantagem da partida":"Game advantage chart","Profundidade da análise":"Analysis depth","PGN da partida":"Game PGN","Seções de problemas":"Puzzle sections","Relatório do jogador":"Player report","Seções do relatório":"Report sections","Linha da abertura":"Opening line","Modo de treino":"Training mode","Precisão partida a partida":"Accuracy game by game","Escala de −10 a +10 peões":"Scale from −10 to +10 pawns","Rating médio dos problemas resolvidos":"Average rating of solved puzzles","Treinar esta categoria":"Train this category","Ver as partidas desta abertura":"See the games with this opening","Mais fortes (+50 ou mais)":"Stronger (+50 or more)","Mais fracos (−50 ou menos)":"Weaker (−50 or less)","Precisão":"Accuracy","Equilibrada":"Balanced","Rápida":"Fast","Profunda":"Deep",
+"Vitórias":"Wins","Empates":"Draws","Derrotas":"Losses","Desistência":"Resignation","Tempo":"Time","Empate":"Draw","Xeque-mate":"Checkmate","Outros":"Other",
+"Analisar pendentes":"Analyze pending","Pelo motor":"By engine","Pelo resultado":"By result","✓ Analisadas":"✓ Analyzed","Pendentes":"Pending","Todas":"All","Sugestões:":"Suggestions:","Anônimo":"Anonymous",
+"Siga um GM (ou qualquer jogador) do Lichess ou do chess.com e veja as últimas partidas dele num toque. Só dados públicos; a lista fica salva neste navegador.":"Follow a GM (or any player) on Lichess or chess.com and see their latest games in one tap. Public data only; the list is saved in this browser.",
+"Digite o usuário de um jogador acima, ou toque numa sugestão, para começar a segui-lo.":"Type a player’s username above, or tap a suggestion, to start following them.",
+"Escolher partida para analisar":"Pick a game to analyze","Prefere outra fonte? Cole um PGN mais abaixo ou abra uma partida de um jogador na aba Seguindo.":"Prefer another source? Paste a PGN below or open a player’s game from the Following tab.",
+"Conecte sua conta para escolher partidas do seu histórico.":"Connect your account to pick games from your history.","Nenhuma partida salva ainda. Sincronize no perfil.":"No games saved yet. Sync in your profile.",
+"Arraste uma peça (ou clique na peça e no destino) para testar uma variação. Cada lance é avaliado na hora. A barra de avaliação vai de −10 a +10 peões.":"Drag a piece (or click the piece and its destination) to try a variation. Every move is evaluated instantly. The evaluation bar goes from −10 to +10 pawns.",
+"Posição inicial":"Starting position","Início da variação":"Start of variation","Duque de Brunswick e Conde Isouard":"Duke of Brunswick and Count Isouard","Carregue uma partida para começar":"Load a game to get started","Carregue uma partida primeiro.":"Load a game first.",
+"Motor indisponível. Verifique a conexão e recarregue a página.":"Engine unavailable. Check your connection and reload the page.","Não consegui carregar o Stockfish 17. Usando o motor reserva…":"Could not load Stockfish 17. Using the backup engine…","Carregando o Stockfish 17 (cerca de 7 MB, só na primeira vez)…":"Loading Stockfish 17 (about 7 MB, first time only)…",
+"Não foi possível carregar o Stockfish. Verifique a conexão com a internet e tente de novo.":"Could not load Stockfish. Check your internet connection and try again.","Não foi possível carregar o Stockfish. Verifique a conexão e tente de novo.":"Could not load Stockfish. Check your connection and try again.",
+"Não consegui ler esse PGN. Cole a partida completa, com os lances numerados.":"Could not read this PGN. Paste the full game with numbered moves.",
+"Mate do pastor":"Scholar’s mate","Mate do corredor":"Back-rank mate","Mate sufocado":"Smothered mate","Garfo de cavalo":"Knight fork","Espeto de torre":"Rook skewer","Solução":"Solution","Solução:":"Solution:","Problema do dia":"Daily puzzle","Problema tático":"Tactical puzzle","Problema resolvido!":"Puzzle solved!","Resolvido!":"Solved!","Buscando problema…":"Fetching puzzle…","Buscando o problema do dia…":"Fetching the daily puzzle…",
+"Esse não é o lance. Tente de novo.":"That is not the move. Try again.","Correto, continue.":"Correct, keep going.","Resolvido, mas com erro ou ajuda. Vai para a revisão.":"Solved, but with a mistake or help. It goes to review.",
+"Ver este problema no Lichess":"See this puzzle on Lichess","Mestre":"Master","Avançado":"Advanced","Praticante":"Practitioner","Iniciante":"Beginner","Novo":"New",
+"Problemas de todas as categorias, sorteados.":"Puzzles from every category, drawn at random.","Nenhum erro pendente por enquanto.":"No pending mistakes for now.","Problemas que você errou ou resolveu com ajuda.":"Puzzles you got wrong or solved with help.","O desafio diário escolhido pelo Lichess.":"The daily challenge picked by Lichess.",
+"O anel mostra seu avanço rumo ao nível Mestre (40 problemas resolvidos sem erro, com 80% de acerto). Os níveis sobem com problemas resolvidos sem erro: Iniciante (1), Praticante (5), Avançado (15) e Mestre (40). A taxa de acerto fica em Estatísticas.":"The ring shows your progress toward Master level (40 puzzles solved without mistakes, with an 80% success rate). Levels go up with puzzles solved without mistakes: Beginner (1), Practitioner (5), Advanced (15) and Master (40). The success rate is in Statistics.",
+"Seu desempenho em problemas":"Your puzzle performance","problemas resolvidos":"puzzles solved","tentativas":"attempts","taxa de acerto":"success rate","tempo mediano":"median time","melhor sequência":"best streak","dias seguidos":"days in a row","dia seguido":"day in a row","rating médio resolvido":"average solved rating","mais difícil resolvido":"hardest solved","Últimos 14 dias":"Last 14 days","Problemas por dia nos últimos 14 dias":"Puzzles per day in the last 14 days","acertos":"correct","erros":"mistakes","Por nível de dificuldade":"By difficulty level","Rating dos problemas resolvidos":"Rating of solved puzzles","Média móvel dos últimos 10 acertos.":"Moving average of the last 10 solved.","Por categoria":"By category","Clique para treinar. Acertos/tentativas · taxa.":"Click to train. Correct/attempts · rate.","Histórico recente":"Recent history","Zerar progresso dos problemas":"Reset puzzle progress","Estatísticas de problemas":"Puzzle statistics",
+"Resolva alguns problemas e aqui aparecem taxa de acerto, tempo, sequências, desempenho por categoria e histórico.":"Solve a few puzzles and your success rate, time, streaks, performance by category and history will appear here.",
+"Zerar o histórico e o progresso dos problemas? Os problemas baixados continuam salvos.":"Reset the history and progress of the puzzles? Downloaded puzzles stay saved.",
+"Sem conexão com o Lichess.":"No connection to Lichess.","Limite do Lichess atingido. Aguarde um minuto.":"Lichess limit reached. Wait a minute.",
+"Não encontrei problemas para essa combinação. Tente outro nível ou categoria.":"No puzzles found for this combination. Try another level or category.",
+"O Lichess pediu uma pausa (muitas requisições seguidas). Aguarde cerca de 1 minuto e tente de novo.":"Lichess asked for a pause (too many requests in a row). Wait about 1 minute and try again.",
+"Não consegui falar com o Lichess agora. Verifique a conexão, ou se algum bloqueador de conteúdo está impedindo, e tente de novo.":"Could not reach Lichess right now. Check your connection, or whether a content blocker is in the way, and try again.",
+"Nenhum problema com erro nesta categoria e nível.":"No puzzles with mistakes in this category and level.",
+"Não foi possível buscar o problema do Lichess. Resolva os problemas salvos por enquanto.":"Could not fetch the Lichess puzzle. Solve your saved puzzles for now.",
+"Escolha pela duração do problema ou pelo que ele pede.":"Choose by puzzle length or by what it asks for.","Fases da partida":"Game phases","Motivos táticos":"Tactical motifs","Xeque-mates":"Checkmates","Finais":"Endgames","Peões e lances especiais":"Pawns and special moves","Ataque ao rei":"King attack","Extensão e objetivo":"Length and goal",
+"Analisar partidas":"Analyze games","Analisar 5 partidas":"Analyze 5 games","Analise mais partidas":"Analyze more games","Analise suas partidas":"Analyze your games","Abrir análise":"Open analysis","Gerar relatório":"Generate report","Salvar PDF":"Save PDF","← Fechar":"← Close","Ver erros":"See mistakes","Ver posições":"See positions","Ver partidas":"See games","Ver lance":"See move","Treinar":"Train","Treinar táticas":"Train tactics","Treinar aberturas":"Train openings","Ir ao Perfil":"Go to Profile","Revisar":"Review","Mostrar mais":"Show more",
+"Analisa as últimas partidas do ritmo escolhido e gera um relatório com estatísticas, tipo de jogador e pistas de melhoria. Depois você pode salvar como PDF.":"Analyzes the latest games of the chosen time control and generates a report with statistics, player type and improvement tips. You can then save it as a PDF.",
+"O armazenamento local não está disponível neste navegador ou modo privado. Os dados valem só até fechar a página. Use \"Exportar backup\" para não perdê-los.":"Local storage is not available in this browser or private mode. Data lasts only until you close the page. Use “Export backup” so you don’t lose it.",
+"Enter your Lichess or chess.com username. No password is asked.":"Enter your Lichess or chess.com username. No password is asked.",
+"ver perfil público":"view public profile","Última sincronização":"Last sync","O que os números sugerem":"What the numbers suggest",
+"Clique em uma abertura para ver as partidas. Agrupadas pela família do nome que a plataforma registra (em inglês). Números: partidas · pontuação.":"Click an opening to see the games. Grouped by the name family the platform records. Numbers: games · score.",
+"precisão média":"average accuracy","melhor partida":"best game","erros graves por partida":"blunders per game","erros por partida":"mistakes per game","Chance de vitória perdida por lance":"Win chance lost per move","Seus piores momentos":"Your worst moments","Qualidade de jogo":"Game quality",
+"Para você corrigir: aponta onde, nas primeiras 12 jogadas, os mesmos deslizes aparecem de novo. Toque em \"Ver lance\" para abrir a partida naquele ponto.":"To fix: shows where, in the first 12 moves, the same slips appear again. Tap “See move” to open the game at that point.",
+"Maiores erros isolados na abertura":"Biggest isolated opening mistakes","Calculando…":"Calculating…",
+"Nenhuma posição de abertura com resultado ruim repetido (3 partidas ou mais com 35% ou menos de pontuação) neste filtro.":"No opening position with a repeatedly bad result (3 games or more with 35% or less score) in this filter.",
+"Mesma posição, mesmo lance, repetido em partidas analisadas. Ordenado pelo prejuízo total.":"Same position, same move, repeated in analyzed games. Sorted by total damage.",
+"Posições das 12 primeiras jogadas em que você repetiu o mesmo lance (3 partidas ou mais) e foi mal no resultado. Não depende de análise do motor.":"Positions from the first 12 moves where you repeated the same move (3 games or more) and did badly. Does not depend on engine analysis.",
+"Há uma revisão antiga salva desta partida (motor anterior, avaliações imprecisas). Clique em \"Revisar partida\" para refazê-la com o Stockfish 17.":"There is an old saved review of this game (previous engine, inaccurate evaluations). Click “Review game” to redo it with Stockfish 17.",
+"Revisão salva carregada. Você pode reanalisar com outra profundidade.":"Saved review loaded. You can re-analyze at another depth.",
+"Nenhuma partida analisada neste filtro. Use \"Analisar pendentes\" em Qualidade de jogo (logo acima): o Stockfish revisa suas partidas e aqui aparecem os lances ruins que você repete nas 12 primeiras jogadas.":"No analyzed games in this filter. Use “Analyze pending” in Game quality (just above): Stockfish reviews your games and the bad moves you repeat in the first 12 moves appear here.",
+"Ainda não há partidas analisadas neste filtro. A análise roda no seu navegador com o Stockfish e fica salva.":"There are no analyzed games in this filter yet. The analysis runs in your browser with Stockfish and is saved.",
+"O Stockfish está analisando suas partidas aqui no navegador. Cada análise é salva ao terminar; você pode parar quando quiser.":"Stockfish is analyzing your games here in the browser. Each analysis is saved when finished; you can stop whenever you want.",
+"Sem alertas por enquanto. Sincronize mais partidas, analise algumas e resolva problemas táticos: as recomendações aparecem aqui.":"No alerts for now. Sync more games, analyze a few and solve tactics puzzles: recommendations show up here.",
+"Nenhuma partida padrão recente encontrada.":"No recent standard games found.","Buscando as últimas partidas…":"Fetching the latest games…","Em contas muito ativas do chess.com isso pode levar alguns segundos.":"On very active chess.com accounts this can take a few seconds.",
+"Nenhuma partida neste filtro. Ajuste os filtros ou use \"Importar mais antigas\".":"No games in this filter. Adjust the filters or use “Import older games”.",
+"Esse arquivo não parece um backup do Gambito.":"This file does not look like a Gambito backup.",
+"Não foi possível salvar a conta no armazenamento local.":"Could not save the account to local storage.","Não foi possível salvar no armazenamento local.":"Could not save to local storage.",
+"A conexão falhou. Verifique a internet e tente de novo; o que já foi baixado foi salvo.":"The connection failed. Check your internet and try again; what was already downloaded was saved.",
+"Limite de requisições atingido. Aguarde cerca de um minuto e tente de novo.":"Request limit reached. Wait about a minute and try again.",
+"Usuário não encontrado. Confira o nome e a plataforma.":"User not found. Check the name and platform.","Jogador não encontrado. Confira o nome e a plataforma.":"Player not found. Check the name and platform.",
+"Não foi possível buscar agora. Verifique a conexão e tente de novo.":"Could not fetch right now. Check your connection and try again.",
+"Tudo em dia: nenhuma partida nova.":"All up to date: no new games.","Não há partidas pendentes neste filtro.":"There are no pending games in this filter.","Conectando…":"Connecting…","Procurando jogador…":"Looking for player…",
+"Chance de vitória":"Win chance","Fase mais fraca":"Weakest phase",
+"Peças: Cburnett (Colin M. L. Burnett), licença GPLv2+. Motor: Stockfish.js. Dados: Lichess e chess.com.":"Pieces: Cburnett (Colin M. L. Burnett), GPLv2+ license. Engine: Stockfish.js. Data: Lichess and chess.com.",
+"Português":"Português","Lance":"Move","Final":"Endgame","Abertura":"Opening","Meio-jogo":"Middlegame",
+/* relatório */
+"Resumo":"Summary","Desempenho":"Performance","Seu jogo":"Your game","Plano":"Plan","Ver tudo":"See all","♞ GAMBITO · RELATÓRIO DO JOGADOR":"♞ GAMBITO · PLAYER REPORT","ÍNDICE GAMBITO":"GAMBITO INDEX","Elite":"Elite","Competitivo":"Competitive","Em construção":"Under construction","Fundamentos":"Fundamentals",
+"Ponto mais forte:":"Strongest point:","Maior oportunidade:":"Biggest opportunity:","Seu estilo":"Your style","ARQUÉTIPO":"ARCHETYPE","por partida.":"per game.",
+"Relógio":"Clock","Resiliência":"Resilience","Início de partida":"Game start","Rivais fortes":"Strong rivals","Regularidade":"Consistency",
+"Pontuação nas partidas (vitórias + ½ empates).":"Score in the games (wins + ½ draws).","Quanto você evita perder por tempo.":"How well you avoid losing on time.","Rendimento logo depois de uma derrota.":"Performance right after a loss.","Quanto você evita derrotas em até 20 lances.":"How well you avoid losses within 20 moves.","Desempenho contra adversários 50+ pontos acima.":"Performance against opponents 50+ points higher.","Precisão média medida pelo Stockfish.":"Average accuracy measured by Stockfish.","Evitar longas sequências de derrotas.":"Avoiding long losing streaks.",
+"Forma recente":"Recent form","Da partida mais antiga (esquerda) à mais recente. ○ brancas · ● pretas · ⏱ derrota por tempo.":"From the oldest game (left) to the most recent. ○ White · ● Black · ⏱ loss on time.",
+"partidas":"games","pontuação":"score","maior seq. de vitórias":"longest win streak","maior seq. de derrotas":"longest loss streak","Mapa de habilidades":"Skills map","Seis índices de 0 a 100 calculados a partir das suas partidas.":"Six indexes from 0 to 100 calculated from your games.",
+"Seu jogo em detalhe":"Your game in detail","Por cor":"By color","Contra quem você joga":"Who you play against","Duração das partidas (lances)":"Game length (moves)","Como terminam":"How they end","Quando você rende mais":"When you play best","Altura da barra = pontuação. Verde ≥ 55%, âmbar ≥ 40%.":"Bar height = score. Green ≥ 55%, amber ≥ 40%.",
+"♔ Brancas":"♔ White","♚ Pretas":"♚ Black","Mais fortes (+50)":"Stronger (+50)","Parecidos (±50)":"Similar (±50)","Mais fracos (−50)":"Weaker (−50)","até 20":"up to 20","Dom":"Sun","Seg":"Mon","Ter":"Tue","Qua":"Wed","Qui":"Thu","Sex":"Fri","Sáb":"Sat","Madrugada":"Early morning","Manhã":"Morning","Tarde":"Afternoon","Noite":"Evening",
+"Melhor período:":"Best period:","Repertório de aberturas":"Opening repertoire","Sem aberturas identificadas nestas partidas.":"No openings identified in these games.","Sem aberturas identificadas.":"No openings identified.","Qualidade de jogo (Stockfish)":"Game quality (Stockfish)","partidas analisadas":"games analyzed",
+"Chance de vitória perdida por lance, por fase:":"Win chance lost per move, by phase:","Nenhuma destas partidas foi analisada ainda.":"None of these games has been analyzed yet.",
+"Pontos fortes e oportunidades":"Strengths and opportunities","✓ Pontos fortes":"✓ Strengths","▲ Oportunidades":"▲ Opportunities","Amplie a amostra para destacar seus pontos fortes.":"Expand the sample to highlight your strengths.","Bom rendimento contra adversários mais fortes.":"Good performance against stronger opponents.","Nenhum ponto fraco claro: aumente a amostra e treine táticas.":"No clear weak spot: grow the sample and train tactics.","Boa abertura:":"Good opening:",
+"Plano de 7 dias":"7-day plan","Sessões curtas, ordenadas pelo que mais pode render para você.":"Short sessions, ordered by what can pay off most for you.","Em jogo":"In play","Metas para as próximas":"Goals for the next","Derrotas por tempo":"Losses on time","Derrotas em até 20 lances":"Losses within 20 moves","Precisão média":"Average accuracy","Pontuação":"Score","Desde o último relatório":"Since the last report","Índice Gambito":"Gambito Index",
+"Gestão do relógio":"Clock management","Derrotas muito cedo":"Very early losses","Reação a derrotas":"Reacting to losses","Consistência contra adversários mais fracos":"Consistency against weaker opponents","Erros graves":"Blunders","Finais básicos":"Basic endgames","Revisão de uma derrota":"Review of a loss","Mates e garfos":"Mates and forks","Aplique tudo em 3 partidas":"Apply everything in 3 games",
+"⏱ Vulnerável ao relógio":"⏱ Vulnerable to the clock","♔ Mais forte de brancas":"♔ Stronger with White","♚ Mais forte de pretas":"♚ Stronger with Black","🎢 Sensível a derrotas":"🎢 Sensitive to losses","🎯 Competitivo contra mais fortes":"🎯 Competitive against stronger players","⚠ Irregular contra mais fracos":"⚠ Irregular against weaker players","📉 Sequências negativas":"📉 Losing streaks","♛ Finalizador":"♛ Finisher","🤝 Sólido":"🤝 Solid","⚖ Estável":"⚖ Steady","Nenhum padrão extremo apareceu nestas partidas.":"No extreme pattern showed up in these games.",
+"Revise finais de torre e de peões: rei ativo, oposição e a posição de Lucena.":"Review rook and pawn endings: active king, opposition and the Lucena position.","Escolha a derrota mais recente, analise-a com o motor e anote o erro decisivo.":"Pick the most recent loss, analyze it with the engine and note the decisive mistake.","Resolva 15 problemas de mate em 1–2 lances e garfos.":"Solve 15 mate-in-1–2 and fork puzzles.","Jogue 3 partidas do mesmo ritmo com atenção ao ponto mais fraco e compare com este relatório.":"Play 3 games of the same time control focusing on your weakest point and compare with this report.",
+"Seu rendimento cai logo após perder. Faça uma pausa curta, evite procurar revanche imediata e revise o erro antes de jogar de novo.":"Your performance drops right after a loss. Take a short break, avoid chasing an immediate rematch and review the mistake before playing again.",
+"Pontos perdidos contra jogadores abaixo do seu nível pesam no rating. Evite jogar rápido demais e procure o plano mais simples e seguro.":"Points lost against players below your level weigh on your rating. Avoid playing too fast and look for the simplest, safest plan.",
+"Com 5 ou mais partidas analisadas pelo Stockfish, o relatório passa a incluir precisão, erros graves e a fase mais fraca.":"With 5 or more games analyzed by Stockfish, the report also includes accuracy, blunders and the weakest phase.",
+"São necessárias pelo menos 5 partidas deste ritmo. Importe mais partidas no perfil.":"At least 5 games of this time control are needed. Import more games in your profile.",
+"Analisar partidas":"Analyze games"
+  });
+  const Wp=s=>/brancas/.test(s)?"White":"Black",WC=n=>n==1?"":"s";
+  [
+[/^Bem-vindo de volta, (.+)\.$/,"Welcome back, $1."],
+[/^(\d+) lances carregados\. Clique em "Revisar partida" para classificar todos os lances\.$/,'$1 moves loaded. Click “Review game” to classify every move.'],
+[/^Revisar partida contra (.+)$/,"Review game vs $1"],[/^contra (.+) · (.+)$/,"vs $1 · $2"],
+[/^(\d+) vitórias, (\d+) empates, (\d+) derrotas$/,"$1 wins, $2 draws, $3 losses"],[/^(\d+) vitórias, (\d+) empates e (\d+) derrotas\.$/,"$1 wins, $2 draws and $3 losses."],
+[/^Últimas (\d+) partidas: (\d+) vitórias, (\d+) empates e (\d+) derrotas\.$/,"Last $1 games: $2 wins, $3 draws and $4 losses."],
+[/^(.*) · pico (\d+)$/,"$1 · peak $2"],[/^Mostrar mais \((\d+)( restantes)?\)$/,m=>"Show more ("+m[1]+(m[2]?" left":"")+")"],
+[/^(\d+) salvos · (\d+) resolvidos · (\d+) com erros( · baixando em segundo plano…)?$/,m=>m[1]+" saved · "+m[2]+" solved · "+m[3]+" with mistakes"+(m[4]?" · downloading in the background…":"")],
+[/^(\d+) resolvidos( · (\d+) salvos)?( · (\d+)% de acerto)?$/,m=>m[1]+" solved"+(m[3]?" · "+m[3]+" saved":"")+(m[5]?" · "+m[5]+"% success":"")],
+[/^(.+): (\d+) resolvidos, nível (.+)$/,m=>m[1]+": "+m[2]+" solved, level "+tr(m[3])],[/^Avanço rumo ao nível Mestre: (\d+)%$/,"Progress toward Master level: $1%"],
+[/^(\d+) problemas? foram salvos\.$/,"$1 puzzles were saved."],[/^(\d+) novos problemas salvos na base local\.$/,"$1 new puzzles saved to the local database."],
+[/^Vez das (brancas|pretas): encontre o melhor lance\.$/,m=>(m[1]==="brancas"?"White":"Black")+" to move: find the best move."],
+[/^nível (\d+) · (.+)$/,"level $1 · $2"],[/^(\d{1,2}\/\d{1,2}\/\d{4}): (\d+) acertos, (\d+) erros$/,"$1: $2 correct, $3 mistakes"],
+[/^Acerto = resolvido sem erros e sem ver a solução\. Sequência atual: (\d+)\.( Ponto forte:)?$/,m=>"Correct = solved with no mistakes and without seeing the solution. Current streak: "+m[1]+"."+(m[2]?" Strength:":"")],
+[/^Pontuação = vitórias \+ metade dos empates\. Sequência atual: (\d+) (vitórias|derrotas|empates)\. Maior sequência de vitórias: (\d+)\.$/,m=>"Score = wins + half of the draws. Current streak: "+m[1]+" "+({vitórias:"wins",derrotas:"losses",empates:"draws"})[m[2]]+". Longest winning streak: "+m[3]+"."],
+[/^Por exemplo: (.+) \((\d+)V (\d+)E (\d+)D\)\.$/,"For example: $1 ($2W $3D $4L)."],[/^O mais pesado: (.+) \((\d+) partidas\)\.$/,"The heaviest: $1 ($2 games)."],
+[/^(\d+) erros? de abertura que você repete$/,"$1 opening mistake(s) you repeat"],
+[/^(.+?)\. Com 5 ou mais, o site aponta seus erros e os que se repetem nas aberturas\.$/,m=>tr(m[1])+". With 5 or more, the site points out your mistakes and the ones you repeat in openings."],
+[/^Nenhuma partida analisada ainda$/,"No games analyzed yet"],[/^(\d+) partidas? analisadas?$/,m=>m[1]+" analyzed game"+(m[1]==="1"?"":"s")],
+[/^Sua abertura mais fraca: (.+)$/,"Your weakest opening: $1"],[/^Com as (brancas|pretas): (\d+) partidas, (\d+)% de pontuação\.$/,m=>"With "+Wp(m[1])+": "+m[2]+" games, "+m[3]+"% score."],
+[/^Tática para reforçar: (.+)$/,"Tactic to reinforce: $1"],[/^(\d+) acertos em (\d+) tentativas \((\d+)%\)\.$/,"$1 correct out of $2 attempts ($3%)."],
+[/^Você pontua (\d+) pontos percentuais a mais com as (brancas|pretas) \((\d+)% contra (\d+)%\)\. Vale reforçar o repertório com as (brancas|pretas)\.$/,m=>"You score "+m[1]+" percentage points higher with "+Wp(m[2])+" ("+m[3]+"% vs "+m[4]+"%). It is worth strengthening your repertoire with "+Wp(m[5])+"."],
+[/^(\d+)% das suas derrotas foram por tempo\. Revise a gestão do relógio ou teste um ritmo com incremento\.$/,"$1% of your losses were on time. Review your clock management or try a time control with increment."],
+[/^Com (brancas|pretas), sua pior abertura é (.+): (\d+)% em (\d+) partidas\.$/,m=>"With "+Wp(m[1])+", your worst opening is "+m[2]+": "+m[3]+"% in "+m[4]+" games."],
+[/^Nas partidas analisadas, o (abertura|meio-jogo|final) é onde você mais perde vantagem por lance\.$/,m=>"In the analyzed games, the "+({abertura:"opening","meio-jogo":"middlegame",final:"endgame"})[m[1]]+" is where you lose the most advantage per move."],
+[/^(\d+) partidas · começo (\d+) · agora (\d+) · variação (-?\d+)\. O rating de cada ponto é o valor registrado após a partida\.$/,"$1 games · start $2 · now $3 · change $4. The rating at each point is the value recorded after the game."],
+[/^Rating médio dos adversários: (\d+)\.$/,"Average opponent rating: $1."],
+[/^(\d+) partidas? analisadas?, (\d+) pendentes?\. Só os seus lances entram nas médias\.$/,"$1 analyzed, $2 pending. Only your own moves count in the averages."],
+[/^perdeu (\d+)% de chance( · era melhor (.+))?$/,m=>"lost "+m[1]+"% win chance"+(m[3]?" · better was "+m[3]:"")],
+[/^Nenhum erro de abertura se repetiu nas (\d+) partidas? analisadas?\. Isso é um bom sinal; analise mais partidas para ter uma amostra maior\.$/,"No opening mistake was repeated in the $1 analyzed games. That is a good sign; analyze more games for a bigger sample."],
+[/^Baseado em (\d+) partidas? analisadas? neste filtro\.$/,"Based on $1 analyzed games in this filter."],
+[/^Você jogou (.+) em (\d+) partidas · perda média de (\d+)% de chance( · o motor preferia (.+))?$/,m=>"You played "+m[1]+" in "+m[2]+" games · average loss of "+m[3]+"% win chance"+(m[5]?" · the engine preferred "+m[5]:"")],
+[/^Partidas recentes de (.+)$/,"Recent games by $1"],[/^Agora você segue (.+)\.$/,"You now follow $1."],[/^Últimas (\d+) partidas$/,"Last $1 games"],
+[/^(\d+) partidas$/,"$1 games"],[/^(\d+) de 100$/,"$1 of 100"],[/^(\d+) · (Ponto forte|Estável|Prioridade)$/,m=>m[1]+" · "+({"Ponto forte":"Strength","Estável":"Steady","Prioridade":"Priority"})[m[2]]],
+[/^de pontuação em (\d+) partidas(, rating (.+))?\.$/,m=>"score over "+m[1]+" games"+(m[3]?", rating "+m[3]:"")+"."],
+[/^(.+\.) Média de$/,m=>tr(m[1])+" Average of"],[/^(\d+) lances$/,"$1 moves"],
+[/^(\d+)% das derrotas foram por tempo\.$/,"$1% of losses were on time."],[/^(\d+)% contra adversários 50\+ pontos acima\.$/,"$1% against opponents 50+ points higher."],[/^Só (\d+)% contra adversários 50\+ pontos abaixo\.$/,"Only $1% against opponents 50+ points lower."],
+[/^(\d+)% com (brancas|pretas) contra (\d+)% com (brancas|pretas)\.$/,m=>m[1]+"% with "+Wp(m[2])+" vs "+m[3]+"% with "+Wp(m[4])+"."],
+[/^Depois de perder, a pontuação cai para (\d+)% \(média (\d+)%\)\.$/,"After losing, the score drops to $1% (average $2%)."],
+[/^Maior sequência de derrotas: (\d+)\.$/,"Longest losing streak: $1."],[/^Melhor sequência de vitórias: (\d+)\.$/,"Best winning streak: $1."],
+[/^(\d+)% das vitórias vieram por xeque-mate\.$/,"$1% of the wins came by checkmate."],[/^(\d+)% das partidas terminaram empatadas\.$/,"$1% of the games ended in a draw."],
+[/^(.+) é seu índice mais alto \((\d+)\/100\)\.$/,m=>tr(m[1])+" is your highest index ("+m[2]+"/100)."],
+[/^Rating em alta: \+(\d+) pontos no período\.$/,"Rating up: +$1 points over the period."],
+[/^Você rende melhor à (.+) \((\d+)% em (\d+) partidas\)\.$/,m=>"You play best in the "+tr(m[1]).toLowerCase()+" ("+m[2]+"% in "+m[3]+" games)."],
+[/^Com (brancas|pretas) · (\d+) partidas?$/,m=>"With "+Wp(m[1])+" · "+m[2]+" game"+WC(+m[2])],
+[/^(Arma|Atenção|Neutra|Poucos jogos) · (\d+)%$/,m=>({Arma:"Weapon","Atenção":"Watch out",Neutra:"Neutral","Poucos jogos":"Few games"})[m[1]]+" · "+m[2]+"%"],
+[/^com (brancas|pretas) \((\d+)% em (\d+) partidas\)\.$/,m=>"with "+Wp(m[1])+" ("+m[2]+"% in "+m[3]+" games)."],
+[/^\((\d+)%\)\. Pior:$/,"($1%). Worst:"],[/^\((\d+)%\)\. Amostra pequena: use como pista\.$/,"($1%). Small sample: use it as a hint."],
+[/^(\d+) aberturas diferentes em (\d+) partidas\. Posições típicas depois de cerca de 5 lances\.$/,"$1 different openings in $2 games. Typical positions after about 5 moves."],
+[/^Metas para as próximas (\d+) partidas$/,"Goals for the next $1 games"],[/^(\d+) ou menos$/,"$1 or fewer"],
+[/^Comparado com o relatório de (.+)\.$/,"Compared with the report of $1."],
+[/^Últimas (\d+) partidas de (.+) \((.+) a (.+)\)\. Gerado em (.+)\.$/,"Last $1 games ($3 to $4). Generated on $5."],
+[/^(\d+) de (\d+) derrotas foram por tempo\. Defina marcos \(não gastar mais de 30% do tempo até o lance 15\), jogue a abertura mais rápido e teste ritmos com incremento\.$/,"$1 of $2 losses were on time. Set milestones (do not spend more than 30% of your time by move 15), play the opening faster and try time controls with increment."],
+[/^Abertura problemática: (.+)$/,"Problem opening: $1"],
+[/^Com (brancas|pretas): (\d+) partidas e (\d+)% de pontuação\. Revise a linha, descubra onde o jogo se perde e prepare uma alternativa\.$/,m=>"With "+Wp(m[1])+": "+m[2]+" games and "+m[3]+"% score. Review the line, find where the game is lost and prepare an alternative."],
+[/^Reforçar o jogo com as (pretas|brancas)$/,m=>"Strengthen your play with "+Wp(m[1])],
+[/^A diferença de (\d+) pontos percentuais entre as cores sugere repertório menos preparado com as (pretas|brancas)\. Escolha uma ou duas aberturas e repita-as\.$/,m=>"The "+m[1]+"-point gap between colors suggests a less prepared repertoire with "+Wp(m[2])+". Pick one or two openings and repeat them."],
+[/^(\d+) derrotas em 20 lances ou menos: costuma indicar erro tático básico ou abertura mal conhecida\. Treine mates curtos, garfos e peças penduradas e confira as ameaças antes de cada lance\.$/,"$1 losses within 20 moves: it usually points to a basic tactical mistake or a poorly known opening. Train short mates, forks and hanging pieces and check the threats before every move."],
+[/^Você comete em média (.+) erros graves por partida\. Antes de cada lance, procure capturas, xeques e ameaças do adversário\.$/,"You make $1 blunders per game on average. Before every move, look for captures, checks and your opponent’s threats."],
+[/^Fase mais fraca: (abertura|meio-jogo|final)$/,m=>"Weakest phase: "+({abertura:"opening","meio-jogo":"middlegame",final:"endgame"})[m[1]]],
+[/^É onde você mais perde vantagem por lance\. Dedique parte do treino a (aberturas|táticas e planos de meio-jogo|finais)\.$/,m=>"It is where you lose the most advantage per move. Devote part of your training to "+({aberturas:"openings","táticas e planos de meio-jogo":"tactics and middlegame plans",finais:"endgames"})[m[1]]+"."],
+[/^DIA (\d+)$/,"DAY $1"],[/^(\d+) min$/,"$1 min"],
+[/^Gerado em (.+) · Dados: (.+) · Motor: Stockfish · Peças: Cburnett \(GPLv2\+\)\.$/,"Generated on $1 · Data: $2 · Engine: Stockfish · Pieces: Cburnett (GPLv2+)."],
+[/^Resultado = pontuação;.*Com (\d+) partidas, padrões isolados são indícios, não certezas\.$/,"Result = score; Clock = 100 − 2.5 × % of games lost on time; Resilience = score right after losses; Game start = 100 − 2.5 × % of losses within 20 moves; Strong rivals = score against opponents 50+ points higher × 1.7; Accuracy = Stockfish average (or, without analysis, Consistency = 100 − 15 × longest losing streak). Gambito Index = weighted average (Result 25%, others 15%). With $1 games, isolated patterns are hints, not certainties."],
+[/^Como calculamos\.$/,"How we calculate."]
+  ].forEach(r=>TRX.push(r));
+  Object.assign(TR,{"Radar de habilidades":"Skills radar","Posição típica":"Typical position","Derrotas muito cedo.":"Very early losses.","Fase mais fraca:":"Weakest phase:"});
+  [
+[/^(\d+) partidas salvas · última sincronização: (.+)$/,m=>m[1]+" games saved · last sync: "+(m[2]==="nunca"?"never":m[2])],
+[/^(\d+) posi(?:ção|ções) de abertura com resultado ruim$/,"$1 opening position(s) with a bad result"],[/^(\d+) erros? de abertura que você repete$/,"$1 opening mistake(s) you repeat"],
+[/^Nas partidas analisadas, o (.+) é onde você mais perde vantagem por lance\.$/,"In the analyzed games, the $1 is where you lose the most advantage per move."],
+[/^Rating em (.+), de (\d+) a (\d+)$/,"Rating in $1, from $2 to $3"],[/^Evolução do rating de (\d+) para (\d+)$/,"Rating evolution from $1 to $2"],
+[/^([WDLVE]) contra (.+)$/,"$1 vs $2"],
+[/^Com (brancas|pretas): (\d+) partidas e (\d+)% de pontuação\.$/,m=>"With "+Wp(m[1])+": "+m[2]+" games and "+m[3]+"% score."],
+[/^Reforçar o jogo com as (pretas|brancas)\.$/,m=>"Strengthen your play with "+Wp(m[1])+"."],
+[/^A diferença de (\d+) pontos percentuais entre as cores sugere repertório menos preparado com as (pretas|brancas)\.$/,m=>"The "+m[1]+"-point gap between colors suggests a less prepared repertoire with "+Wp(m[2])+"."],
+[/^(\d+) derrotas em 20 lances ou menos: costuma indicar erro tático básico ou abertura mal conhecida\.$/,"$1 losses within 20 moves: it usually points to a basic tactical mistake or a poorly known opening."],
+[/^Fase mais fraca: (.+)$/,"Weakest phase: $1"],
+[/^(\d+) de (\d+) derrotas foram por tempo\.$/,"$1 of $2 losses were on time."],
+[/^Você comete em média (.+) erros graves por partida\.$/,"You make $1 blunders per game on average."],
+[/^(\S{1,3}) (.{3,})$/u,m=>/[A-Za-zÀ-ú]/.test(m[1])?m[0]:m[1]+" "+tr(m[2])]
+  ].forEach(r=>TRX.push(r));
+  Object.assign(TR,{"Quantas":"How many","Profundidade":"Depth","Parando…":"Stopping…","Interrompido.":"Stopped.","Carregando o Stockfish…":"Loading Stockfish…","Histórico completo":"Full history","Remover conta":"Remove account","Importar mais antigas":"Import older games"});
+  const _cf=window.confirm.bind(window);window.confirm=m=>_cf(tr(String(m)));
+  [
+[/^Conectado como (.+)\.$/,"Connected as $1."],
+[/^Baixando partidas… (\d+) novas$/,"Downloading games… $1 new"],[/^Baixando (\S+) \((\d+) de (\d+)\)…$/,"Downloading $1 ($2 of $3)…"],
+[/^(?:Interrompido\. )?(\d+) partidas? novas? (?:foram )?salvas?\.$/,(m)=>(/^Interrompido/.test(m[0])?"Stopped. ":"")+m[1]+" new game"+(m[1]==="1"?"":"s")+" saved."],
+[/^(\d+) partida nova salva\.$/,"$1 new game saved."],
+[/^Analisando partida (\d+) de (\d+) \(contra (.+)\): posição (\d+) de (\d+)$/,"Analyzing game $1 of $2 (vs $3): position $4 of $5"],
+[/^Analisando posição (\d+) de (\d+)…$/,"Analyzing position $1 of $2…"],
+[/^Revisão concluída com o (.+), profundidade (\S+)\. Clique nos lances ou no gráfico para navegar\.$/,"Review completed with $1, depth $2. Click the moves or the chart to navigate."],
+[/^(Pronto! |Interrompido\. )(\d+) partidas? analisadas?( e salvas)?\.$/,m=>(m[1]==="Pronto! "?"Done! ":"Stopped. ")+m[2]+" game"+(m[2]==="1"?"":"s")+" analyzed"+(m[3]?" and saved":"")+"."],
+[/^Backup importado: (\d+) conta\(s\), (\d+) partidas\.$/,"Backup imported: $1 account(s), $2 games."],
+[/^Remover (.+) e apagar as partidas e análises salvas dessa conta neste navegador\?$/,"Remove $1 and delete the saved games and analyses of this account in this browser?"],
+[/^Deixar de seguir (.+)\?$/,"Unfollow $1?"],
+[/^(O Lichess pediu uma pausa; |Sem conexão com o Lichess; |Não há problemas novos; )repetindo um já resolvido\. (.*)$/,m=>({"O Lichess pediu uma pausa; ":"Lichess asked for a pause; ","Sem conexão com o Lichess; ":"No connection to Lichess; ","Não há problemas novos; ":"There are no new puzzles; "})[m[1]]+"repeating one already solved. "+tr(m[2])],
+[/^(\d+) lances carregados\.$/,"$1 moves loaded."]
+  ].forEach(r=>TRX.push(r));
+  trNode(document.body);
+  try{renderF();renderCats();renderAll();setPuzzle(LOCAL[0])}catch(e){}
 }
 
 /* ---------- inicialização ---------- */
